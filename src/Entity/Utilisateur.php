@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,17 @@ class Utilisateur
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dob = null;
+
+    /**
+     * @var Collection<int, Role>
+     */
+    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'utilisateurs')]
+    private Collection $roles;
+
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +103,30 @@ class Utilisateur
     public function setDob(\DateTimeInterface $dob): static
     {
         $this->dob = $dob;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Role>
+     */
+    public function getRoles(): Collection
+    {
+        return $this->roles;
+    }
+
+    public function addRole(Role $role): static
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles->add($role);
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): static
+    {
+        $this->roles->removeElement($role);
 
         return $this;
     }
