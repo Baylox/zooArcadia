@@ -23,6 +23,10 @@ class Alimentation
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $commentaireVeterinaire = null;
 
+    #[ORM\ManyToOne(inversedBy: 'alimentations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Rapport $rapport = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Alimentation
     public function setCommentaireVeterinaire(?string $commentaireVeterinaire): static
     {
         $this->commentaireVeterinaire = $commentaireVeterinaire;
+
+        return $this;
+    }
+
+    public function getRapport(): ?Rapport
+    {
+        return $this->rapport;
+    }
+
+    public function setRapport(?Rapport $rapport): static
+    {
+        $this->rapport = $rapport;
 
         return $this;
     }

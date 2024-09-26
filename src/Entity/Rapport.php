@@ -28,9 +28,16 @@ class Rapport
     #[ORM\ManyToMany(targetEntity: Animal::class, inversedBy: 'rapports')]
     private Collection $animaux;
 
+    /**
+     * @var Collection<int, Alimentation>
+     */
+    #[ORM\OneToMany(targetEntity: Alimentation::class, mappedBy: 'rapport')]
+    private Collection $alimentations;
+
     public function __construct()
     {
         $this->animaux = new ArrayCollection();
+        $this->alimentations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,6 +89,36 @@ class Rapport
     public function removeAnimaux(Animal $animaux): static
     {
         $this->animaux->removeElement($animaux);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Alimentation>
+     */
+    public function getAlimentations(): Collection
+    {
+        return $this->alimentations;
+    }
+
+    public function addAlimentation(Alimentation $alimentation): static
+    {
+        if (!$this->alimentations->contains($alimentation)) {
+            $this->alimentations->add($alimentation);
+            $alimentation->setRapport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlimentation(Alimentation $alimentation): static
+    {
+        if ($this->alimentations->removeElement($alimentation)) {
+            // set the owning side to null (unless already changed)
+            if ($alimentation->getRapport() === $this) {
+                $alimentation->setRapport(null);
+            }
+        }
 
         return $this;
     }
