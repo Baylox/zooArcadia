@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RapportRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +21,17 @@ class Rapport
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $details = null;
+
+    /**
+     * @var Collection<int, Animal>
+     */
+    #[ORM\ManyToMany(targetEntity: Animal::class, inversedBy: 'rapports')]
+    private Collection $animaux;
+
+    public function __construct()
+    {
+        $this->animaux = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -45,6 +58,30 @@ class Rapport
     public function setDetails(?string $details): static
     {
         $this->details = $details;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Animal>
+     */
+    public function getAnimaux(): Collection
+    {
+        return $this->animaux;
+    }
+
+    public function addAnimaux(Animal $animaux): static
+    {
+        if (!$this->animaux->contains($animaux)) {
+            $this->animaux->add($animaux);
+        }
+
+        return $this;
+    }
+
+    public function removeAnimaux(Animal $animaux): static
+    {
+        $this->animaux->removeElement($animaux);
 
         return $this;
     }

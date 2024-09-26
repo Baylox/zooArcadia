@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnimalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,6 +38,17 @@ class Animal
     #[ORM\ManyToOne(inversedBy: 'animaux')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Habitat $habitat = null;
+
+    /**
+     * @var Collection<int, Rapport>
+     */
+    #[ORM\ManyToMany(targetEntity: Rapport::class, mappedBy: 'animaux')]
+    private Collection $rapports;
+
+    public function __construct()
+    {
+        $this->rapports = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +135,33 @@ class Animal
     public function setHabitat(?Habitat $habitat): static
     {
         $this->habitat = $habitat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rapport>
+     */
+    public function getRapports(): Collection
+    {
+        return $this->rapports;
+    }
+
+    public function addRapport(Rapport $rapport): static
+    {
+        if (!$this->rapports->contains($rapport)) {
+            $this->rapports->add($rapport);
+            $rapport->addAnimaux($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRapport(Rapport $rapport): static
+    {
+        if ($this->rapports->removeElement($rapport)) {
+            $rapport->removeAnimaux($this);
+        }
 
         return $this;
     }
