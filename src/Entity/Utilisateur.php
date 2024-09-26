@@ -37,9 +37,16 @@ class Utilisateur
     #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'utilisateurs')]
     private Collection $roles;
 
+    /**
+     * @var Collection<int, Rapport>
+     */
+    #[ORM\OneToMany(targetEntity: Rapport::class, mappedBy: 'utilisateur')]
+    private Collection $rapports;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->rapports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,6 +134,36 @@ class Utilisateur
     public function removeRole(Role $role): static
     {
         $this->roles->removeElement($role);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rapport>
+     */
+    public function getRapports(): Collection
+    {
+        return $this->rapports;
+    }
+
+    public function addRapport(Rapport $rapport): static
+    {
+        if (!$this->rapports->contains($rapport)) {
+            $this->rapports->add($rapport);
+            $rapport->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRapport(Rapport $rapport): static
+    {
+        if ($this->rapports->removeElement($rapport)) {
+            // set the owning side to null (unless already changed)
+            if ($rapport->getUtilisateur() === $this) {
+                $rapport->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }

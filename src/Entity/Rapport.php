@@ -34,6 +34,10 @@ class Rapport
     #[ORM\OneToMany(targetEntity: Alimentation::class, mappedBy: 'rapport')]
     private Collection $alimentations;
 
+    #[ORM\ManyToOne(inversedBy: 'rapports')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Utilisateur $utilisateur = null;
+
     public function __construct()
     {
         $this->animaux = new ArrayCollection();
@@ -119,6 +123,18 @@ class Rapport
                 $alimentation->setRapport(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
