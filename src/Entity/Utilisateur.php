@@ -22,10 +22,10 @@ class Utilisateur
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 150)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 100)]
     private ?string $prenom = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
