@@ -16,13 +16,13 @@ class Animal
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $prenom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $etat = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 15)]
     private ?string $sexe = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
