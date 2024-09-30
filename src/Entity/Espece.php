@@ -16,10 +16,10 @@ class Espece
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $typeEspece = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $evaluationExtinction = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
