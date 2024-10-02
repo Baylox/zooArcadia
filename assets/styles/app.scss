@@ -1,1 +1,23 @@
-$headings-color: #333;
+// Définition des polices utilisées
+$font-family-sans-serif: "Fredoka", sans-serif !default;
+$font-family-serif: "Lato", serif !default;
+
+// Styles de typographie
+body {
+  font-family: $font-family-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-sans-serif;
+}
+// Définition des différentes couleurs
+$primary-color: #A1AA75;
+$secondary-color: #5D6537;
+$tertiary-color: #E0D05C;
+$dark:#3A2A10;
+
+
+@import "header";
+
+// Importer Bootstrap
+@import '~bootstrap/scss/bootstrap';
