@@ -10,5 +10,14 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-family-sans-serif;
 }
+// Définition des différentes couleurs
+$primary: #A1AA75;
+$secondary: #5D6537;
+$tertiary: #E0D05C;
+$dark:#3A2A10;
 
-@import "bootstrap/scss/bootstrap";
+
+@import "header";
+
+// Importer Bootstrap
+@import '~bootstrap/scss/bootstrap';
