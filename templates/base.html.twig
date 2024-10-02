@@ -7,11 +7,17 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            <main>
+                {% block content %}{% endblock %}
+            </main>
+        {% endblock %}
         
         {# Utilisation de Webpack Encore pour charger les assets JS #}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </body>
 </html>
