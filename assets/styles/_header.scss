@@ -1,6 +1,6 @@
 // Styles spécifiques pour la navbar
 .navbar {
-    background-color: $primary;
+    background-color: $primary-color;
     --bs-navbar-padding-x: 5px; // Définition de la variable CSS native
   
     .nav-link,
@@ -9,7 +9,7 @@
   
       &:hover,
       &:focus {
-        color: $tertiary; // Couleur du texte au survol
+        color: $tertiary-color; // Couleur du texte au survol
       }
     }
 
