@@ -9,9 +9,12 @@
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
     </head>
+
+    
     <body>
-        
-        {% block body %}{% endblock %}
+    {% block body %}
+    
+    {% endblock %}
 
     {# Utilisation de Webpack Encore pour charger les assets JS #}
     {% block javascripts %}
