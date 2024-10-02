@@ -1,19 +1,20 @@
 // Définition des polices utilisées
-$font-family-sans-serif: "Fredoka", sans-serif !default;
-$font-family-serif: "Lato", serif !default;
+$font-family-sans-serif: "Fredoka", sans-serif;
+$font-family-serif: "Lato", serif;
 
-// Styles de typographie
 body {
-  font-family: $font-family-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: $font-family-sans-serif;
-}
+    background-color: $primary; // Utilisation de la couleur primaire
+    color: $dark; // Couleur du texte par défaut
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: $secondary; // Couleur des titres
+  }
+  
 // Définition des différentes couleurs
-$primary-color: #A1AA75;
-$secondary-color: #5D6537;
-$tertiary-color: #E0D05C;
+$primary: #A1AA75;
+$secondary: #5D6537;
+$tertiary: #E0D05C;
 $dark:#3A2A10;
 
 
