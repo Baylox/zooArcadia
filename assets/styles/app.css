@@ -1,10 +1,57 @@
 @charset "UTF-8";
+@import url("../../node_modules/bootstrap-icons/font/bootstrap-icons.css");
+body {
+  font-family: "Lato", serif;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+  font-family: "Fredoka", sans-serif;
+}
+
+@media (max-width: 768px) {
+  h1, .h1 {
+    font-size: 1.5rem;
+  }
+  h2, .h2 {
+    font-size: 1.25rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+.navbar {
+  background-color: #A1AA75;
+  --bs-navbar-padding-x: 5px;
+}
+.navbar .nav-link,
+.navbar .navbar-brand {
+  color: #3A2A10;
+}
+.navbar .nav-link:hover, .navbar .nav-link:focus,
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+  color: #E0D05C;
+}
+.navbar .navbar-nav .nav-item {
+  margin-left: auto;
+}
+.navbar .navbar-toggler {
+  border-color: #3A2A10;
+}
+.navbar .navbar-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 1.0)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-logo {
+  height: 70px;
+  border-radius: 50%;
+}
+
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-@import url("../../node_modules/bootstrap-icons/font/bootstrap-icons.css");
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
@@ -72,7 +119,7 @@
   --bs-dark-border-subtle: #adb5bd;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 41, 34, 34;
-  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-font-sans-serif: "Fredoka", sans-serif;
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
@@ -11965,31 +12012,4 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
-}
-.navbar {
-  background-color: #A1AA75;
-  --bs-navbar-padding-x: 5px;
-}
-.navbar .nav-link,
-.navbar .navbar-brand {
-  color: #3A2A10;
-}
-.navbar .nav-link:hover, .navbar .nav-link:focus,
-.navbar .navbar-brand:hover,
-.navbar .navbar-brand:focus {
-  color: #E0D05C;
-}
-.navbar .navbar-nav .nav-item {
-  margin-left: auto;
-}
-.navbar .navbar-toggler {
-  border-color: #3A2A10;
-}
-.navbar .navbar-toggler .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 1.0)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
-.navbar-logo {
-  height: 70px;
-  border-radius: 50%;
 }/*# sourceMappingURL=app.css.map */

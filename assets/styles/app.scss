@@ -1,8 +1,12 @@
+// Import des fichiers base
 @import 'base/variables';
+@import 'base/typography';
+
+// Import des fichiers partials
+@import 'layout/header';
+
 
 // Import de Bootstrap
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import url("../../node_modules/bootstrap-icons/font/bootstrap-icons.css");
 
-// Import des fichiers partials
-@import 'layout/header';
