@@ -7,15 +7,18 @@
         {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         {% endblock %}
-    </head>
+        </head>
     <body>
         {# NAVBAR #}
-        {% include 'partials/navbar.html.twig' %}
-
-        {% block body %}{% endblock %}
+        {% include '_partials/_navbar.html.twig' %}
             
+        {# CONTENU #}
+        <main>
+        {% block body %}{% endblock %}
+        </main>
+
         {# FOOTER #}
-        {% include 'partials/footer.html.twig' %}
+        {% include '_partials/_footer.html.twig' %}
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
