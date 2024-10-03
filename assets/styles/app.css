@@ -1,5 +1,24 @@
+body {
+  font-family: "Lato", serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Fredoka", sans-serif;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
 .navbar {
-  background-color: #A1AA75;
+  background-color: #E0D05C;
   --bs-navbar-padding-x: 5px;
 }
 .navbar .nav-link,
