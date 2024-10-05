@@ -20,13 +20,13 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('ZooArcadia');
+            ->setTitle('Arcadia - Administration');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Rapport', 'fas fa-list', Rapport::class);
+        yield MenuItem::linkToCrud('Rapport', 'fa-solid fa-notes-medical', Rapport::class);
     }
 }
 
