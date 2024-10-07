@@ -12,8 +12,7 @@ class RoleFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $roles = [
-            'ROLE_USER',
-            'ROLE_ADMIN',
+            'ROLE_USER',,
             'ROLE_VETERINAIRE',
             'ROLE_EMPLOYE',
         ];
