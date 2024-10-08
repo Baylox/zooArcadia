@@ -3,21 +3,29 @@
 namespace App\Security;
 
 
+
 use App\Entity\Utilisateur;
+use App\Repository\UtilisateurRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 
 
 
 class LoginFormAuthenticator extends AbstractAuthenticator
 {
+    private UtilisateurRepository $utilisateurRepository;
+
+    public function __construct(UtilisateurRepository $utilisateurRepository)
+    {
+        $this->utilisateurRepository = $utilisateurRepository;
+    }
     public function supports(Request $request): ?bool
     {
         return $request->getPathInfo() === '/login' && $request->isMethod('POST');
@@ -27,22 +35,33 @@ class LoginFormAuthenticator extends AbstractAuthenticator
     {
         $email = $request->request->get('email');
         $password = $request->request->get('password');
+
         return new Passport( // On crée l'objet Passport, identifié par l'email et le mot de passe 
-            new UserBadge($email), 
-            new CustomCredentials(function($credentials, Utilisateur $utilisateur) {
-                dd($credentials, $utilisateur);
+            new UserBadge($email, function($userIdentifier) {
+                $utilisateur = $this->utilisateurRepository->findOneBy(['email' => $userIdentifier]); // Si j'utilise cette fonction c'est pour pouvoir implémenter ma propre logique de vérification 
+                
+                if (!$utilisateur) {
+                    throw new UserNotFoundException();
+                }
+                
+                return $utilisateur;
+            }),
+            
+            // new PasswordCredentials($password) est remplacé par CustomCredentials dans notre cas
+            new CustomCredentials(function($credentials, Utilisateur $utilisateur) { 
+                return $credentials === 'password'; // On test si cela marche
             }, $password)
         );
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        // TODO: Implement onAuthenticationSuccess() method.
+        dd('Authentification réussie');
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        // TODO: Implement onAuthenticationFailure() method.
+        dd('Authentification échouée');
     }
 
     //    public function start(Request $request, AuthenticationException $authException = null): Response
