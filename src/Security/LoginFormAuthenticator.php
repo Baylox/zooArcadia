@@ -2,12 +2,19 @@
 
 namespace App\Security;
 
+
+use App\Entity\Utilisateur;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
+
+
 
 class LoginFormAuthenticator extends AbstractAuthenticator
 {
@@ -18,7 +25,14 @@ class LoginFormAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        dd('authenticate');
+        $email = $request->request->get('email');
+        $password = $request->request->get('password');
+        return new Passport( // On crée l'objet Passport, identifié par l'email et le mot de passe 
+            new UserBadge($email), 
+            new CustomCredentials(function($credentials, Utilisateur $utilisateur) {
+                dd($credentials, $utilisateur);
+            }, $password)
+        );
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
