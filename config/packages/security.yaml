@@ -4,8 +4,6 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
 
-    hide_user_not_found: false # A ENLEVER EN PROD
-
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
@@ -23,6 +21,9 @@ security:
             logout: true
             remember_me:
                 secret: '%kernel.secret%'
+                #always_remember_me: true
+                signature_properties: ['password'] # Ajoute la propriété password à la signature, si le password change -> kick out
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
