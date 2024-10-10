@@ -15,12 +15,12 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
+use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 
-class LoginFormAuthenticator extends AbstractAuthenticator
+class LoginFormAuthenticator extends AbstractAuthenticator implements AuthenticationEntryPointInterface
 {
     private UtilisateurRepository $utilisateurRepository;
     private RouterInterface $router;
@@ -72,5 +72,12 @@ class LoginFormAuthenticator extends AbstractAuthenticator
             $this->router->generate('app_login') 
         );
     }
-}
 
+
+public function start(Request $request, AuthenticationException $authException = null): Response
+    {
+        return new RedirectResponse(
+            $this->router->generate('app_login')
+        );
+    }
+}
