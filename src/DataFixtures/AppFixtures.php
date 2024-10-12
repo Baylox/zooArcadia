@@ -11,6 +11,14 @@ class AppFixtures extends Fixture {
     {
     // Créer 10 utilisateurs
     UtilisateurFactory::createMany(10);
+
+    // Créer 1 utilisateur admin
+    UtilisateurFactory::new([
+        'email' => 'test@test.com',
+        'roles' => ['ROLE_ADMIN'],
+    ])->create();
+
+
     $manager->flush();
     }
 }

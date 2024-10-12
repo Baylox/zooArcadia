@@ -20,7 +20,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 
-class LoginFormAuthenticator extends AbstractAuthenticator implements AuthenticationEntryPointInterface
+class LoginFormAuthenticator extends AbstractAuthenticator implements AuthenticationEntryPointInterface // Possibilité d'utiliser FormLoginAuthenticator, mais on préfère le faire manuellement pour l'examen
 {
     private UtilisateurRepository $utilisateurRepository;
     private RouterInterface $router;
