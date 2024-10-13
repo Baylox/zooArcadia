@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Factory\AnimalFactory;
 use App\Factory\UtilisateurFactory;
 use App\Factory\EspeceFactory;
+use App\Factory\RapportFactory;
 use App\Entity\Habitat;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -39,6 +40,9 @@ class AppFixtures extends Fixture {
 
     // Persister les habitats avant de les utiliser dans AnimalFactory
     $manager->flush();
+
+    // Créer 5 rapports
+    RapportFactory::createMany(20);
     
     // Créer 10 animaux, en associant les animaux à un des trois habitats
     AnimalFactory::new()->createMany(3, ['habitat' => $savane]);
