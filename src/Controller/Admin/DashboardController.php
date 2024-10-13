@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Espece;
 use App\Entity\Rapport;
 use App\Entity\Utilisateur;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -10,6 +11,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Entity\Animal;
+use App\Entity\Habitat;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -31,6 +34,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user-group', Utilisateur::class);
         yield MenuItem::linkToCrud('Rapports', 'fa-solid fa-notes-medical', Rapport::class);
+        yield MenuItem::linkToCrud('Espece', 'fa-solid fa-notes-medical', Espece::class);
+        yield MenuItem::linkToCrud('Animaux', 'fa-solid fa-notes-medical', Animal::class);
+        yield MenuItem::linkToCrud('Habitats', 'fa-solid fa-notes-medical', Habitat::class);
     }
 }
 
