@@ -18,7 +18,7 @@ class Alimentation
     private ?string $nomNourriture = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $quantiteNourriture = null;
+    private ?float $quantiteNourriture = null;  
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $commentaireVeterinaire = null;
@@ -44,12 +44,12 @@ class Alimentation
         return $this;
     }
 
-    public function getQuantiteNourriture(): ?string
+    public function getQuantiteNourriture(): ?float
     {
         return $this->quantiteNourriture;
     }
 
-    public function setQuantiteNourriture(string $quantiteNourriture): static
+    public function setQuantiteNourriture(float $quantiteNourriture): static  
     {
         $this->quantiteNourriture = $quantiteNourriture;
 
