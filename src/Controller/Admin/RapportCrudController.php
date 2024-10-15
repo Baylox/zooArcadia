@@ -14,8 +14,8 @@ class RapportCrudController extends AbstractCrudController
     {
         return Rapport::class;
     }
-
-    public function configureFields(string $pageName): iterable
+}
+    /*public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id'),
@@ -23,4 +23,4 @@ class RapportCrudController extends AbstractCrudController
             TextEditorField::new('description'),
         ];
     }
-}
+}*/
