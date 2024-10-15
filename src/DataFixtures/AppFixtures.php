@@ -2,23 +2,63 @@
 
 namespace App\DataFixtures;
 
+use App\Factory\AnimalFactory;
 use App\Factory\UtilisateurFactory;
+use App\Factory\EspeceFactory;
+use App\Factory\RapportFactory;
+use App\Factory\AlimentationFactory; 
+use App\Entity\Habitat;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture {
     public function load(ObjectManager $manager)
     {
-    // Créer 10 utilisateurs
-    UtilisateurFactory::createMany(10);
+        // Créer 10 utilisateurs
+        UtilisateurFactory::createMany(10);
+        
+        // Créer 1 utilisateur admin
+        UtilisateurFactory::new([
+            'email' => 'test@test.com',
+            'roles' => ['ROLE_ADMIN'],
+        ])->create();
+        
+        // Créer 10 espèces
+        EspeceFactory::new()->createMany(10);
 
-    // Créer 1 utilisateur admin
-    UtilisateurFactory::new([
-        'email' => 'test@test.com',
-        'roles' => ['ROLE_ADMIN'],
-    ])->create();
+        // Créer manuellement les habitats
+        $savane = new Habitat();
+        $savane->setNom('Savane');
+        $savane->setDescription('Un grand espace herbeux avec des arbres clairsemés.');
+        $savane->setTypeHabitat('Savane');
+        $manager->persist($savane);
 
+        $jungle = new Habitat();
+        $jungle->setNom('Jungle');
+        $jungle->setDescription('Une forêt dense avec une grande diversité animale.');
+        $jungle->setTypeHabitat('Jungle');
+        $manager->persist($jungle);
 
-    $manager->flush();
+        $marais = new Habitat();
+        $marais->setNom('Marais');
+        $marais->setDescription('Un environnement humide et marécageux.');
+        $marais->setTypeHabitat('Marais');
+        $manager->persist($marais);
+
+        // Persister les habitats avant de les utiliser dans AnimalFactory
+        $manager->flush();
+
+        // Créer 5 rapports
+        RapportFactory::createMany(10);
+        
+        // Créer 10 animaux, en associant les animaux à un des trois habitats
+        AnimalFactory::new()->createMany(3, ['habitat' => $savane]);
+        AnimalFactory::new()->createMany(4, ['habitat' => $jungle]);
+        AnimalFactory::new()->createMany(3, ['habitat' => $marais]);
+
+        // Créer 10 alimentations
+        AlimentationFactory::createMany(10);
+
+        $manager->flush();
     }
 }
