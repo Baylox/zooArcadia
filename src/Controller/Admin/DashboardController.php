@@ -34,9 +34,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user-group', Utilisateur::class);
         yield MenuItem::linkToCrud('Rapports', 'fa-solid fa-notes-medical', Rapport::class);
-        yield MenuItem::linkToCrud('Espece', 'fa-solid fa-notes-medical', Espece::class);
-        yield MenuItem::linkToCrud('Animaux', 'fa-solid fa-notes-medical', Animal::class);
-        yield MenuItem::linkToCrud('Habitats', 'fa-solid fa-notes-medical', Habitat::class);
+        yield MenuItem::linkToCrud('Animaux', 'fa-solid fa-hippo', Animal::class);
+        yield MenuItem::linkToCrud('Habitats', 'fa-solid fa-tree', Habitat::class);
+        yield MenuItem::linkToCrud('Especes', 'fa-solid fa-feather-pointed ', Espece::class);
     }
 }
 
