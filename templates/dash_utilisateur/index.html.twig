@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ utilisateur.id }}</td>
                 <td>{{ utilisateur.email }}</td>
-                <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
+                <td>{{ utilisateur.roles|join(', ') }}</td>
                 <td>{{ utilisateur.nom }}</td>
                 <td>{{ utilisateur.prenom }}</td>
                 <td>
