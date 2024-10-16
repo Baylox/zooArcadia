@@ -10,12 +10,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Service\EmailService;
 
-#[IsGranted('ROLE_ADMIN')]
-#[Route('/admin/utilisateur')]
+#[Route('/dash/utilisateur')]
 final class DashUtilisateurController extends AbstractController
 {
+    private $emailService;
+    private $passwordHasher;
+
+    public function __construct(EmailService $emailService, UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->emailService = $emailService;
+        $this->passwordHasher = $passwordHasher;
+    }
     #[Route(name: 'app_dash_utilisateur_index', methods: ['GET'])]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
@@ -32,15 +40,21 @@ final class DashUtilisateurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Hacher le mot de passe avant de l'enregistrer
+            $hashedPassword = $this->passwordHasher->hashPassword($utilisateur, $utilisateur->getPassword());
+            $utilisateur->setPassword($hashedPassword);
+
             $entityManager->persist($utilisateur);
             $entityManager->flush();
+
+            // Envoyer l'email de bienvenue
+            $this->emailService->sendWelcomeEmail($utilisateur->getEmail());
 
             return $this->redirectToRoute('app_dash_utilisateur_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('dash_utilisateur/new.html.twig', [
-            'utilisateur' => $utilisateur,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

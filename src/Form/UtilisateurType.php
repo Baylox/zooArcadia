@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UtilisateurType extends AbstractType
 {
@@ -24,6 +25,7 @@ class UtilisateurType extends AbstractType
             ])
             ->add('nom')
             ->add('prenom')
+            ->add('password', PasswordType::class) 
         ;
     }
 
