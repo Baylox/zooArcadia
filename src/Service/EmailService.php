@@ -6,7 +6,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Psr\Log\LoggerInterface;
-
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class EmailService
 {
@@ -21,11 +21,11 @@ class EmailService
 
     public function sendWelcomeEmail(string $userEmail): void
     {
-        $email = (new Email())
+        $email = (new TemplatedEmail())
             ->from('test@example.com')
             ->to($userEmail)
             ->subject('Bienvenue au sein de l\'équipe d\'Arcadia !')
-            ->html('<p>Bienvenue sur notre site ! Nous sommes ravis de vous compter parmi nous.</p>');
+            ->htmlTemplate('emails/welcome.html.twig');
 
         try {
             $this->mailer->send($email);
