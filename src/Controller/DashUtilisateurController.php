@@ -69,10 +69,20 @@ final class DashUtilisateurController extends AbstractController
     #[Route('/{id}/edit', name: 'app_dash_utilisateur_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UtilisateurType::class, $utilisateur);
+        $form = $this->createForm(UtilisateurType::class, $utilisateur, ['is_edit' => true]); // Édition
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Vérifie si un nouveau mot de passe a été soumis
+            $newPassword = $form->get('password')->getData();
+
+            if ($newPassword) {
+                // Si un mot de passe est renseigné, on le hash et on l'applique
+                $hashedPassword = $this->passwordHasher->hashPassword($utilisateur, $newPassword);
+                $utilisateur->setPassword($hashedPassword);
+            }
+
+            // Sauvegarde des autres modifications
             $entityManager->flush();
 
             return $this->redirectToRoute('app_dash_utilisateur_index', [], Response::HTTP_SEE_OTHER);
@@ -80,7 +90,7 @@ final class DashUtilisateurController extends AbstractController
 
         return $this->render('dash_utilisateur/edit.html.twig', [
             'utilisateur' => $utilisateur,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

@@ -25,14 +25,20 @@ class UtilisateurType extends AbstractType
             ])
             ->add('nom')
             ->add('prenom')
-            ->add('password', PasswordType::class) 
-        ;
-    }
+
+             // Le champ mot de passe est optionnel lors de l'édition
+            ->add('password', PasswordType::class, [
+                'required' => false,  // Le mot de passe n'est pas obligatoire
+                'mapped' => false,    // On gère manuellement le mot de passe
+                'help' => 'Laissez vide pour conserver le mot de passe actuel',  // Petit message d'aide pour l'admin
+            ]);
+        }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Utilisateur::class,
+            'is_edit' => false,  
         ]);
     }
 }
