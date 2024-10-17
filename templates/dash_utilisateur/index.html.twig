@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur index{% endblock %}
+{% block title %}Tableau de bord utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Utilisateur index</h1>
+    <h1>Gestion des utilisateurs</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Email</th>
-                <th>Roles</th>
+                <th>Rôles</th>
                 <th>Nom</th>
-                <th>Prenom</th>
-                <th>actions</th>
+                <th>Prénom</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,17 +25,17 @@
                 <td>{{ utilisateur.nom }}</td>
                 <td>{{ utilisateur.prenom }}</td>
                 <td>
-                    <a href="{{ path('app_dash_utilisateur_show', {'id': utilisateur.id}) }}">show</a>
-                    <a href="{{ path('app_dash_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+                    <a href="{{ path('app_dash_utilisateur_show', {'id': utilisateur.id}) }}">Voir</a>
+                    <a href="{{ path('app_dash_utilisateur_edit', {'id': utilisateur.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun utilisateur trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_dash_utilisateur_new') }}">Create new</a>
+    <a href="{{ path('app_dash_utilisateur_new') }}">Créer un nouvel utilisateur</a>
 {% endblock %}

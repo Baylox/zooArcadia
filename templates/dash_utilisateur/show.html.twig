@@ -30,9 +30,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_dash_utilisateur_index') }}">back to list</a>
+    <a href="{{ path('app_dash_utilisateur_index') }}">Retour</a>
 
-    <a href="{{ path('app_dash_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+    <a href="{{ path('app_dash_utilisateur_edit', {'id': utilisateur.id}) }}">Editer</a>
 
     {{ include('dash_utilisateur/_delete_form.html.twig') }}
 {% endblock %}

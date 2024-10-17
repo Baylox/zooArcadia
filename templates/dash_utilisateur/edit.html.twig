@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Utilisateur{% endblock %}
+{% block title %}Gestion Utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Edit Utilisateur</h1>
+    <h1>Gestion de l'utilisateur</h1>
 
-    {{ include('dash_utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('dash_utilisateur/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_dash_utilisateur_index') }}">back to list</a>
+    <a href="{{ path('app_dash_utilisateur_index') }}">Retour</a>
 
     {{ include('dash_utilisateur/_delete_form.html.twig') }}
 {% endblock %}
