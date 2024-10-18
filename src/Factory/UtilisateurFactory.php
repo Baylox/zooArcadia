@@ -35,10 +35,9 @@ final class UtilisateurFactory extends PersistentProxyObjectFactory
             'nom' => self::faker()->text(25),
             'password' => 'password',
             'prenom' => self::faker()->text(25),
-            'roles' => [],
+            'roles' => ['ROLE_VETERINAIRE', 'ROLE_EMPLOYE'],
         ];
     }
-
 
     /**
      * Initialisation de l'objet Utilisateur après son instanciation.
