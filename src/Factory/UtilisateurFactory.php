@@ -35,7 +35,11 @@ final class UtilisateurFactory extends PersistentProxyObjectFactory
             'nom' => self::faker()->text(25),
             'password' => 'password',
             'prenom' => self::faker()->text(25),
-            'roles' => ['ROLE_VETERINAIRE', 'ROLE_EMPLOYE'],
+            'roles' => self::faker()->randomElement([
+            ['ROLE_VETERINAIRE'],
+            ['ROLE_EMPLOYE'],
+            ['ROLE_VETERINAIRE', 'ROLE_EMPLOYE']
+        ]),
         ];
     }
 
