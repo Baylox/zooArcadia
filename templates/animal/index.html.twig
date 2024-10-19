@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Animal index{% endblock %}
+{% block title %}Index des animaux{% endblock %}
 
 {% block body %}
-    <h1>Animal index</h1>
+    <h1>Index des animaux</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Prenom</th>
-                <th>Etat</th>
+                <th>Prénom</th>
+                <th>État</th>
                 <th>Sexe</th>
                 <th>Description</th>
-                <th>Dob</th>
-                <th>actions</th>
+                <th>Date de naissance</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,17 +27,17 @@
                 <td>{{ animal.description }}</td>
                 <td>{{ animal.dob ? animal.dob|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_animal_show', {'id': animal.id}) }}">show</a>
-                    <a href="{{ path('app_animal_edit', {'id': animal.id}) }}">edit</a>
+                    <a href="{{ path('app_animal_show', {'id': animal.id}) }}">Voir</a>
+                    <a href="{{ path('app_animal_edit', {'id': animal.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_animal_new') }}">Create new</a>
+    <a href="{{ path('app_animal_new') }}">Créer nouveau</a>
 {% endblock %}

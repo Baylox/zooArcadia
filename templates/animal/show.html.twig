@@ -28,15 +28,14 @@
                 <td>{{ animal.description }}</td>
             </tr>
             <tr>
-                <th>Dob</th>
-                <td>{{ animal.dob ? animal.dob|date('Y-m-d') : '' }}</td>
+                <th>Date de naissance</th>
+                <td>{{ animal.dob ? animal.dob|date('d/m/Y') : '' }}</td>
             </tr>
         </tbody>
     </table>
+    <a href="{{ path('app_animal_index') }}">retour à la liste</a>
 
-    <a href="{{ path('app_animal_index') }}">back to list</a>
-
-    <a href="{{ path('app_animal_edit', {'id': animal.id}) }}">edit</a>
+    <a href="{{ path('app_animal_edit', {'id': animal.id}) }}">modifier</a>
 
     {{ include('animal/_delete_form.html.twig') }}
 {% endblock %}

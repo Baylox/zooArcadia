@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/animal')]
+#[Route('/dash/animal')]
 final class AnimalController extends AbstractController
 {
     #[Route(name: 'app_animal_index', methods: ['GET'])]
