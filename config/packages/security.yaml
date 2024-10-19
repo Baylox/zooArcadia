@@ -6,6 +6,12 @@ security:
 
     hide_user_not_found: false # A ENLEVER EN PROD
 
+    
+    roles_hierarchy:
+        ROLE_EMPLOYE: [ROLE_EMPLOYE]
+        ROLE_VETERINAIRE: [ROLE_VETERINAIRE, ROLE_EMPLOYE]
+        ROLE_ADMIN: [ROLE_ADMIN, ROLE_VETERINAIRE, ROLE_EMPLOYE]
+        
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
