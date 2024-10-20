@@ -26,7 +26,7 @@ class RapportType extends AbstractType
             ])
             ->add('utilisateur', EntityType::class, [
                 'class' => Utilisateur::class,
-                'choice_label' => 'id',
+                'choice_label' => 'prenom',
             ])
         ;
     }
