@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index des Rapports{% endblock %}
+
+{% block body %}
+    <h1>Index des Rapports </h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date du Rapport</th>
+                <th>Détails</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rapport in rapports %}
+            <tr>
+                <td>{{ rapport.id }}</td>
+                <td>{{ rapport.dateRapport ? rapport.dateRapport|date('Y-m-d') : '' }}</td>
+                <td>{{ rapport.details }}</td>
+                <td>
+                    <a href="{{ path('app_rapport_show', {'id': rapport.id}) }}">Voir</a>
+                    <a href="{{ path('app_rapport_edit', {'id': rapport.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rapport_new') }}">Créer nouveau</a>
+{% endblock %}
