@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord administrateur{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-4">Tableau de bord administrateur</h2>
+            <div class="list-group">
+                <a href="{{ path('app_dash_utilisateur_index') }}" class="list-group-item list-group-item-action">
+                    Tableau de Bord des Utilisateurs
+                </a>
+                <a href="{{ path('app_animal_index') }}" class="list-group-item list-group-item-action">
+                    Tableau de Bord des Animaux
+                </a>
+                <a href="{{ path('app_rapport_index') }}" class="list-group-item list-group-item-action">
+                    Tableau de Bord des Rapports
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
