@@ -31,12 +31,7 @@ class AnimalType extends AbstractType
                 'class' => Habitat::class,
                 'choice_label' => 'nom',
             ])
-            ->add('rapports', EntityType::class, [
-                'class' => Rapport::class,
-                'choice_label' => 'id', // Afficher les titres des rapports
-                'multiple' => true,
-                'expanded' => true, // Utiliser des cases à cocher pour sélectionner plusieurs rapports
-            ]);
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
