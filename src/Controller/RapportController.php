@@ -17,7 +17,7 @@ final class RapportController extends AbstractController
     #[Route(name: 'app_rapport_index', methods: ['GET'])]
     public function index(RapportRepository $rapportRepository): Response
     {
-        return $this->render('rapport/index.html.twig', [
+        return $this->render('dashboard/rapport/index.html.twig', [
             'rapports' => $rapportRepository->findAll(),
         ]);
     }
