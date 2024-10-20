@@ -16,9 +16,8 @@ class Rapport
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(length: 50)]
     private ?string $Titre = null;
-
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateRapport = null;

@@ -44,7 +44,12 @@
                 <td>
                     <ul>
                         {% for rapport in animal.rapports %}
-                            <li>{{ rapport.id }}</li>
+                            <li>
+                                <strong>Titre:</strong> {{ rapport.titre }}<br>
+                                <strong>Date:</strong> {{ rapport.dateRapport ? rapport.dateRapport|date('d/m/Y') : '' }}<br>
+                                <strong>Utilisateur:</strong> {{ rapport.utilisateur.prenom }} {{ rapport.utilisateur.nom }}<br>
+                                <strong>Détails:</strong> {{ rapport.details }}
+                            </li>
                         {% endfor %}
                     </ul>
                 </td>
