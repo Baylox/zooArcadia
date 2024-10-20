@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier l'animal{% endblock %}
+{% block title %}Modifier le rapport{% endblock %}
 
 {% block body %}
-    <h1>Modifier l'animal</h1>
+    <h1>Modifier le rapport</h1>
 
-    {{ include('animal/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    {{ include('rapport/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_animal_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_rapport_index') }}">Retour à la liste</a>
 
-    {{ include('animal/_delete_form.html.twig') }}
+    {{ include('rapport/_delete_form.html.twig') }}
 {% endblock %}
