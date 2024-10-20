@@ -22,6 +22,7 @@ final class RapportFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
+            'titre' => self::faker()->sentence(),  // Génère un titre aléatoire pour le rapport
             'utilisateur' => UtilisateurFactory::new(), // Crée et associe une nouvelle instance d'utilisateur
             'date_rapport' => self::faker()->dateTimeBetween('-1 year', 'now'),  // Date du rapport aléatoire entre l'année dernière et aujourd'hui
             'details' => self::faker()->paragraph(),  // Détails du rapport 
