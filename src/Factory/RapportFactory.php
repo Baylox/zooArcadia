@@ -25,7 +25,7 @@ final class RapportFactory extends PersistentProxyObjectFactory
             'titre' => self::faker()->paragraph(25),  // Génère un titre aléatoire pour le rapport
             'utilisateur' => UtilisateurFactory::new(), // Crée et associe une nouvelle instance d'utilisateur
             'date_rapport' => self::faker()->dateTimeBetween('-1 year', 'now'),  // Date du rapport aléatoire entre l'année dernière et aujourd'hui
-            'details' => self::faker()->paragraph(),  // Détails du rapport 
+            'details' => self::faker()->optional()->paragraph(),  // Détails du rapport 
         ];
     }
 }
