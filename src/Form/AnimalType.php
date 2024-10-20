@@ -25,11 +25,11 @@ class AnimalType extends AbstractType
             ])
             ->add('espece', EntityType::class, [
                 'class' => Espece::class,
-                'choice_label' => 'id',
+                'choice_label' => 'typeEspece',
             ])
             ->add('habitat', EntityType::class, [
                 'class' => Habitat::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
             ])
             ->add('rapports', EntityType::class, [
                 'class' => Rapport::class,

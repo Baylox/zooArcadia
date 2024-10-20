@@ -31,11 +31,29 @@
                 <th>Date de naissance</th>
                 <td>{{ animal.dob ? animal.dob|date('d/m/Y') : '' }}</td>
             </tr>
+            <tr>
+                <th>Espèce</th>
+                <td>{{ animal.espece.typeEspece }}</td>
+            </tr>
+            <tr>
+                <th>Habitat</th>
+                <td>{{ animal.habitat.nom }}</td>
+            </tr>
+            <tr>
+                <th>Rapports</th>
+                <td>
+                    <ul>
+                        {% for rapport in animal.rapports %}
+                            <li>{{ rapport.id }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
-    <a href="{{ path('app_animal_index') }}">retour à la liste</a>
+    <a href="{{ path('app_animal_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_animal_edit', {'id': animal.id}) }}">modifier</a>
+    <a href="{{ path('app_animal_edit', {'id': animal.id}) }}">Modifier</a>
 
     {{ include('animal/_delete_form.html.twig') }}
 {% endblock %}
