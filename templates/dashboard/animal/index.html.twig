@@ -27,8 +27,8 @@
                 <td>{{ animal.description }}</td>
                 <td>{{ animal.dob ? animal.dob|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_animal_show', {'id': animal.id}) }}">Voir</a>
-                    <a href="{{ path('app_animal_edit', {'id': animal.id}) }}">Modifier</a>
+                    <a href="{{ path('dashboard_animal_show', {'id': animal.id}) }}">Voir</a>
+                    <a href="{{ path('dashboard_animal_edit', {'id': animal.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +39,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_animal_new') }}">Créer nouveau</a>
+    <a href="{{ path('dashboard_animal_new') }}">Créer nouveau</a>
 {% endblock %}

@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Créer un nouvel Animal</h1>
 
-    {{ include('animal/_form.html.twig') }}
+    {{ include('dashboard/animal/_form.html.twig') }}
 
-    <a href="{{ path('app_animal_index') }}">Retour à la liste</a>
+    <a href="{{ path('dashboard_animal_index') }}">Retour à la liste</a>
 {% endblock %}
