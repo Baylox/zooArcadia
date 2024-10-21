@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Modifier le rapport</h1>
 
-    {{ include('rapport/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    {{ include('dashboard/rapport/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_rapport_index') }}">Retour à la liste</a>
+    <a href="{{ path('dashboard_rapport_index') }}">Retour à la liste</a>
 
-    {{ include('rapport/_delete_form.html.twig') }}
+    {{ include('dashboard/rapport/_delete_form.html.twig') }}
 {% endblock %}

@@ -21,8 +21,8 @@
                 <td>{{ rapport.titre }}</td>
                 <td>{{ rapport.dateRapport ? rapport.dateRapport|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_rapport_show', {'id': rapport.id}) }}">Voir</a>
-                    <a href="{{ path('app_rapport_edit', {'id': rapport.id}) }}">Modifier</a>
+                    <a href="{{ path('dashboard_rapport_show', {'id': rapport.id}) }}">Voir</a>
+                    <a href="{{ path('dashboard_rapport_edit', {'id': rapport.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_rapport_new') }}">Créer nouveau</a>
+    <a href="{{ path('dashboard_rapport_new') }}">Créer nouveau</a>
 {% endblock %}

@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/dash/rapport')]
 final class RapportController extends AbstractController
 {
-    #[Route(name: 'app_rapport_index', methods: ['GET'])]
+    #[Route(name: 'dashboard_rapport_index', methods: ['GET'])]
     public function index(RapportRepository $rapportRepository): Response
     {
         return $this->render('dashboard/rapport/index.html.twig', [
@@ -22,7 +22,7 @@ final class RapportController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_rapport_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'dashboard_rapport_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $rapport = new Rapport();
@@ -33,24 +33,24 @@ final class RapportController extends AbstractController
             $entityManager->persist($rapport);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_rapport_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('rapport/new.html.twig', [
+        return $this->render('dashboard/rapport/new.html.twig', [
             'rapport' => $rapport,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_rapport_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'dashboard_rapport_show', methods: ['GET'])]
     public function show(Rapport $rapport): Response
     {
-        return $this->render('rapport/show.html.twig', [
+        return $this->render('dashboard/rapport/show.html.twig', [
             'rapport' => $rapport,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_rapport_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'dashboard_rapport_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(RapportType::class, $rapport);
@@ -59,16 +59,16 @@ final class RapportController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_rapport_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('rapport/edit.html.twig', [
+        return $this->render('dashboard/rapport/edit.html.twig', [
             'rapport' => $rapport,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_rapport_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'dashboard_rapport_delete', methods: ['POST'])]
     public function delete(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$rapport->getId(), $request->getPayload()->getString('_token'))) {
@@ -76,6 +76,6 @@ final class RapportController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_rapport_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
     }
 }
