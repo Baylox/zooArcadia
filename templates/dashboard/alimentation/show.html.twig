@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Alimentation{% endblock %}
+
+{% block body %}
+    <h1>Alimentation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ alimentation.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom de la Nourriture</th>
+                <td>{{ alimentation.nomNourriture }}</td>
+            </tr>
+            <tr>
+                <th>Quantité de Nourriture</th>
+                <td>{{ alimentation.quantiteNourriture }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire du Vétérinaire</th>
+                <td>{{ alimentation.commentaireVeterinaire }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('dashboard_alimentation_index') }}">Retour à la liste</a>
+
+    <a href="{{ path('dashboard_alimentation_edit', {'id': alimentation.id}) }}">modifier</a>
+
+    {{ include('dashboard/alimentation/_delete_form.html.twig') }}
+{% endblock %}

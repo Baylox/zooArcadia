@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index de l'Alimentation{% endblock %}
+
+{% block body %}
+    <h1>Index de l'Alimentation</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom de la Nourriture</th>
+                <th>Quantité de Nourriture</th>
+                <th>Commentaire du Vétérinaire</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for alimentation in alimentations %}
+            <tr>
+                <td>{{ alimentation.id }}</td>
+                <td>{{ alimentation.nomNourriture }}</td>
+                <td>{{ alimentation.quantiteNourriture }}</td>
+                <td>{{ alimentation.commentaireVeterinaire }}</td>
+                <td>
+                    <a href="{{ path('dashboard_alimentation_show', {'id': alimentation.id}) }}">Voir</a>
+                    <a href="{{ path('dashboard_alimentation_edit', {'id': alimentation.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('dashboard_alimentation_new') }}">Créer nouveau</a>
+{% endblock %}
