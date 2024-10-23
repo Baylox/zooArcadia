@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Habitat{% endblock %}
+
+{% block body %}
+    <h1>Modifier Habitat</h1>
+
+    {{ include('dashboard/habitat/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('dash_habitat_index') }}">Retour à la liste</a>
+
+    {{ include('dashboard/habitat/_delete_form.html.twig') }}
+{% endblock %}

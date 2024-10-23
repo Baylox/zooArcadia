@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Habitat index{% endblock %}
+
+{% block body %}
+    <h1>Habitat index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Type d'Habitat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for habitat in habitats %}
+            <tr>
+                <td>{{ habitat.id }}</td>
+                <td>{{ habitat.nom }}</td>
+                <td>{{ habitat.description }}</td>
+                <td>{{ habitat.typeHabitat }}</td>
+                <td>
+                    <a href="{{ path('dashboard_habitat_show', {'id': habitat.id}) }}">voir</a>
+                    <a href="{{ path('dashboard_habitat_edit', {'id': habitat.id}) }}">modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('dashboard_habitat_new') }}">Créer nouveau</a>
+{% endblock %}
