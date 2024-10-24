@@ -23,13 +23,13 @@
                 <td>{{ habitat.description }}</td>
                 <td>{{ habitat.typeHabitat }}</td>
                 <td>
-                    <a href="{{ path('dashboard_habitat_show', {'id': habitat.id}) }}">voir</a>
-                    <a href="{{ path('dashboard_habitat_edit', {'id': habitat.id}) }}">modifier</a>
+                    <a href="{{ path('dashboard_habitat_show', {'id': habitat.id}) }}">Voir</a>
+                    <a href="{{ path('dashboard_habitat_edit', {'id': habitat.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">aucun enregistrement trouvé</td>
+                <td colspan="5">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
