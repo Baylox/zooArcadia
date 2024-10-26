@@ -68,6 +68,12 @@ final class HabitatController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/upload', name: 'upload', methods: ['POST'])]
+    public function ImageUpload(Request $request)
+    {
+        dd($request->files->get('image')); // Attribut utilisé pour récupérer le fichier
+    }
+
     #[Route('/{id}', name: 'dashboard_habitat_delete', methods: ['POST'])]
     public function delete(Request $request, Habitat $habitat, EntityManagerInterface $entityManager): Response
     {
