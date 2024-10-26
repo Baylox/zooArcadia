@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/dashboard/habitat')]
 final class HabitatController extends AbstractController
@@ -70,18 +70,27 @@ final class HabitatController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/upload', name: 'upload', methods: ['POST'])]
+    private SluggerInterface $slugger; // Instanciation de l'interface SluggerInterface
+
+    public function __construct(SluggerInterface $slugger) // Constructeur du slugger
+    {
+        $this->slugger = $slugger;
+    }
+
+    #[Route('/admin/upload', name: 'upload', methods: ['POST'])] // Ma fonction pour l'upload
     public function ImageUpload(Request $request)
     {
+        
         /** @var UploadedFile $uploadedFile */
         $uploadedFile = $request->files->get('image');
         $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
 
-        $newFilename = uniqid().'.'.$uploadedFile->getClientOriginalName();
+
+        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $newFilename = $this->slugger->slug($originalFilename) .'-'. uniqid() .'.  '. $uploadedFile->guessExtension(); //On utilise le slugger pour générer un nom unique (Anciennement Urlizer)
         dd($uploadedFile->move(
             $destination,
-            $newFilename
-            
+            $newFilename            
         ));
     }
 
