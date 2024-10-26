@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 #[Route('/dashboard/habitat')]
 final class HabitatController extends AbstractController
@@ -71,7 +73,16 @@ final class HabitatController extends AbstractController
     #[Route('/admin/upload', name: 'upload', methods: ['POST'])]
     public function ImageUpload(Request $request)
     {
-        dd($request->files->get('image')); // Attribut utilisé pour récupérer le fichier
+        /** @var UploadedFile $uploadedFile */
+        $uploadedFile = $request->files->get('image');
+        $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
+
+        $newFilename = uniqid().'.'.$uploadedFile->getClientOriginalName();
+        dd($uploadedFile->move(
+            $destination,
+            $newFilename
+            
+        ));
     }
 
     #[Route('/{id}', name: 'dashboard_habitat_delete', methods: ['POST'])]
