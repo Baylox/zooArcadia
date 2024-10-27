@@ -5,11 +5,6 @@
 {% block body %}
     <h1>Modifier Habitat</h1>
 
-    <form method="POST" action="{{ path('upload') }}" enctype="multipart/form-data">
-        <input type="file" name="image">
-        <button type="submit" class="btn btn-primary">Upload!</button>
-    </form>
-
     {{ include('dashboard/habitat/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
     <a href="{{ path('dashboard_habitat_index') }}">Retour à la liste</a>

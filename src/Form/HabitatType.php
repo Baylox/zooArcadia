@@ -6,6 +6,7 @@ use App\Entity\Habitat;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class HabitatType extends AbstractType
 {
@@ -15,6 +16,11 @@ class HabitatType extends AbstractType
             ->add('nom')
             ->add('description')
             ->add('typeHabitat')
+            ->add('image', FileType::class, [
+                'label' => 'Image (fichier PNG ou JPEG)',
+                'mapped' => false, // Le fichier est traité manuellement
+                'required' => false,
+            ])
         ;
     }
 
