@@ -62,15 +62,17 @@ final class HabitatController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form->get('image')->getData();
-    
+        
             if ($uploadedFile) {
                 $newFilename = $uploaderImage->upload($uploadedFile);
-                
                 $habitat->setImageFilename($newFilename);
             }
-    
+        
             $entityManager->flush();
-    
+        
+            // Ajouter un message flash après le succès de l'opération
+            $this->addFlash('success', 'Image téléchargée avec succès.');
+        
             return $this->redirectToRoute('dashboard_habitat_index', [], Response::HTTP_SEE_OTHER);
         }
     

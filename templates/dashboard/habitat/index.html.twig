@@ -3,6 +3,13 @@
 {% block title %}Habitat index{% endblock %}
 
 {% block body %}
+  {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endfor %}
     <h1>Habitat index</h1>
 
     <table class="table">
