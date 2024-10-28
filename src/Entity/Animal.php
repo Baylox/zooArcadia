@@ -45,12 +45,16 @@ class Animal
     #[ORM\ManyToMany(targetEntity: Rapport::class, mappedBy: 'animaux')]
     private Collection $rapports;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $imageFilename = null;
+    /**
+     * @var Collection<int, Image>
+     */
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'animal')]
+    private Collection $images;
 
     public function __construct()
     {
         $this->rapports = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,14 +173,32 @@ class Animal
         return $this;
     }
 
-    public function getImageFilename(): ?string
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
     {
-        return $this->imageFilename;
+        return $this->images;
     }
 
-    public function setImageFilename(?string $imageFilename): static
+    public function addImage(Image $image): static
     {
-        $this->imageFilename = $imageFilename;
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getAnimal() === $this) {
+                $image->setAnimal(null);
+            }
+        }
 
         return $this;
     }

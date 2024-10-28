@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Animal;
 use App\Form\AnimalType;
+use App\Entity\Image;
 use App\Repository\AnimalRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,14 +58,22 @@ final class DashAnimalController extends AbstractController
     {
         $form = $this->createForm(AnimalType::class, $animal);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form->get('image')->getData();
         
             if ($uploadedFile) {
                 $newFilename = $uploaderImage->upload($uploadedFile);
-                $animal->setImageFilename($newFilename);
+    
+                // Créer une nouvelle entité Image
+                $image = new Image();
+                $image->setFileName($newFilename);
+                $image->setAnimal($animal);
+    
+                // Associer l'image à l'animal
+                $animal->addImage($image);
+                $entityManager->persist($image);
             }
         
             $entityManager->flush();
@@ -73,7 +82,7 @@ final class DashAnimalController extends AbstractController
             $this->addFlash('success', 'Image téléchargée avec succès.');
             return $this->redirectToRoute('dashboard_animal_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('dashboard/animal/edit.html.twig', [
             'animal' => $animal,
             'form' => $form,

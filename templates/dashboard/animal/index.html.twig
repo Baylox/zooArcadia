@@ -2,9 +2,8 @@
 
 {% block title %}Index des animaux{% endblock %}
 
-
 {% block body %}
- {% for label, messages in app.flashes %}
+    {% for label, messages in app.flashes %}
         <div class="alert alert-{{ label }}">
             {% for message in messages %}
                 {{ message }}
@@ -32,37 +31,36 @@
                 </tr>
             </thead>
             <tbody>
-            {% for animal in animals %}
-                <tr>
-                    <td class="align-middle text-center">
-                        {% if animal.imageFileName %}
-                            <img src="/uploads/animaux_image/{{ animal.imageFileName }}" alt="{{ animal.prenom }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
-                        {% else %}
-                            <span class="text-muted">Pas d'image</span>
-                        {% endif %}
-                    </td>
-                    <td class="align-middle">{{ animal.id }}</td>
-                    <td class="align-middle">{{ animal.prenom }}</td>
-                    <td class="align-middle">{{ animal.etat }}</td>
-                    <td class="align-middle">{{ animal.sexe }}</td>
-                    <td class="align-middle text-truncate" style="max-width: 200px;">
-                        {{ animal.description | slice(0, 100) }}{% if animal.description | length > 100 %}...{% endif %}
-                    </td>
-                    <td class="align-middle">{{ animal.dob ? animal.dob|date('d/m/Y') : '' }}</td>
-                    <td class="align-middle text-center">
-                        <a href="{{ path('dashboard_animal_show', {'id': animal.id}) }}" class="btn btn-info btn-sm">Voir</a>
-                        <a href="{{ path('dashboard_animal_edit', {'id': animal.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="8" class="text-center">Aucun enregistrement trouvé</td>
-                </tr>
-            {% endfor %}
+                {% for animal in animals %}
+                    <tr>
+                        <td class="align-middle text-center">
+                            {% if animal.images|length > 0 %}
+                                <img src="/uploads/animaux_image/{{ animal.images|first.fileName }}" alt="{{ animal.prenom }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                            {% else %}
+                                <span class="text-muted">Pas d'image associé</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle">{{ animal.id }}</td>
+                        <td class="align-middle">{{ animal.prenom }}</td>
+                        <td class="align-middle">{{ animal.etat }}</td>
+                        <td class="align-middle">{{ animal.sexe }}</td>
+                        <td class="align-middle text-truncate" style="max-width: 200px;">
+                            {{ animal.description | slice(0, 100) }}{% if animal.description | length > 100 %}...{% endif %}
+                        </td>
+                        <td class="align-middle">{{ animal.dob ? animal.dob|date('d/m/Y') : '' }}</td>
+                        <td class="align-middle text-center">
+                            <a href="{{ path('dashboard_animal_show', {'id': animal.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                            <a href="{{ path('dashboard_animal_edit', {'id': animal.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center">Aucun enregistrement trouvé</td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
-</div>
 
     <a href="{{ path('dashboard_animal_new') }}">Créer nouveau</a>
 {% endblock %}
