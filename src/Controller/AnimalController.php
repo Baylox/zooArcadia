@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Service\UploaderImage;
 
 #[Route('/dash/animal')]
 final class AnimalController extends AbstractController
@@ -51,14 +53,24 @@ final class AnimalController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'dashboard_animal_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Animal $animal, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Animal $animal, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
     {
         $form = $this->createForm(AnimalType::class, $animal);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form->get('image')->getData();
+        
+            if ($uploadedFile) {
+                $newFilename = $uploaderImage->upload($uploadedFile);
+                $animal->setImageFilename($newFilename);
+            }
+        
             $entityManager->flush();
-
+        
+            // Ajouter un message flash après le succès de l'opération
+            $this->addFlash('success', 'Image téléchargée avec succès.');
             return $this->redirectToRoute('dashboard_animal_index', [], Response::HTTP_SEE_OTHER);
         }
 

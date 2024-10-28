@@ -45,6 +45,9 @@ class Animal
     #[ORM\ManyToMany(targetEntity: Rapport::class, mappedBy: 'animaux')]
     private Collection $rapports;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageFilename = null;
+
     public function __construct()
     {
         $this->rapports = new ArrayCollection();
@@ -165,4 +168,17 @@ class Animal
 
         return $this;
     }
+
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(?string $imageFilename): static
+    {
+        $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
+
 }
