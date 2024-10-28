@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/dashboard/alimentation')]
-final class AlimentationController extends AbstractController
+final class DashAlimentationController extends AbstractController
 {
     #[Route(name: 'dashboard_alimentation_index', methods: ['GET'])]
     public function index(AlimentationRepository $alimentationRepository): Response

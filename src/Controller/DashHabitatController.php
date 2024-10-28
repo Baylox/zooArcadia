@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/dashboard/habitat')]
-final class HabitatController extends AbstractController
+final class DashHabitatController extends AbstractController
 {
     #[Route(name: 'dashboard_habitat_index', methods: ['GET'])]
     public function index(HabitatRepository $habitatRepository): Response

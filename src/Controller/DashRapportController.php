@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/dash/rapport')]
-final class RapportController extends AbstractController
+final class DashRapportController extends AbstractController
 {
     #[Route(name: 'dashboard_rapport_index', methods: ['GET'])]
     public function index(RapportRepository $rapportRepository): Response

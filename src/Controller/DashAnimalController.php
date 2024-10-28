@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Service\UploaderImage;
 
 #[Route('/dash/animal')]
-final class AnimalController extends AbstractController
+final class DashAnimalController extends AbstractController
 {
     #[Route(name: 'dashboard_animal_index', methods: ['GET'])]
     public function index(AnimalRepository $animalRepository): Response
