@@ -12,8 +12,8 @@
     {% endfor %}
     <h1 class="text-center mb-4">Liste des Animaux</h1>
 
-    <div class="d-flex justify-content-end mb-3">
-        <a href="{{ path('dashboard_animal_new') }}" class="btn btn-success">Ajouter un Nouvel Animal</a>
+    <div class="d-flex justify-content-end mb-1">
+        <a href="{{ path('dashboard_animal_new') }}" class="btn btn-dark">Ajouter un Nouvel Animal</a>
     </div>
 
     <div class="table-responsive">
@@ -49,7 +49,7 @@
                         </td>
                         <td class="align-middle">{{ animal.dob ? animal.dob|date('d/m/Y') : '' }}</td>
                         <td class="align-middle text-center">
-                            <a href="{{ path('dashboard_animal_show', {'id': animal.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                            <a href="{{ path('dashboard_animal_show', {'id': animal.id}) }}" class="btn btn-secondary btn-sm">Voir</a>
                             <a href="{{ path('dashboard_animal_edit', {'id': animal.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
                         </td>
                     </tr>
