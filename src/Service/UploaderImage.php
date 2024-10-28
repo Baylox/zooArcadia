@@ -18,7 +18,7 @@ class UploaderImage
 
     public function upload(UploadedFile $uploadedFile): string
     {
-        $destination = $this->uploadDir . '/animaux_image';
+        $destination = $this->uploadDir . '/animaux_image'; // Le dossier où le fichier doit être stocké
 
         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
         $newFilename = $this->slugger->slug($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();

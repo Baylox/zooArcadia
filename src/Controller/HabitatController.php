@@ -52,12 +52,6 @@ final class HabitatController extends AbstractController
             'habitat' => $habitat,
         ]);
     }
-    private SluggerInterface $slugger; // Instanciation de l'interface SluggerInterface
-
-    public function __construct(SluggerInterface $slugger) // Constructeur du slugger
-    {
-        $this->slugger = $slugger;
-    }
 
     #[Route('/{id}/edit', name: 'dashboard_habitat_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Habitat $habitat, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
