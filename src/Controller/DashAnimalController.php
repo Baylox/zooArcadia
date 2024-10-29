@@ -60,9 +60,34 @@ final class DashAnimalController extends AbstractController
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
+            // Supprimer l'image existante si la case est cochée
+            if ($form->get('removeImage')->getData() && $animal->getImages()->count() > 0) {
+                $image = $animal->getImages()->first();
+                $filePath = $this->getParameter('upload_directory') . '/' . $image->getFileName();
+    
+                // Ajouter un log ou un echo pour vérifier le chemin
+                echo "Chemin du fichier : " . $filePath;  // Pour voir le chemin du fichier dans la console
+    
+                if (file_exists($filePath)) {
+                    if (unlink($filePath)) {
+                        // Fichier supprimé avec succès
+                        $animal->removeImage($image);
+                        $entityManager->remove($image);
+                        $this->addFlash('success', 'Image supprimée avec succès.');
+                    } else {
+                        // Erreur lors de la suppression du fichier
+                        $this->addFlash('error', 'Erreur lors de la suppression du fichier du système de fichiers.');
+                    }
+                } else {
+                    // Le fichier n'existe pas
+                    $this->addFlash('warning', 'Le fichier à supprimer n\'a pas été trouvé.');
+                }
+            }
+    
+            // Gestion de l'upload de la nouvelle image
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form->get('image')->getData();
-        
+    
             if ($uploadedFile) {
                 $newFilename = $uploaderImage->upload($uploadedFile);
     
@@ -75,11 +100,11 @@ final class DashAnimalController extends AbstractController
                 $animal->addImage($image);
                 $entityManager->persist($image);
             }
-        
+    
             $entityManager->flush();
-        
+    
             // Ajouter un message flash après le succès de l'opération
-            $this->addFlash('success', 'Image téléchargée avec succès.');
+            $this->addFlash('success', 'Animal mis à jour avec succès.');
             return $this->redirectToRoute('dashboard_animal_index', [], Response::HTTP_SEE_OTHER);
         }
     
@@ -88,6 +113,7 @@ final class DashAnimalController extends AbstractController
             'form' => $form,
         ]);
     }
+    
 
     #[Route('/{id}', name: 'dashboard_animal_delete', methods: ['POST'])]
     public function delete(Request $request, Animal $animal, EntityManagerInterface $entityManager): Response

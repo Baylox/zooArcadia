@@ -5,12 +5,12 @@ namespace App\Form;
 use App\Entity\Animal;
 use App\Entity\Espece;
 use App\Entity\Habitat;
-use App\Entity\Rapport;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Validator\Constraints\File;
 
 class AnimalType extends AbstractType
@@ -44,10 +44,15 @@ class AnimalType extends AbstractType
                             'image/png',
                             'image/jpeg',
                         ],
-                    'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
-                ]),
-            ],
-        ]);
+                        'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
+                    ]),
+                ],
+            ])
+            ->add('removeImage', CheckboxType::class, [
+                'label' => 'Supprimer cette image',
+                'mapped' => false,
+                'required' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
