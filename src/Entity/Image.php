@@ -17,7 +17,7 @@ class Image
     private ?string $fileName = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
-    private ?animal $animal = null;
+    private ?Animal $animal = null;
 
     public function getId(): ?int
     {
@@ -36,15 +36,15 @@ class Image
         return $this;
     }
 
-    public function getAnimal(): ?animal
+    public function getAnimal(): ?Animal
     {
         return $this->animal;
     }
-
-    public function setAnimal(?animal $animal): static
+    
+    public function setAnimal(?Animal $animal): static
     {
         $this->animal = $animal;
-
+    
         return $this;
     }
 }

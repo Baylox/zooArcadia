@@ -65,9 +65,6 @@ final class DashAnimalController extends AbstractController
                 $image = $animal->getImages()->first();
                 $filePath = $this->getParameter('upload_directory') . '/' . $image->getFileName();
     
-                // Ajouter un log ou un echo pour vérifier le chemin
-                echo "Chemin du fichier : " . $filePath;  // Pour voir le chemin du fichier dans la console
-    
                 if (file_exists($filePath)) {
                     if (unlink($filePath)) {
                         // Fichier supprimé avec succès
