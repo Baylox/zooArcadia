@@ -28,24 +28,27 @@ class AppFixtures extends Fixture {
         // Créer 10 espèces
         EspeceFactory::new()->createMany(10);
 
-        // Créer manuellement les habitats
+        // Créer manuellement les habitats et ajouter des références
         $savane = new Habitat();
         $savane->setNom('Savane');
         $savane->setDescription('Un grand espace herbeux avec des arbres clairsemés.');
         $savane->setTypeHabitat('Savane');
         $manager->persist($savane);
+        $this->addReference('habitat_savane', $savane);
 
         $jungle = new Habitat();
         $jungle->setNom('Jungle');
         $jungle->setDescription('Une forêt dense avec une grande diversité animale.');
         $jungle->setTypeHabitat('Jungle');
         $manager->persist($jungle);
+        $this->addReference('habitat_jungle', $jungle);
 
         $marais = new Habitat();
         $marais->setNom('Marais');
         $marais->setDescription('Un environnement humide et marécageux.');
         $marais->setTypeHabitat('Marais');
         $manager->persist($marais);
+        $this->addReference('habitat_marais', $marais);
 
         // Persister les habitats avant de les utiliser dans AnimalFactory
         $manager->flush();
