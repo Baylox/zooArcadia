@@ -16,8 +16,7 @@ class UtilisateurType extends AbstractType
         $builder
             ->add('email')
             ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Utilisateur' => 'ROLE_USER',
+                'choices' => [,
                     'Employé' => 'ROLE_EMPLOYE',
                     'Vétérinaire' => 'ROLE_VETERINAIRE',
                 ],
