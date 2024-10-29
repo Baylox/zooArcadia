@@ -3,29 +3,45 @@
 {% block title %}Tableau de bord administrateur{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="mb-4">Tableau de bord administrateur</h2>
-            <div class="list-group">
-                <a href="{{ path('app_dash_utilisateur_index') }}" class="list-group-item list-group-item-action">
-                    Tableau de Bord des Utilisateurs
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <h2 class="admin-dashboard-header text-center mb-5">Tableau de bord administrateur</h2>
+            <div class="admin-list-group list-group">
+                <a href="{{ path('app_dash_utilisateur_index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center admin-user-list">
+                    <span>Tableau de Bord des Utilisateurs</span>
+                    <i class="bi bi-people-fill"></i>
                 </a>
-                <a href="{{ path('dashboard_animal_index') }}" class="list-group-item list-group-item-action">
-                    Tableau de Bord des Animaux
+                <a href="{{ path('dashboard_animal_index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center admin-animal-list">
+                    <span>Tableau de Bord des Animaux</span>
+                    <i class="bi bi-paw-fill"></i>
                 </a>
-                <a href="{{ path('dashboard_rapport_index') }}" class="list-group-item list-group-item-action">
-                    Tableau de Bord des Rapports
+                <a href="{{ path('dashboard_rapport_index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center admin-report-list">
+                    <span>Tableau de Bord des Rapports</span>
+                    <i class="bi bi-journal-text"></i>
                 </a>
-                <a href="{{ path('dashboard_alimentation_index') }}" class="list-group-item list-group-item-action">
-                    Tableau de l'Alimentation des Animaux
+                <a href="{{ path('dashboard_alimentation_index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center admin-food-list">
+                    <span>Tableau de l'Alimentation des Animaux</span>
+                    <i class="bi bi-basket-fill"></i>
                 </a>
-                <a href="{{ path('dashboard_habitat_index') }}" class="list-group-item list-group-item-action">
-                    Tableau de Bord des Habitats
+                <a href="{{ path('dashboard_habitat_index') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center admin-habitat-list">
+                    <span>Tableau de Bord des Habitats</span>
+                    <i class="bi bi-tree-fill"></i>
                 </a>
+                <a href="{{ path('dashboard_image_list_all') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center admin-image-list">
+                    <span>Gestion des Images</span>
+                    <i class="bi bi-images"></i>
+                </a>
+            </div>
+            <div class="text-center mt-4">
+                <small class="text-muted">Accédez aux différentes sections pour gérer le contenu du site.</small>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
+
+
+
+
 

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de toutes les images{% endblock %}
+
+{% block body %}
+    <h1>Liste de toutes les images</h1>
+
+    <div class="card-gallery">
+        {% for image in images %}
+            <div class="card">
+                <div class="card-image">
+                    <img src="/uploads/animaux_image/{{ image.fileName }}" alt="Image {{ image.id }}" class="card-img"/>
+                </div>
+                <div class="card-content">
+                    <form method="post" action="{{ path('dashboard_image_delete', {'id': image.id}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+                        <button class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucune image trouvée.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,92 @@
+// Variables de couleur
+$primary: #A1AA75; // Vert
+$secondary: #5D6537; // Vert foncé
+$tertiary: #E0D05C; // Jaune
+$dark: #3A2A10; // Marron
+
+$black: #292222;
+$white: #ffffff;
+
+.admin-dashboard-header {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: $primary;
+    margin-bottom: 2rem;
+}
+
+.admin-list-group {
+    .list-group-item {
+        border: 1px solid $secondary;
+        border-left-width: 6px;
+        font-size: 1.3rem;
+        padding: 1.5rem;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        color: $black;
+
+        &:hover {
+            background-color: $tertiary;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            color: $dark;
+        }
+
+        &.admin-user-list {
+            border-left-color: $tertiary;
+
+            &:hover {
+                border-left-color: darken($tertiary, 10%);
+            }
+        }
+
+        &.admin-animal-list {
+            border-left-color: $primary;
+
+            &:hover {
+                border-left-color: darken($primary, 10%);
+            }
+        }
+
+        &.admin-report-list {
+            border-left-color: $secondary;
+
+            &:hover {
+                border-left-color: darken($secondary, 10%);
+            }
+        }
+
+        &.admin-food-list {
+            border-left-color: lighten($primary, 10%);
+
+            &:hover {
+                border-left-color: $secondary;
+            }
+        }
+
+        &.admin-habitat-list {
+            border-left-color: $dark;
+
+            &:hover {
+                border-left-color: lighten($dark, 10%);
+            }
+        }
+
+        &.admin-image-list {
+            border-left-color: $tertiary;
+
+            &:hover {
+                border-left-color: darken($tertiary, 10%);
+            }
+        }
+
+        span {
+            font-size: 1.3rem;
+        }
+
+        i {
+            font-size: 1.7rem;
+            color: $secondary;
+        }
+    }
+}
+
+
+

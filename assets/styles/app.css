@@ -12012,4 +12012,115 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+.admin-dashboard-header {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #A1AA75;
+  margin-bottom: 2rem;
+}
+
+.admin-list-group .list-group-item {
+  border: 1px solid #5D6537;
+  border-left-width: 6px;
+  font-size: 1.3rem;
+  padding: 1.5rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  color: #292222;
+}
+.admin-list-group .list-group-item:hover {
+  background-color: #E0D05C;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  color: #3A2A10;
+}
+.admin-list-group .list-group-item.admin-user-list {
+  border-left-color: #E0D05C;
+}
+.admin-list-group .list-group-item.admin-user-list:hover {
+  border-left-color: #d8c431;
+}
+.admin-list-group .list-group-item.admin-animal-list {
+  border-left-color: #A1AA75;
+}
+.admin-list-group .list-group-item.admin-animal-list:hover {
+  border-left-color: #89925a;
+}
+.admin-list-group .list-group-item.admin-report-list {
+  border-left-color: #5D6537;
+}
+.admin-list-group .list-group-item.admin-report-list:hover {
+  border-left-color: #3f4425;
+}
+.admin-list-group .list-group-item.admin-food-list {
+  border-left-color: #b6bd95;
+}
+.admin-list-group .list-group-item.admin-food-list:hover {
+  border-left-color: #5D6537;
+}
+.admin-list-group .list-group-item.admin-habitat-list {
+  border-left-color: #3A2A10;
+}
+.admin-list-group .list-group-item.admin-habitat-list:hover {
+  border-left-color: #62471b;
+}
+.admin-list-group .list-group-item.admin-image-list {
+  border-left-color: #E0D05C;
+}
+.admin-list-group .list-group-item.admin-image-list:hover {
+  border-left-color: #d8c431;
+}
+.admin-list-group .list-group-item span {
+  font-size: 1.3rem;
+}
+.admin-list-group .list-group-item i {
+  font-size: 1.7rem;
+  color: #5D6537;
+}
+
+.card-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.card .card-image img {
+  width: 100%;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+.card .card-content {
+  padding: 15px;
+  text-align: center;
+}
+.card .card-content form {
+  margin-top: 10px;
+}
+.card .card-content form button {
+  width: 100%;
+  background-color: #d9534f;
+  border: none;
+  padding: 10px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.card .card-content form button:hover {
+  background-color: #c9302c;
 }/*# sourceMappingURL=app.css.map */
