@@ -15,8 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-
-
 #[Route('/dash/image')]
 class ImageController extends AbstractController
 {
@@ -39,6 +37,14 @@ class ImageController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/confirm-delete', name: 'image_confirm_delete', methods: ['GET'])]
+    public function confirmDelete(Image $image): Response
+    {
+        return $this->render('dashboard/image/delete.html.twig', [
+            'image' => $image,
+        ]);
+    }
+
     #[Route('/{id}/delete', name: 'dashboard_image_delete', methods: ['POST'])]
     public function deleteImage(Request $request, Image $image, EntityManagerInterface $entityManager): Response
     {
@@ -54,7 +60,7 @@ class ImageController extends AbstractController
     
         $this->addFlash('success', 'Image supprimée avec succès.');
     
-        // Rediriger vers la liste des images (utiliser list_all)
+        // Rediriger vers la liste des images
         return $this->redirectToRoute('dashboard_image_list_all');
     }
 
@@ -106,4 +112,5 @@ class ImageController extends AbstractController
         ]);
     }
 }
+
 

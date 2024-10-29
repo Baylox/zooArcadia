@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer une image{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="card shadow-lg p-4">
+            <h1 class="text-center mb-4">Supprimer l'image</h1>
+            <p class="text-center">Voulez-vous vraiment supprimer cette image ?</p>
+            <div class="d-flex justify-content-center">
+                <form method="post" action="{{ path('dashboard_image_delete', {'id': image.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+                    <button class="btn btn-danger mr-2">Oui, supprimer</button>
+                </form>
+                <a href="{{ path('dashboard_image_list_all') }}" class="btn btn-secondary">Annuler</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

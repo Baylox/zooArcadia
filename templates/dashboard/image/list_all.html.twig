@@ -4,7 +4,13 @@
 
 {% block body %}
     <h1>Liste de toutes les images</h1>
-
+        {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endfor %}
     <div class="card-gallery">
         {% for image in images %}
             <div class="card">
@@ -12,10 +18,7 @@
                     <img src="/uploads/animaux_image/{{ image.fileName }}" alt="Image {{ image.id }}" class="card-img"/>
                 </div>
                 <div class="card-content">
-                    <form method="post" action="{{ path('dashboard_image_delete', {'id': image.id}) }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
-                        <button class="btn btn-danger">Supprimer</button>
-                    </form>
+                    <a href="{{ path('image_confirm_delete', {'id': image.id}) }}" class="btn btn-danger">Supprimer</a>
                 </div>
             </div>
         {% else %}
@@ -23,5 +26,6 @@
         {% endfor %}
     </div>
 {% endblock %}
+
 
 
