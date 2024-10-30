@@ -65,7 +65,7 @@ final class DashAnimalController extends AbstractController
             $uploadedFile = $form->get('image')->getData();
 
             if ($uploadedFile) {
-                $newFilename = $uploaderImage->upload($uploadedFile);
+                $newFilename = $uploaderImage->uploadAnimalImage($uploadedFile);
 
                 // Créer une nouvelle entité Image
                 $image = new Image();

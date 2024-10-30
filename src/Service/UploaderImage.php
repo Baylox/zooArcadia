@@ -16,9 +16,20 @@ class UploaderImage
         $this->uploadDir = $uploadDir;
     }
 
-    public function upload(UploadedFile $uploadedFile): string
+    public function uploadAnimalImage(UploadedFile $uploadedFile): string
     {
-        $destination = $this->uploadDir . '/animaux_image'; // Le dossier où le fichier doit être stocké
+        return $this->upload($uploadedFile, 'animaux_image');
+    }
+
+    public function uploadHabitatImage(UploadedFile $uploadedFile): string
+    {
+        return $this->upload($uploadedFile, 'habitats_image');
+    }
+
+    // Encapsulation de la logique de l'upload
+    private function upload(UploadedFile $uploadedFile, string $subdirectory): string 
+    {
+        $destination = $this->uploadDir . '/' . $subdirectory;
 
         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
         $newFilename = $this->slugger->slug($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
@@ -28,4 +39,5 @@ class UploaderImage
         return $newFilename;
     }
 }
+
 
