@@ -1,4 +1,51 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+{{ form_start(form, {'attr': {'class': 'my-form'}}) }}
+    <div class="mb-3">
+        {{ form_label(form.prenom, 'Prénom') }}
+        {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.prenom) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ form_label(form.etat, 'État') }}
+        {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.etat) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.sexe, 'Sexe') }}
+        {{ form_widget(form.sexe, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.sexe) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.description, 'Description') }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+        {{ form_help(form.description) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.dob, 'Date de naissance') }}
+        {{ form_widget(form.dob, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.dob) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.espece, 'Espèce') }}
+        {{ form_widget(form.espece, {'attr': {'class': 'form-select'}}) }}
+        {{ form_help(form.espece) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.habitat, 'Habitat') }}
+        {{ form_widget(form.habitat, {'attr': {'class': 'form-select'}}) }}
+        {{ form_help(form.habitat) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.image, 'Image (fichier PNG, JPEG ou JPG)') }}
+        {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.image) }}
+    </div>
+
     <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
