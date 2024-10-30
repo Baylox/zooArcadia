@@ -3,62 +3,35 @@
 {% block title %}Animal{% endblock %}
 
 {% block body %}
-    <h1>Animal</h1>
+    <h1 class="display-4 text-center">{{ animal.prenom }}</h1>
 
-    <table class="table">
+    <div class="d-flex justify-content-end gap-2 mb-3">
+        <a href="{{ path('dashboard_animal_index') }}" class="btn btn-secondary">
+            <i class="fas fa-list"></i> Retour à la liste
+        </a>
+        <a href="{{ path('dashboard_animal_edit', {'id': animal.id}) }}" class="btn btn-primary">
+            <i class="fas fa-edit"></i> Modifier
+        </a>
+        {{ include('dashboard/animal/_delete_form.html.twig', { 'button_label': '<i class="fas fa-trash-alt"></i> Supprimer' }) }}
+    </div>
+
+    <table class="table table-striped">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ animal.id }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ animal.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Etat</th>
-                <td>{{ animal.etat }}</td>
-            </tr>
-            <tr>
-                <th>Sexe</th>
-                <td>{{ animal.sexe }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ animal.description }}</td>
-            </tr>
-            <tr>
-                <th>Date de naissance</th>
-                <td>{{ animal.dob ? animal.dob|date('d/m/Y') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Espèce</th>
-                <td>{{ animal.espece.typeEspece }}</td>
-            </tr>
-            <tr>
-                <th>Habitat</th>
-                <td>{{ animal.habitat.nom }}</td>
-            </tr>
-            <tr>
-                <th>Rapports</th>
-                <td>
-                    <ul>
-                        {% for rapport in animal.rapports %}
-                            <li>
-                                <strong>Titre:</strong> {{ rapport.titre }}<br>
-                                <strong>Date:</strong> {{ rapport.dateRapport ? rapport.dateRapport|date('d/m/Y') : '' }}<br>
-                                <strong>Utilisateur:</strong> {{ rapport.utilisateur.prenom }} {{ rapport.utilisateur.nom }}<br>
-                                <strong>Détails:</strong> {{ rapport.details }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
+            {% for label, value in {
+                'Id': animal.id,
+                'Prenom': animal.prenom,
+                'Etat': animal.etat,
+                'Sexe': animal.sexe,
+                'Description': animal.description,
+                'Date de naissance': animal.dob ? animal.dob|date('d/m/Y') : '',
+                'Espèce': animal.espece.typeEspece,
+                'Habitat': animal.habitat.nom
+            } %}
+                <tr>
+                    <th>{{ label }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('dashboard_animal_index') }}">Retour à la liste</a>
-
-    <a href="{{ path('dashboard_animal_edit', {'id': animal.id}) }}">Modifier</a>
-
-    {{ include('dashboard/animal/_delete_form.html.twig') }}
 {% endblock %}
