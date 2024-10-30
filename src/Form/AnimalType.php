@@ -47,11 +47,6 @@ class AnimalType extends AbstractType
                         'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
                     ]),
                 ],
-            ])
-            ->add('removeImage', CheckboxType::class, [
-                'label' => 'Supprimer cette image',
-                'mapped' => false,
-                'required' => false,
             ]);
     }
 
