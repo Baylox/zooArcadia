@@ -23,4 +23,13 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1rem;
   }
 }
- 
+
+// Positionnement en bas de page
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+footer.footer {
+  margin-top: auto;
+}

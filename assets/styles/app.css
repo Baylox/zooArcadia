@@ -19,6 +19,16 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     font-size: 1rem;
   }
 }
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer.footer {
+  margin-top: auto;
+}
+
 .navbar {
   background-color: #E0D05C;
   --bs-navbar-padding-x: 5px;
@@ -45,6 +55,46 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 .navbar-logo {
   height: 70px;
   border-radius: 50%;
+}
+
+.footer {
+  background-color: #A1AA75;
+  color: #ffffff;
+}
+.footer .footer-hours {
+  background-color: #E0D05C;
+  border: 2px solid #d8c431;
+  border-radius: 10px;
+  padding: 20px;
+  color: #3A2A10;
+}
+.footer .footer-hours h4, .footer .footer-hours .h4 {
+  font-weight: bold;
+}
+.footer .footer-hours ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+.footer .footer-hours ul li {
+  padding: 5px 0;
+}
+.footer .footer-social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer .footer-social a {
+  color: #ffffff;
+  margin: 0 10px;
+  font-size: 1.5rem;
+}
+.footer .footer-social a:hover {
+  color: #E0D05C;
+}
+.footer .footer-copyright {
+  background-color: #5D6537;
+  color: #3A2A10;
+  padding: 10px;
 }
 
 /*!
