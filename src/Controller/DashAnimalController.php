@@ -26,24 +26,35 @@ final class DashAnimalController extends AbstractController
     }
 
     #[Route('/new', name: 'dashboard_animal_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
     {
         $animal = new Animal();
         $form = $this->createForm(AnimalType::class, $animal);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFile = $form->get('image')->getData();
+            
+            if ($uploadedFile) {
+                $newFilename = $uploaderImage->uploadAnimalImage($uploadedFile);
+                $image = new Image();
+                $image->setFileName($newFilename);
+                $image->setAnimal($animal);
+                $entityManager->persist($image);
+            }
+            
             $entityManager->persist($animal);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('dashboard_animal_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('dashboard/animal/new.html.twig', [
             'animal' => $animal,
             'form' => $form,
         ]);
     }
+    
 
     #[Route('/{id}', name: 'dashboard_animal_show', methods: ['GET'])]
     public function show(Animal $animal): Response

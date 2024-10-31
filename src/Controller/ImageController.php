@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Animal;
 use App\Entity\Image;
-use App\Form\ImageType;
 use App\Service\UploaderImage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +30,6 @@ class ImageController extends AbstractController
     public function listAllImages(EntityManagerInterface $entityManager): Response
     {
         $images = $entityManager->getRepository(Image::class)->findAll();
-        
         return $this->render('dashboard/image/list_all.html.twig', [
             'images' => $images,
         ]);
@@ -48,19 +46,18 @@ class ImageController extends AbstractController
     #[Route('/{id}/delete', name: 'dashboard_image_delete', methods: ['POST'])]
     public function deleteImage(Request $request, Image $image, EntityManagerInterface $entityManager): Response
     {
-        // Supprimer le fichier physique de l'upload
+        // Supprime le fichier physique s'il existe
         $filePath = $this->getParameter('upload_directory') . '/' . $image->getFileName();
         if (file_exists($filePath)) {
-            unlink($filePath); // Supprimer le fichier du système de fichiers
+            unlink($filePath);
         }
-    
-        // Supprimer l'image de la base de données
+
+        // Supprime l'image de la base de données
         $entityManager->remove($image);
         $entityManager->flush();
-    
+
         $this->addFlash('success', 'Image supprimée avec succès.');
-    
-        // Rediriger vers la liste des images
+        
         return $this->redirectToRoute('dashboard_image_list_all');
     }
 
@@ -74,10 +71,7 @@ class ImageController extends AbstractController
                 'required' => true,
                 'constraints' => [
                     new File([
-                        'mimeTypes' => [
-                            'image/png',
-                            'image/jpeg',
-                        ],
+                        'mimeTypes' => ['image/png', 'image/jpeg'],
                         'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
                     ]),
                 ],
@@ -87,22 +81,18 @@ class ImageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form->get('image')->getData();
-            $newFilename = $uploaderImage->upload($uploadedFile);
+            $newFilename = $uploaderImage->uploadAnimalImage($uploadedFile);
 
-            // Créer une nouvelle entité Image
+            // Crée et associe une nouvelle image à l'animal
             $image = new Image();
             $image->setFileName($newFilename);
             $image->setAnimal($animal);
 
-            // Persister l'image en base de données
             $entityManager->persist($image);
             $entityManager->flush();
 
             $this->addFlash('success', 'Image ajoutée avec succès.');
-
-            // Rediriger vers la liste des images de l'animal
             return $this->redirectToRoute('dashboard_image_list', ['id' => $animal->getId()]);
         }
 
@@ -112,5 +102,7 @@ class ImageController extends AbstractController
         ]);
     }
 }
+
+
 
 
