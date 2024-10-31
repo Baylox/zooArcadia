@@ -20,6 +20,9 @@ class Image
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Animal $animal = null;
 
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    private ?Habitat $habitat = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +49,18 @@ class Image
     {
         $this->animal = $animal;
     
+        return $this;
+    }
+
+    public function getHabitat(): ?Habitat
+    {
+        return $this->habitat;
+    }
+
+    public function setHabitat(?Habitat $habitat): static
+    {
+        $this->habitat = $habitat;
+
         return $this;
     }
 }

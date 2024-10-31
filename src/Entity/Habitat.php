@@ -34,9 +34,16 @@ class Habitat
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ImageFilename = null;
 
+    /**
+     * @var Collection<int, Image>
+     */
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'habitat')]
+    private Collection $images;
+
     public function __construct()
     {
         $this->animaux = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,6 +125,36 @@ class Habitat
     public function setImageFilename(?string $ImageFilename): static
     {
         $this->ImageFilename = $ImageFilename;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getHabitat() === $this) {
+                $image->setHabitat(null);
+            }
+        }
 
         return $this;
     }

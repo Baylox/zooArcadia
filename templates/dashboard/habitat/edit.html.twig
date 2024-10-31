@@ -3,11 +3,24 @@
 {% block title %}Modifier Habitat{% endblock %}
 
 {% block body %}
-    <h1>Modifier Habitat</h1>
+    <div class="card-body">
+        {% if habitat.images|length > 0 %}
+            <div class="d-flex flex-column align-items-center mb-4">
+                <img src="/uploads/habitat_image/{{ habitat.images|first.fileName }}" alt="Image de l'habitat {{ habitat.nom }}" class="img-thumbnail mb-3" style="width: 300px; height: 300px; object-fit: cover;">
+            </div>
+        {% else %}
+            <p class="text-muted text-center">Pas d'image associée</p>
+        {% endif %}
 
-    {{ include('dashboard/habitat/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        <div class="mb-4">
+            {{ include('dashboard/habitat/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        </div>
+    </div>
 
-    <a href="{{ path('dashboard_habitat_index') }}">Retour à la liste</a>
-
-    {{ include('dashboard/habitat/_delete_form.html.twig') }}
+    <div class="card-footer mt-3 d-flex justify-content-between">
+        <a href="{{ path('dashboard_habitat_index') }}" class="btn btn-outline-secondary">Retour à la liste</a>
+        {{ include('dashboard/habitat/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
+
+
