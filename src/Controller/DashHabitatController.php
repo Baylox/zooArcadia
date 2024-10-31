@@ -97,14 +97,21 @@ final class DashHabitatController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'dashboard_habitat_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'dashboard_habitat_delete', methods: ['POST'])]
     public function delete(Request $request, Habitat $habitat, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$habitat->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($habitat);
-            $entityManager->flush();
+        // Vérifie si l'habitat contient des animaux
+        if (!$habitat->getAnimaux()->isEmpty()) {
+            $this->addFlash('error', 'Impossible de supprimer cet habitat car des animaux y sont encore associés.');
+            return $this->redirectToRoute('dashboard_habitat_index');
         }
 
-        return $this->redirectToRoute('dashboard_habitat_index', [], Response::HTTP_SEE_OTHER);
+        if ($this->isCsrfTokenValid('delete' . $habitat->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($habitat);
+            $entityManager->flush();
+            $this->addFlash('success', 'Habitat supprimé avec succès.');
+        }
+
+        return $this->redirectToRoute('dashboard_habitat_index');
     }
 }
