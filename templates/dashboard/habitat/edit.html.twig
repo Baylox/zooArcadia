@@ -5,12 +5,11 @@
 {% block body %}
     <div class="card-body">
         {% if habitat.images|length > 0 %}
-            <div class="d-flex flex-column align-items-center mb-4">
-                <img src="/uploads/habitat_image/{{ habitat.images|first.fileName }}" alt="Image de l'habitat {{ habitat.nom }}" class="img-thumbnail mb-3" style="width: 300px; height: 300px; object-fit: cover;">
-            </div>
-        {% else %}
-            <p class="text-muted text-center">Pas d'image associée</p>
-        {% endif %}
+    <img src="/uploads/habitats_image/{{ habitat.images|first.fileName }}" alt="Image de l'habitat {{ habitat.nom }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+    {% else %}
+    <span class="text-muted">Pas d'image associée</span>
+    {% endif %}
+
 
         <div class="mb-4">
             {{ include('dashboard/habitat/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
@@ -22,5 +21,3 @@
         {{ include('dashboard/habitat/_delete_form.html.twig') }}
     </div>
 {% endblock %}
-
-

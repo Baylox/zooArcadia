@@ -29,8 +29,7 @@
                     <tr>
                         <td class="align-middle text-center">
                             {% if habitat.images|length > 0 %}
-                                {# Affiche la première image associée à l'habitat (first) #}
-                                <img src="/uploads/habitat_image/{{ habitat.images|first.fileName }}" alt="{{ habitat.nom }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                                <img src="/uploads/habitats_image/{{ habitat.images|first.fileName }}" alt="{{ habitat.nom }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
                             {% else %}
                                 <span class="text-muted">Pas d'image associée</span>
                             {% endif %}
