@@ -13,7 +13,7 @@ class UploaderImage
     public function __construct(SluggerInterface $slugger, string $uploadDir)
     {
         $this->slugger = $slugger;
-        $this->uploadDir = $uploadDir;
+        $this->uploadDir = $uploadDir; //public/uploads
     }
 
     public function uploadAnimalImage(UploadedFile $uploadedFile): string
