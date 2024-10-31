@@ -53,7 +53,7 @@ final class DashHabitatController extends AbstractController
         ]);
     }
 
-     /*  #[Route('/{id}/edit', name: 'dashboard_habitat_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'dashboard_habitat_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Habitat $habitat, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
     {
         $form = $this->createForm(HabitatType::class, $habitat);
@@ -63,7 +63,7 @@ final class DashHabitatController extends AbstractController
             $uploadedFile = $form->get('image')->getData();
         
             if ($uploadedFile) {
-                $newFilename = $uploaderImage->upload($uploadedFile);
+                $newFilename = $uploaderImage->uploadHabitatImage($uploadedFile);
                 $habitat->setImageFilename($newFilename);
             }
         
@@ -79,25 +79,7 @@ final class DashHabitatController extends AbstractController
             'habitat' => $habitat,
             'form' => $form,
         ]);
-    } */
-    
-    #[Route('/{id}/edit', name: 'dashboard_habitat_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Habitat $habitat, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(HabitatType::class, $habitat);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('dashboard_habitat_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('dashboard/habitat/edit.html.twig', [
-            'habitat' => $habitat,
-            'form' => $form,
-        ]);
-    }
+    } 
     
     
 
