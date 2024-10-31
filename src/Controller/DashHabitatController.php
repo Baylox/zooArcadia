@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Habitat;
 use App\Form\HabitatType;
+use App\Entity\Image;
 use App\Repository\HabitatRepository;
 use App\Service\UploaderImage;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,24 +27,36 @@ final class DashHabitatController extends AbstractController
     }
 
     #[Route('/new', name: 'dashboard_habitat_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
     {
         $habitat = new Habitat();
         $form = $this->createForm(HabitatType::class, $habitat);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            // Gestion de l'upload de l'image
+            $uploadedFile = $form->get('image')->getData();
+
+            if ($uploadedFile) {
+                $newFilename = $uploaderImage->uploadHabitatImage($uploadedFile);
+                $image = new Image();
+                $image->setFileName($newFilename);
+                $image->setHabitat($habitat);  
+    
+                $entityManager->persist($image);
+            }
             $entityManager->persist($habitat);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('dashboard_habitat_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('dashboard/habitat/new.html.twig', [
             'habitat' => $habitat,
             'form' => $form,
         ]);
     }
+    
 
     #[Route('/{id}', name: 'dashboard_habitat_show', methods: ['GET'])]
     public function show(Habitat $habitat): Response
@@ -58,32 +71,31 @@ final class DashHabitatController extends AbstractController
     {
         $form = $this->createForm(HabitatType::class, $habitat);
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
             $uploadedFile = $form->get('image')->getData();
-        
+            
             if ($uploadedFile) {
                 $newFilename = $uploaderImage->uploadHabitatImage($uploadedFile);
-                $habitat->setImageFilename($newFilename);
+                
+                // Crée une nouvelle instance de l'entité Image
+                $image = new Image();
+                $image->setFileName($newFilename);
+                $image->setHabitat($habitat);  // Associe l'image à l'habitat
+                $entityManager->persist($image); // Persiste l'image en base de données
             }
-        
             $entityManager->flush();
-        
-            // Ajouter un message flash après le succès de l'opération
+
             $this->addFlash('success', 'Image téléchargée avec succès.');
-        
+
             return $this->redirectToRoute('dashboard_habitat_index', [], Response::HTTP_SEE_OTHER);
         }
-    
+
         return $this->render('dashboard/habitat/edit.html.twig', [
             'habitat' => $habitat,
             'form' => $form,
         ]);
-    } 
-    
-    
-
-
+    }
 
     #[Route('/{id}', name: 'dashboard_habitat_delete', methods: ['POST'])]
     public function delete(Request $request, Habitat $habitat, EntityManagerInterface $entityManager): Response

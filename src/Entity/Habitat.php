@@ -31,9 +31,6 @@ class Habitat
     #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'habitat')]
     private Collection $animaux;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $ImageFilename = null;
-
     /**
      * @var Collection<int, Image>
      */
@@ -113,18 +110,6 @@ class Habitat
                 $animaux->setHabitat(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getImageFilename(): ?string
-    {
-        return $this->ImageFilename;
-    }
-
-    public function setImageFilename(?string $ImageFilename): static
-    {
-        $this->ImageFilename = $ImageFilename;
 
         return $this;
     }

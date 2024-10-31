@@ -17,10 +17,11 @@ class Image
     private ?string $fileName = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
-    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    #[ORM\JoinColumn(nullable: true, onDelete: "CASCADE")]
     private ?Animal $animal = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: true, onDelete: "CASCADE")]
     private ?Habitat $habitat = null;
 
     public function getId(): ?int
