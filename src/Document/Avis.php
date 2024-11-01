@@ -17,7 +17,7 @@ class Avis
     #[ODM\Field(type: 'string')]
     private string $commentaire;
 
-    #[ODM\Field(type: 'boolean')]
+    #[ODM\Field(type: 'bool')]
     private bool $isValide = false;
 
     // Getters et Setters
