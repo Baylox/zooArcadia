@@ -20,15 +20,16 @@ class AvisController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Nettoyage des données pour éviter les balises HTML malveillantes
+            $avis->setPseudo(strip_tags($avis->getPseudo()));
+            $avis->setCommentaire(strip_tags($avis->getCommentaire()));
+            
             $avis->setIsValide(false); 
             $dm->persist($avis);
             $dm->flush();
-            dd($avis);
-
-            // Ajoute un message flash pour informer l'utilisateur
             $this->addFlash('avis_submitted', 'Votre avis a été soumis et est en attente de validation par un administrateur.');
 
-            // Redirige vers la même page pour éviter la resoumission du formulaire
+            
             return $this->redirectToRoute('app_avis');
         }
 
@@ -37,4 +38,5 @@ class AvisController extends AbstractController
         ]);
     }
 }
+
 
