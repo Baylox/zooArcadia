@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Soumettre un Avis{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <h1 class="mb-4">Soumettre un Avis</h1>
+
+    {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+        <div class="mb-3">
+            {{ form_label(form.pseudo, 'Pseudo', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.pseudo, {'attr': {'class': 'form-control', 'placeholder': 'Votre pseudo'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(form.pseudo) }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.commentaire, 'Commentaire', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.commentaire, {'attr': {'class': 'form-control', 'placeholder': 'Votre commentaire'}}) }}
+            <div class="invalid-feedback">
+                {{ form_errors(form.commentaire) }}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+    {{ form_end(form) }}
+
+    {% if app.session.flashBag.has('avis_submitted') %}
+        <div class="alert alert-success mt-4">
+            {% for message in app.session.flashBag.get('avis_submitted') %}
+                <p class="mb-0">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+
