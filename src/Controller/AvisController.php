@@ -23,6 +23,7 @@ class AvisController extends AbstractController
             $avis->setIsValide(false); 
             $dm->persist($avis);
             $dm->flush();
+            dd($avis);
 
             // Ajoute un message flash pour informer l'utilisateur
             $this->addFlash('avis_submitted', 'Votre avis a été soumis et est en attente de validation par un administrateur.');

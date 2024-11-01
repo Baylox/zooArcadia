@@ -3,26 +3,34 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use App\Document\Avis;
 
 class DashAvisController extends AbstractController
 {
-
-    #[Route('/dash/avis', name: 'app_dash_avis')]
-    public function index(DocumentManager $dm): Response
+    #[Route('/dash/avis', name: 'dashboard_avis')]
+    public function index(DocumentManager $dm, Request $request): Response
     {
-        $avis = $dm->getRepository(Avis::class)->findAll();
+        // Récupère le paramètre 'status' de la requête pour filtrer les avis
+        $status = $request->query->get('status', 'pending'); // pending pour afficher les avis en attente de validation
 
-        return $this->render('avis/index.html.twig', [
+        if ($status === 'validated') {
+            $avis = $dm->getRepository(Avis::class)->findBy(['isValide' => true]);
+        } else {
+            $avis = $dm->getRepository(Avis::class)->findBy(['isValide' => false]);
+        }
+
+        return $this->render('dashboard/avis/index.html.twig', [
             'avis' => $avis,
+            'status' => $status,
         ]);
     }
-    
-    // Valider ou rejeter un avis
-    #[Route('/dash/avis/{id}/validate', name: 'app_dash_avis_validate', methods: ['POST'])]
+
+
+    #[Route('/dash/avis/{id}/validate', name: 'dashboard_avis_validate', methods: ['POST'])]
     public function validate(string $id, DocumentManager $dm): Response
     {
         $avis = $dm->getRepository(Avis::class)->find($id);
@@ -33,11 +41,10 @@ class DashAvisController extends AbstractController
         $avis->setIsValide(true);
         $dm->flush();
 
-        return $this->redirectToRoute('app_dash_avis');
+        return $this->redirectToRoute('dashboard_avis');
     }
 
-    // Supprimer un avis
-    #[Route('/dash/avis/{id}/delete', name: 'app_dash_avis_delete', methods: ['POST'])]
+    #[Route('/dash/avis/{id}/delete', name: 'dashboard_avis_delete', methods: ['POST'])]
     public function delete(string $id, DocumentManager $dm): Response
     {
         $avis = $dm->getRepository(Avis::class)->find($id);
@@ -48,7 +55,8 @@ class DashAvisController extends AbstractController
         $dm->remove($avis);
         $dm->flush();
 
-        return $this->redirectToRoute('app_dash_avis');
+        return $this->redirectToRoute('dashboard_avis');
     }
 }
+
 
