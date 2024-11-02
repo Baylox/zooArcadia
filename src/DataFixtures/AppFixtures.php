@@ -9,6 +9,7 @@ use App\Factory\RapportFactory;
 use App\Factory\AlimentationFactory; 
 use App\Entity\Habitat;
 use App\Factory\ImageFactory;
+use App\Factory\ServiceFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -68,6 +69,8 @@ class AppFixtures extends Fixture {
          ImageFactory::new()->createMany(15, [
             'animal' => AnimalFactory::random() // Associe chaque image à un animal existant aléatoire
         ]);
+
+        ServiceFactory::createMany(3);
 
         $manager->flush();
     }
