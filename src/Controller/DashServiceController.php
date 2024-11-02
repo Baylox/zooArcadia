@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Service;
 use App\Form\ServiceType;
+use App\Service\UploaderImage;
+use App\Entity\Image;
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,22 +53,36 @@ final class DashServiceController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'dashboard_service_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Service $service, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(ServiceType::class, $service);
-        $form->handleRequest($request);
+public function edit(Request $request, Service $service, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
+{
+    $form = $this->createForm(ServiceType::class, $service);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_service_index', [], Response::HTTP_SEE_OTHER);
+    if ($form->isSubmitted() && $form->isValid()) {
+        $uploadedFile = $form->get('image')->getData();
+        
+        if ($uploadedFile) {
+            $newFilename = $uploaderImage->uploadServiceImage($uploadedFile);
+            
+            // Crée une nouvelle instance de l'entité Image
+            $image = new Image();
+            $image->setFileName($newFilename);
+            $image->setService($service);  // Associe l'image au service
+            $entityManager->persist($image); // Persiste l'image en base de données
         }
+        $entityManager->flush();
 
-        return $this->render('dashboard/service/edit.html.twig', [
-            'service' => $service,
-            'form' => $form,
-        ]);
+        $this->addFlash('success', 'Image téléchargée avec succès.');
+
+        return $this->redirectToRoute('app_service_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    return $this->render('dashboard/service/edit.html.twig', [
+        'service' => $service,
+        'form' => $form,
+    ]);
+}
+
 
     #[Route('/{id}', name: 'dashboard_service_delete', methods: ['POST'])]
     public function delete(Request $request, Service $service, EntityManagerInterface $entityManager): Response

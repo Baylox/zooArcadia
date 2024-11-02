@@ -26,6 +26,10 @@ class UploaderImage
         return $this->upload($uploadedFile, 'habitats_image');
     }
 
+    public function uploadServiceImage(UploadedFile $uploadedFile): string
+    {
+        return $this->upload($uploadedFile, 'services_image');
+    }
     // Encapsulation de la logique de l'upload
     private function upload(UploadedFile $uploadedFile, string $subdirectory): string 
     {
