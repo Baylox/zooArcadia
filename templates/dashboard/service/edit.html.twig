@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Service{% endblock %}
+
+{% block body %}
+    <h1>Modifier le Service</h1>
+
+    {{ include('dashboard/service/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('dashboard_service_index') }}">Retour à la liste des services</a>
+
+    {{ include('dashboard/service/_delete_form.html.twig') }}
+{% endblock %}

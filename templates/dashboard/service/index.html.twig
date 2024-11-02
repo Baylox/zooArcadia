@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index des services{% endblock %}
+
+{% block body %}
+    <h1>Index des services</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for service in services %}
+            <tr>
+                <td>{{ service.nom }}</td>
+                <td>{{ service.description }}</td>
+                <td>
+                    <a href="{{ path('dashboard_service_show', {'id': service.id}) }}">Voir</a>
+                    <a href="{{ path('dashboard_service_edit', {'id': service.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun enregistrement de service trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('dashboard_service_new') }}">Créer un nouveau service</a>
+{% endblock %}
