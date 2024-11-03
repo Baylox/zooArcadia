@@ -33,32 +33,25 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         $this->getEntityManager()->flush();
     }
 
-   /**
+    /**
      * Récupère les utilisateurs ayant le rôle 'ROLE_EMPLOYE' en utilisant une requête SQL brute
      */
     public function findEmployes(): array
     {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = 'SELECT * FROM utilisateur WHERE JSON_CONTAINS(roles, :role)'; // On utilise la fonction JSON_CONTAINS pour vérifier si le rôle est présent
-        $stmt = $conn->prepare($sql); // Requête préparée oblige 
-        $resultSet = $stmt->executeQuery(['role' => json_encode('ROLE_EMPLOYE')]); // On encode le rôle en JSON
-
-        return $resultSet->fetchAllAssociative(); // On récupère les résultats sous forme de tableau associatif
+        return $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"ROLE_EMPLOYE"%')
+            ->getQuery()
+            ->getResult();
     }
 
-    /**
-     * Récupère les utilisateurs ayant le rôle 'ROLE_VETERINAIRE' 
-     */
     public function findVeterinaires(): array
     {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = 'SELECT * FROM utilisateur WHERE JSON_CONTAINS(roles, :role)';
-        $stmt = $conn->prepare($sql);
-        $resultSet = $stmt->executeQuery(['role' => json_encode('ROLE_VETERINAIRE')]);
-
-        return $resultSet->fetchAllAssociative();
+        return $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"ROLE_VETERINAIRE"%')
+            ->getQuery()
+            ->getResult();
     }
 }
 
