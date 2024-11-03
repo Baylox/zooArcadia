@@ -107,7 +107,7 @@ final class DashUtilisateurController extends AbstractController
         return $this->redirectToRoute('app_dash_utilisateur_index', [], Response::HTTP_SEE_OTHER);
     }
     
-    #[Route('/utilisateurs/employes', name: 'utilisateurs_employes')]
+    #[Route('/gestion/employes', name: 'utilisateurs_employes')]
     public function employes(UtilisateurRepository $utilisateurRepository): Response
     {
         $utilisateurs = $utilisateurRepository->findEmployes();
@@ -118,7 +118,7 @@ final class DashUtilisateurController extends AbstractController
         ]);
     }
 
-    #[Route('/utilisateurs/veterinaires', name: 'utilisateurs_veterinaires')]
+    #[Route('/gestion/veterinaires', name: 'utilisateurs_veterinaires')]
     public function veterinaires(UtilisateurRepository $utilisateurRepository): Response
     {
         $utilisateurs = $utilisateurRepository->findVeterinaires();

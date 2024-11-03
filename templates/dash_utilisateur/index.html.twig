@@ -3,12 +3,12 @@
 {% block title %}Gestion des utilisateurs{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1 class="mb-4">Gestion des utilisateurs</h1>
+    <div class="container-fluid mt-5">
+        <h1 class="mb-4 text-center text-primary">Gestion des utilisateurs</h1>
 
-        <div class="d-flex mb-3">
-            <a href="{{ path('utilisateurs_employes') }}" class="btn btn-info me-2">Voir les Employés</a>
-            <a href="{{ path('utilisateurs_veterinaires') }}" class="btn btn-success me-2">Voir les Vétérinaires</a>
+        <div class="d-flex mb-3 justify-content-center">
+            <a href="{{ path('utilisateurs_employes') }}" class="btn btn-dark me-2">Voir les Employés</a>
+            <a href="{{ path('utilisateurs_veterinaires') }}" class="btn btn-primary me-2">Voir les Vétérinaires</a>
             <a href="{{ path('app_dash_utilisateur_index') }}" class="btn btn-outline-secondary">Tous les Utilisateurs</a>
         </div>
 
