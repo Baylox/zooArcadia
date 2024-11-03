@@ -34,26 +34,23 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
     }
 
     /**
-     * Récupère les utilisateurs ayant le rôle 'ROLE_EMPLOYE' en utilisant une requête SQL brute
+     * Récupère les utilisateurs ayant le rôle 'ROLE_EMPLOYE'
      */
-    public function findEmployes(): array
+    public function findEmployesQueryBuilder()
     {
         return $this->createQueryBuilder('u')
             ->where('u.roles LIKE :role')
-            ->setParameter('role', '%"ROLE_EMPLOYE"%')
-            ->getQuery()
-            ->getResult();
+            ->setParameter('role', '%"ROLE_EMPLOYE"%');
     }
+    
+    public function findVeterinairesQueryBuilder()
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"ROLE_VETERINAIRE"%');
+    }
+}    
 
-    public function findVeterinaires(): array
-    {
-        return $this->createQueryBuilder('u')
-            ->where('u.roles LIKE :role')
-            ->setParameter('role', '%"ROLE_VETERINAIRE"%')
-            ->getQuery()
-            ->getResult();
-    }
-}
 
     //    /**
     //     * @return Utilisateur[] Returns an array of Utilisateur objects

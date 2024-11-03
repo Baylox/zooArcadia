@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Service\EmailService;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -27,10 +28,18 @@ final class DashUtilisateurController extends AbstractController
         $this->passwordHasher = $passwordHasher;
     }
     #[Route(name: 'app_dash_utilisateur_index', methods: ['GET'])]
-    public function index(UtilisateurRepository $utilisateurRepository): Response
+    public function index(Request $request, UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator): Response
     {
+        $queryBuilder = $utilisateurRepository->createQueryBuilder('u');
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1), // Page actuelle, indente d'1 à chaque next
+            12 // Nombre d'éléments par page
+        );
+
         return $this->render('dash_utilisateur/index.html.twig', [
-            'utilisateurs' => $utilisateurRepository->findAll(),
+            'utilisateurs' => $pagination,
+            'page_title' => 'Tous les Utilisateurs',
         ]);
     }
 
@@ -108,23 +117,33 @@ final class DashUtilisateurController extends AbstractController
     }
     
     #[Route('/gestion/employes', name: 'utilisateurs_employes')]
-    public function employes(UtilisateurRepository $utilisateurRepository): Response
+    public function employes(Request $request, UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator): Response
     {
-        $utilisateurs = $utilisateurRepository->findEmployes();
-
+        $queryBuilder = $utilisateurRepository->findEmployesQueryBuilder();
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1), 
+            12 // Nombre d'éléments par page
+        );
+    
         return $this->render('dash_utilisateur/index.html.twig', [
-            'utilisateurs' => $utilisateurs,
+            'utilisateurs' => $pagination,
             'page_title' => 'Employés',
         ]);
     }
-
+    
     #[Route('/gestion/veterinaires', name: 'utilisateurs_veterinaires')]
-    public function veterinaires(UtilisateurRepository $utilisateurRepository): Response
+    public function veterinaires(Request $request, UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator): Response
     {
-        $utilisateurs = $utilisateurRepository->findVeterinaires();
-
+        $queryBuilder = $utilisateurRepository->findVeterinairesQueryBuilder();
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            12 
+        );
+    
         return $this->render('dash_utilisateur/index.html.twig', [
-            'utilisateurs' => $utilisateurs,
+            'utilisateurs' => $pagination,
             'page_title' => 'Vétérinaires',
         ]);
     }
