@@ -8,22 +8,20 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Email</th>
-                <th>Rôles</th>
                 <th>Nom</th>
                 <th>Prénom</th>
+                <th>Rôles</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for utilisateur in utilisateurs %}
             <tr>
-                <td>{{ utilisateur.id }}</td>
                 <td>{{ utilisateur.email }}</td>
-                <td>{{ utilisateur.roles|join(', ') }}</td>
                 <td>{{ utilisateur.nom }}</td>
                 <td>{{ utilisateur.prenom }}</td>
+                <td>{{ utilisateur.roles|join(' - ') }}</td>
                 <td>
                     <a href="{{ path('app_dash_utilisateur_show', {'id': utilisateur.id}) }}">Voir</a>
                     <a href="{{ path('app_dash_utilisateur_edit', {'id': utilisateur.id}) }}">Modifier</a>

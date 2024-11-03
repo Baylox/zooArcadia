@@ -85,8 +85,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // garantit que chaque utilisateur possède au moins un rôle
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }

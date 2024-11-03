@@ -66,9 +66,9 @@ class AppFixtures extends Fixture {
         AlimentationFactory::createMany(10);
 
          // Créer 15 images associées à un animal aléatoire
-         ImageFactory::new()->createMany(15, [
+         /*ImageFactory::new()->createMany(15, [
             'animal' => AnimalFactory::random() // Associe chaque image à un animal existant aléatoire
-        ]);
+        ]);*/
 
         ServiceFactory::createMany(3);
 
