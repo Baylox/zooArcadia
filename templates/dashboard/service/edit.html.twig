@@ -5,9 +5,17 @@
 {% block body %}
     <h1>Modifier le Service</h1>
 
+    {# Afficher l'image actuelle si elle existe #}
+    {% if service.images|length > 0 %}
+        <div class="d-flex flex-column align-items-center mb-4">
+            <img src="/uploads/services_image/{{ service.images|first.fileName }}" alt="Image de {{ service.nom }}" class="img-thumbnail mb-3" style="width: 300px; height: 300px; object-fit: cover;">
+        </div>
+    {% endif %}
+
     {{ include('dashboard/service/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
     <a href="{{ path('dashboard_service_index') }}">Retour à la liste des services</a>
 
     {{ include('dashboard/service/_delete_form.html.twig') }}
 {% endblock %}
+

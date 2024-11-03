@@ -25,6 +25,7 @@ class Image
     private ?Habitat $habitat = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: true, onDelete: "CASCADE")]
     private ?Service $service = null;
 
     public function getId(): ?int

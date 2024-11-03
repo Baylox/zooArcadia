@@ -3,33 +3,66 @@
 {% block title %}Index des services{% endblock %}
 
 {% block body %}
-    <h1>Index des services</h1>
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <h1 class="text-center mb-4">Liste des Services</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for service in services %}
-            <tr>
-                <td>{{ service.nom }}</td>
-                <td>{{ service.description }}</td>
-                <td>
-                    <a href="{{ path('dashboard_service_show', {'id': service.id}) }}">Voir</a>
-                    <a href="{{ path('dashboard_service_edit', {'id': service.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">Aucun enregistrement de service trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Image</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services %}
+                    <tr>
+                        <td class="align-middle text-center">
+                            {% if service.images|length > 0 %}
+                                <img src="{{ asset('uploads/services_image/' ~ service.images|first.fileName) }}" alt="{{ service.nom }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                            {% else %}
+                                <span class="text-muted">Pas d'image associée</span>
+                            {% endif %}
+                        </td>
+                        <td class="align-middle">{{ service.nom }}</td>
+                        <td class="align-middle text-truncate" style="max-width: 200px;" title="{{ service.description }}">
+                            {{ service.description | slice(0, 100) }}{% if service.description | length > 100 %}...{% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            <a href="{{ path('dashboard_service_show', {'id': service.id}) }}" class="btn btn-secondary btn-sm" data-toggle="tooltip" title="Voir">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ path('dashboard_service_edit', {'id': service.id}) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Modifier">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center">Aucun enregistrement trouvé</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <a href="{{ path('dashboard_service_new') }}">Créer un nouveau service</a>
+    <div class="d-flex justify-content-end mt-4">
+        <a href="{{ path('dashboard_service_new') }}" class="btn btn-dark">
+            <i class="fas fa-plus"></i> Ajouter un Nouveau Service
+        </a>
+    </div>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 {% endblock %}
