@@ -25,11 +25,6 @@ class Rapport
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $details = null;
 
-    /**
-     * @var Collection<int, Animal>
-     */
-    #[ORM\ManyToMany(targetEntity: Animal::class, inversedBy: 'rapports')]
-    private Collection $animaux;
 
     /**
      * @var Collection<int, Alimentation>
@@ -41,9 +36,11 @@ class Rapport
     #[ORM\JoinColumn(nullable: false)]
     private ?Utilisateur $utilisateur = null;
 
+    #[ORM\OneToOne(inversedBy: 'rapport', cascade: ['persist', 'remove'])]
+    private ?Animal $animal = null;
+
     public function __construct()
     {
-        $this->animaux = new ArrayCollection();
         $this->alimentations = new ArrayCollection();
     }
 
@@ -72,30 +69,6 @@ class Rapport
     public function setDetails(?string $details): static
     {
         $this->details = $details;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Animal>
-     */
-    public function getAnimaux(): Collection
-    {
-        return $this->animaux;
-    }
-
-    public function addAnimaux(Animal $animaux): static
-    {
-        if (!$this->animaux->contains($animaux)) {
-            $this->animaux->add($animaux);
-        }
-
-        return $this;
-    }
-
-    public function removeAnimaux(Animal $animaux): static
-    {
-        $this->animaux->removeElement($animaux);
 
         return $this;
     }
@@ -150,6 +123,18 @@ class Rapport
     public function setTitre(string $Titre): static
     {
         $this->Titre = $Titre;
+
+        return $this;
+    }
+
+    public function getAnimal(): ?Animal
+    {
+        return $this->animal;
+    }
+
+    public function setAnimal(?Animal $animal): static
+    {
+        $this->animal = $animal;
 
         return $this;
     }

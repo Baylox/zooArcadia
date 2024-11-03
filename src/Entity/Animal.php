@@ -40,20 +40,16 @@ class Animal
     private ?Habitat $habitat = null;
 
     /**
-     * @var Collection<int, Rapport>
-     */
-    #[ORM\ManyToMany(targetEntity: Rapport::class, mappedBy: 'animaux')]
-    private Collection $rapports;
-
-    /**
      * @var Collection<int, Image>
      */
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'animal')]
     private Collection $images;
 
+    #[ORM\OneToOne(mappedBy: 'animal', cascade: ['persist', 'remove'])]
+    private ?Rapport $rapport = null;
+
     public function __construct()
     {
-        $this->rapports = new ArrayCollection();
         $this->images = new ArrayCollection();
     }
 
@@ -147,33 +143,6 @@ class Animal
     }
 
     /**
-     * @return Collection<int, Rapport>
-     */
-    public function getRapports(): Collection
-    {
-        return $this->rapports;
-    }
-
-    public function addRapport(Rapport $rapport): static
-    {
-        if (!$this->rapports->contains($rapport)) {
-            $this->rapports->add($rapport);
-            $rapport->addAnimaux($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRapport(Rapport $rapport): static
-    {
-        if ($this->rapports->removeElement($rapport)) {
-            $rapport->removeAnimaux($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Image>
      */
     public function getImages(): Collection
@@ -199,6 +168,28 @@ class Animal
                 $image->setAnimal(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRapport(): ?Rapport
+    {
+        return $this->rapport;
+    }
+
+    public function setRapport(?Rapport $rapport): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($rapport === null && $this->rapport !== null) {
+            $this->rapport->setAnimal(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($rapport !== null && $rapport->getAnimal() !== $this) {
+            $rapport->setAnimal($this);
+        }
+
+        $this->rapport = $rapport;
 
         return $this;
     }
