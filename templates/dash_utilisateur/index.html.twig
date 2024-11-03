@@ -1,39 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tableau de bord utilisateur{% endblock %}
+{% block title %}Gestion des utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>Gestion des utilisateurs</h1>
+    <div class="container mt-5">
+        <h1 class="mb-4">Gestion des utilisateurs</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Rôles</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for utilisateur in utilisateurs %}
-            <tr>
-                <td>{{ utilisateur.email }}</td>
-                <td>{{ utilisateur.nom }}</td>
-                <td>{{ utilisateur.prenom }}</td>
-                <td>{{ utilisateur.roles|join(' / ') }}</td>
-                <td>
-                    <a href="{{ path('app_dash_utilisateur_show', {'id': utilisateur.id}) }}">Voir</a>
-                    <a href="{{ path('app_dash_utilisateur_edit', {'id': utilisateur.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">Aucun utilisateur trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="d-flex mb-3">
+            <a href="{{ path('utilisateurs_employes') }}" class="btn btn-info me-2">Voir les Employés</a>
+            <a href="{{ path('utilisateurs_veterinaires') }}" class="btn btn-success me-2">Voir les Vétérinaires</a>
+            <a href="{{ path('app_dash_utilisateur_index') }}" class="btn btn-outline-secondary">Tous les Utilisateurs</a>
+        </div>
 
-    <a href="{{ path('app_dash_utilisateur_new') }}">Créer un nouvel utilisateur</a>
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Email</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Rôles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for utilisateur in utilisateurs %}
+                    <tr>
+                        <td>{{ utilisateur.email }}</td>
+                        <td>{{ utilisateur.nom }}</td>
+                        <td>{{ utilisateur.prenom }}</td>
+                        <td>{{ utilisateur.roles|join(' / ') }}</td>
+                        <td>
+                            <a href="{{ path('app_dash_utilisateur_show', {'id': utilisateur.id}) }}" class="btn btn-secondary btn-sm" data-toggle="tooltip" title="Voir">
+                                <i class="fas fa-eye"></i> Voir
+                            </a>
+                            <a href="{{ path('app_dash_utilisateur_edit', {'id': utilisateur.id}) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Modifier">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Aucun utilisateur trouvé</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-end mt-4">
+            <a href="{{ path('app_dash_utilisateur_new') }}" class="btn btn-dark">
+                <i class="fas fa-plus"></i> Créer un nouvel utilisateur
+            </a>
+        </div>
+    </div>
 {% endblock %}
+

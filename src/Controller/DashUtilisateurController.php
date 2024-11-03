@@ -106,4 +106,28 @@ final class DashUtilisateurController extends AbstractController
 
         return $this->redirectToRoute('app_dash_utilisateur_index', [], Response::HTTP_SEE_OTHER);
     }
+    
+    #[Route('/utilisateurs/employes', name: 'utilisateurs_employes')]
+    public function employes(UtilisateurRepository $utilisateurRepository): Response
+    {
+        $utilisateurs = $utilisateurRepository->findEmployes();
+
+        return $this->render('dash_utilisateur/index.html.twig', [
+            'utilisateurs' => $utilisateurs,
+            'page_title' => 'Employés',
+        ]);
+    }
+
+    #[Route('/utilisateurs/veterinaires', name: 'utilisateurs_veterinaires')]
+    public function veterinaires(UtilisateurRepository $utilisateurRepository): Response
+    {
+        $utilisateurs = $utilisateurRepository->findVeterinaires();
+
+        return $this->render('dash_utilisateur/index.html.twig', [
+            'utilisateurs' => $utilisateurs,
+            'page_title' => 'Vétérinaires',
+        ]);
+    }
 }
+
+
