@@ -3,11 +3,16 @@
 {% block title %}Gestion Utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Gestion de l'utilisateur</h1>
+    <div class="container mt-5">
+        <h1 class="mb-4">Gestion de l'utilisateur</h1>
 
-    {{ include('dash_utilisateur/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        {{ include('dash_utilisateur/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_dash_utilisateur_index') }}">Retour</a>
-
-    {{ include('dash_utilisateur/_delete_form.html.twig') }}
+        <div class="mt-4 d-flex justify-content-between">
+            <a href="{{ path('app_dash_utilisateur_index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+            {{ include('dash_utilisateur/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

@@ -21,7 +21,7 @@
                 <td>{{ utilisateur.email }}</td>
                 <td>{{ utilisateur.nom }}</td>
                 <td>{{ utilisateur.prenom }}</td>
-                <td>{{ utilisateur.roles|join(' - ') }}</td>
+                <td>{{ utilisateur.roles|join(' / ') }}</td>
                 <td>
                     <a href="{{ path('app_dash_utilisateur_show', {'id': utilisateur.id}) }}">Voir</a>
                     <a href="{{ path('app_dash_utilisateur_edit', {'id': utilisateur.id}) }}">Modifier</a>
