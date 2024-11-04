@@ -6,7 +6,6 @@ use App\Factory\AnimalFactory;
 use App\Factory\UtilisateurFactory;
 use App\Factory\EspeceFactory;
 use App\Factory\RapportFactory;
-use App\Factory\AlimentationFactory; 
 use App\Entity\Habitat;
 use App\Factory\ImageFactory;
 use App\Factory\ServiceFactory;
@@ -61,9 +60,6 @@ class AppFixtures extends Fixture {
         AnimalFactory::new()->createMany(3, ['habitat' => $savane]);
         AnimalFactory::new()->createMany(4, ['habitat' => $jungle]);
         AnimalFactory::new()->createMany(3, ['habitat' => $marais]);
-
-        // Créer 10 alimentations
-        AlimentationFactory::createMany(10);
 
          // Créer 15 images associées à un animal aléatoire
          /*ImageFactory::new()->createMany(15, [

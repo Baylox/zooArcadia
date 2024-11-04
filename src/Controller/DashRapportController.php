@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/dash/rapport')]
 final class DashRapportController extends AbstractController
@@ -38,7 +38,7 @@ final class DashRapportController extends AbstractController
 
         return $this->render('dashboard/rapport/new.html.twig', [
             'rapport' => $rapport,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -64,14 +64,14 @@ final class DashRapportController extends AbstractController
 
         return $this->render('dashboard/rapport/edit.html.twig', [
             'rapport' => $rapport,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
     #[Route('/{id}', name: 'dashboard_rapport_delete', methods: ['POST'])]
     public function delete(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$rapport->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $rapport->getId(), $request->request->get('_token'))) {
             $entityManager->remove($rapport);
             $entityManager->flush();
         }
@@ -79,3 +79,4 @@ final class DashRapportController extends AbstractController
         return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
     }
 }
+

@@ -26,6 +26,9 @@ final class RapportFactory extends PersistentProxyObjectFactory
             'utilisateur' => UtilisateurFactory::new(), // Crée et associe une nouvelle instance d'utilisateur
             'date_rapport' => self::faker()->dateTimeBetween('-1 year', 'now'),  // Date du rapport aléatoire entre l'année dernière et aujourd'hui
             'details' => self::faker()->optional()->paragraph(),  // Détails du rapport 
+            'nomNourriture' => self::faker()->word(),  // Nom de la nourriture aléatoire
+            'quantiteNourriture' => self::faker()->randomFloat(2, 0.1, 5.0),  // Quantité de nourriture aléatoire entre 0.1 et 5.0
+            'changementAlimentation' => self::faker()->boolean(),  // Booléen indiquant s'il y a eu un changement d'alimentation
         ];
     }
 }

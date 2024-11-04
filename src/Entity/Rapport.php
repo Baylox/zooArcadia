@@ -39,8 +39,6 @@ class Rapport
     #[ORM\OneToOne(inversedBy: 'rapport', cascade: ['persist', 'remove'])]
     private ?Animal $animal = null;
 
-    // Getters et setters pour chaque propriété
-
     public function getId(): ?int
     {
         return $this->id;
