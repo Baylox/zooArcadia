@@ -1,4 +1,39 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+{{ form_start(form, {'attr': {'class': 'my-form'}}) }}
+    <div class="mb-3">
+        {{ form_label(form.titre, 'Titre') }}
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.titre) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.dateRapport, 'Date du rapport') }}
+        {{ form_widget(form.dateRapport, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.dateRapport) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.details, 'Détails') }}
+        {{ form_widget(form.details, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+        {{ form_help(form.details) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.utilisateur, 'Utilisateur') }}
+        {{ form_widget(form.utilisateur, {'attr': {'class': 'form-select'}}) }}
+        {{ form_help(form.utilisateur) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.animal, 'Animal concerné') }}
+        {{ form_widget(form.animal, {'attr': {'class': 'form-select'}}) }}
+        {{ form_help(form.animal) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.alimentations, 'Alimentations') }}
+        {{ form_widget(form.alimentations, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.alimentations) }}
+    </div>
+
     <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

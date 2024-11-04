@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Titre</th>
                 <th>Date du Rapport</th>
                 <th>Actions</th>
@@ -17,7 +16,6 @@
         <tbody>
         {% for rapport in rapports %}
             <tr>
-                <td>{{ rapport.id }}</td>
                 <td>{{ rapport.titre }}</td>
                 <td>{{ rapport.dateRapport ? rapport.dateRapport|date('Y-m-d') : '' }}</td>
                 <td>
