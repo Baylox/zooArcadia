@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\RapportRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +15,7 @@ class Rapport
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $Titre = null;
+    private ?string $titre = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateRapport = null;
@@ -25,12 +23,14 @@ class Rapport
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $details = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $nomNourriture = null;
 
-    /**
-     * @var Collection<int, Alimentation>
-     */
-    #[ORM\OneToMany(targetEntity: Alimentation::class, mappedBy: 'rapport')]
-    private Collection $alimentations;
+    #[ORM\Column(type: Types::FLOAT)]
+    private ?float $quantiteNourriture = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $changementAlimentation = false;
 
     #[ORM\ManyToOne(inversedBy: 'rapports')]
     #[ORM\JoinColumn(nullable: false)]
@@ -39,14 +39,22 @@ class Rapport
     #[ORM\OneToOne(inversedBy: 'rapport', cascade: ['persist', 'remove'])]
     private ?Animal $animal = null;
 
-    public function __construct()
-    {
-        $this->alimentations = new ArrayCollection();
-    }
+    // Getters et setters pour chaque propriété
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+        return $this;
     }
 
     public function getDateRapport(): ?\DateTimeInterface
@@ -54,10 +62,9 @@ class Rapport
         return $this->dateRapport;
     }
 
-    public function setDateRapport(\DateTimeInterface $dateRapport): static
+    public function setDateRapport(\DateTimeInterface $dateRapport): self
     {
         $this->dateRapport = $dateRapport;
-
         return $this;
     }
 
@@ -66,40 +73,42 @@ class Rapport
         return $this->details;
     }
 
-    public function setDetails(?string $details): static
+    public function setDetails(?string $details): self
     {
         $this->details = $details;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Alimentation>
-     */
-    public function getAlimentations(): Collection
+    public function getNomNourriture(): ?string
     {
-        return $this->alimentations;
+        return $this->nomNourriture;
     }
 
-    public function addAlimentation(Alimentation $alimentation): static
+    public function setNomNourriture(string $nomNourriture): self
     {
-        if (!$this->alimentations->contains($alimentation)) {
-            $this->alimentations->add($alimentation);
-            $alimentation->setRapport($this);
-        }
-
+        $this->nomNourriture = $nomNourriture;
         return $this;
     }
 
-    public function removeAlimentation(Alimentation $alimentation): static
+    public function getQuantiteNourriture(): ?float
     {
-        if ($this->alimentations->removeElement($alimentation)) {
-            // set the owning side to null (unless already changed)
-            if ($alimentation->getRapport() === $this) {
-                $alimentation->setRapport(null);
-            }
-        }
+        return $this->quantiteNourriture;
+    }
 
+    public function setQuantiteNourriture(float $quantiteNourriture): self
+    {
+        $this->quantiteNourriture = $quantiteNourriture;
+        return $this;
+    }
+
+    public function getChangementAlimentation(): bool
+    {
+        return $this->changementAlimentation;
+    }
+
+    public function setChangementAlimentation(bool $changementAlimentation): self
+    {
+        $this->changementAlimentation = $changementAlimentation;
         return $this;
     }
 
@@ -108,22 +117,9 @@ class Rapport
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): static
+    public function setUtilisateur(?Utilisateur $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
-
-        return $this;
-    }
-
-    public function getTitre(): ?string
-    {
-        return $this->Titre;
-    }
-
-    public function setTitre(string $Titre): static
-    {
-        $this->Titre = $Titre;
-
         return $this;
     }
 
@@ -132,10 +128,10 @@ class Rapport
         return $this->animal;
     }
 
-    public function setAnimal(?Animal $animal): static
+    public function setAnimal(?Animal $animal): self
     {
         $this->animal = $animal;
-
         return $this;
     }
 }
+

@@ -1,4 +1,5 @@
 {{ form_start(form, {'attr': {'class': 'my-form'}}) }}
+
     <div class="mb-3">
         {{ form_label(form.titre, 'Titre') }}
         {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
@@ -29,11 +30,26 @@
         {{ form_help(form.animal) }}
     </div>
 
+    <h4>Alimentation</h4>
+    
     <div class="mb-3">
-        {{ form_label(form.alimentations, 'Alimentations') }}
-        {{ form_widget(form.alimentations, {'attr': {'class': 'form-control'}}) }}
-        {{ form_help(form.alimentations) }}
+        {{ form_label(form.nomNourriture, 'Nom de la Nourriture') }}
+        {{ form_widget(form.nomNourriture, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.nomNourriture) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.quantiteNourriture, 'Quantité de Nourriture') }}
+        {{ form_widget(form.quantiteNourriture, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.quantiteNourriture) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.changementAlimentation, 'Changement d’Alimentation') }}
+        {{ form_widget(form.changementAlimentation, {'attr': {'class': 'form-check-input'}}) }}
+        {{ form_help(form.changementAlimentation) }}
     </div>
 
     <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
+
