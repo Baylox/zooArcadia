@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom de la Nourriture</th>
                 <th>Quantité de Nourriture</th>
                 <th>Commentaire du Vétérinaire</th>
@@ -18,7 +17,6 @@
         <tbody>
         {% for alimentation in alimentations %}
             <tr>
-                <td>{{ alimentation.id }}</td>
                 <td>{{ alimentation.nomNourriture }}</td>
                 <td>{{ alimentation.quantiteNourriture }}</td>
                 <td>{{ alimentation.commentaireVeterinaire }}</td>

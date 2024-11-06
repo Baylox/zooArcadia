@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Rapport;
+use App\Entity\Alimentation;
 use App\Form\RapportType;
 use App\Repository\RapportRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/dash/rapport')]
 final class DashRapportController extends AbstractController
@@ -30,6 +31,23 @@ final class DashRapportController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Vérification des données pour Alimentation
+            $nomNourriture = $form->get('nomNourriture')->getData();
+            $quantiteNourriture = $form->get('quantiteNourriture')->getData();
+            $commentaireVeterinaire = $form->get('commentaireVeterinaire')->getData();
+
+            // Création de l'alimentation si des données sont présentes
+            if ($nomNourriture || $quantiteNourriture || $commentaireVeterinaire) {
+                $alimentation = new Alimentation();
+                $alimentation->setNomNourriture($nomNourriture);
+                $alimentation->setQuantiteNourriture($quantiteNourriture);
+                $alimentation->setCommentaireVeterinaire($commentaireVeterinaire);
+
+                // Associer l'alimentation au rapport
+                $rapport->setAlimentation($alimentation);
+                $entityManager->persist($alimentation);
+            }
+
             $entityManager->persist($rapport);
             $entityManager->flush();
 
@@ -38,7 +56,7 @@ final class DashRapportController extends AbstractController
 
         return $this->render('dashboard/rapport/new.html.twig', [
             'rapport' => $rapport,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -54,9 +72,32 @@ final class DashRapportController extends AbstractController
     public function edit(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(RapportType::class, $rapport);
+        
+        // Pré-remplir les champs d'Alimentation si existante
+        if ($rapport->getAlimentation()) {
+            $form->get('nomNourriture')->setData($rapport->getAlimentation()->getNomNourriture());
+            $form->get('quantiteNourriture')->setData($rapport->getAlimentation()->getQuantiteNourriture());
+            $form->get('commentaireVeterinaire')->setData($rapport->getAlimentation()->getCommentaireVeterinaire());
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Gestion de l'entité Alimentation
+            $nomNourriture = $form->get('nomNourriture')->getData();
+            $quantiteNourriture = $form->get('quantiteNourriture')->getData();
+            $commentaireVeterinaire = $form->get('commentaireVeterinaire')->getData();
+
+            $alimentation = $rapport->getAlimentation() ?: new Alimentation();
+            $alimentation->setNomNourriture($nomNourriture);
+            $alimentation->setQuantiteNourriture($quantiteNourriture);
+            $alimentation->setCommentaireVeterinaire($commentaireVeterinaire);
+
+            if (!$rapport->getAlimentation()) {
+                $rapport->setAlimentation($alimentation);
+                $entityManager->persist($alimentation);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
@@ -64,14 +105,17 @@ final class DashRapportController extends AbstractController
 
         return $this->render('dashboard/rapport/edit.html.twig', [
             'rapport' => $rapport,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
     #[Route('/{id}', name: 'dashboard_rapport_delete', methods: ['POST'])]
     public function delete(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$rapport->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$rapport->getId(), $request->request->get('_token'))) {
+            if ($rapport->getAlimentation()) {
+                $entityManager->remove($rapport->getAlimentation());
+            }
             $entityManager->remove($rapport);
             $entityManager->flush();
         }
@@ -79,3 +123,4 @@ final class DashRapportController extends AbstractController
         return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
     }
 }
+

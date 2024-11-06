@@ -1,4 +1,35 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    <div class="mb-3">
+        {{ form_label(form.titre, 'Titre') }}
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.dateRapport, 'Date du Rapport') }}
+        {{ form_widget(form.dateRapport, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.details, 'Détails') }}
+        {{ form_widget(form.details, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.nomNourriture, 'Nom de la Nourriture') }}
+        {{ form_widget(form.nomNourriture, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.quantiteNourriture, 'Quantité de Nourriture') }}
+        {{ form_widget(form.quantiteNourriture, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.commentaireVeterinaire, 'Commentaire Vétérinaire') }}
+        {{ form_widget(form.commentaireVeterinaire, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <button class="btn btn-primary">Enregistrer</button>
 {{ form_end(form) }}
+
+

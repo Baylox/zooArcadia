@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Index des Rapports{% endblock %}
+{% block title %}Index des Rapports et Alimentation{% endblock %}
 
 {% block body %}
-    <h1>Index des Rapports </h1>
+    <h1>Index des Rapports et Alimentation</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Titre</th>
+                <th>Titre du Rapport</th>
                 <th>Date du Rapport</th>
+                <th>Animal</th>
+                <th>Alimentation (en kg/jour)</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -19,17 +21,36 @@
                 <td>{{ rapport.titre }}</td>
                 <td>{{ rapport.dateRapport ? rapport.dateRapport|date('Y-m-d') : '' }}</td>
                 <td>
+                    {% if rapport.animal %}
+                        {{ rapport.animal.prenom }}
+                    {% else %}
+                        <em>Pas d'animal associé</em>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if rapport.alimentation %}
+                        {{ rapport.alimentation.nomNourriture }} (Quantité : {{ rapport.alimentation.quantiteNourriture }} kg)
+                    {% else %}
+                        <em>Pas d'alimentation associée</em>
+                    {% endif %}
+                </td>
+                <td>
                     <a href="{{ path('dashboard_rapport_show', {'id': rapport.id}) }}">Voir</a>
                     <a href="{{ path('dashboard_rapport_edit', {'id': rapport.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">Aucun enregistrement trouvé</td>
+                <td colspan="5">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('dashboard_rapport_new') }}">Créer nouveau</a>
+    <div class="d-flex justify-content-end mt-4">
+        <a href="{{ path('dashboard_alimentation_new') }}" class="btn btn-dark">
+            <i class="fas fa-plus"></i> Ajouter une Nouvelle Alimentation pour un animal
+        </a>
+    </div>
+    <a href="{{ path('dashboard_rapport_new') }}">Créer un nouveau Rapport</a>
 {% endblock %}
