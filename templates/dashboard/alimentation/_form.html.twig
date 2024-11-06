@@ -1,4 +1,29 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-dark">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'my-form'}}) }}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Créer une Alimentation</h1>
+
+        <div class="mb-3">
+            {{ form_label(form.nomNourriture, 'Nom de la Nourriture', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.nomNourriture, {'attr': {'class': 'form-control'}}) }}
+            {{ form_help(form.nomNourriture, {'attr': {'class': 'form-text text-muted'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.quantiteNourriture, 'Quantité de Nourriture', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.quantiteNourriture, {'attr': {'class': 'form-control'}}) }}
+            {{ form_help(form.quantiteNourriture, {'attr': {'class': 'form-text text-muted'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.commentaireVeterinaire, 'Commentaire du Vétérinaire', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.commentaireVeterinaire, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+            {{ form_help(form.commentaireVeterinaire, {'attr': {'class': 'form-text text-muted'}}) }}
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+        </div>
+    </div>
 {{ form_end(form) }}
+
+

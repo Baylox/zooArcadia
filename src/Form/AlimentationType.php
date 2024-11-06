@@ -20,12 +20,7 @@ class AlimentationType extends AbstractType
                 'label' => 'Quantité de Nourriture',
                 'scale' => 2, // Précision pour les décimales
             ])
-            ->add('commentaireVeterinaire')
-            ->add('rapport', EntityType::class, [
-                'class' => Rapport::class,
-                'choice_label' => 'titre',
-            ])
-        ;
+            ->add('commentaireVeterinaire');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
