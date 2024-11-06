@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Alimentation & Rapport{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Gestion des Aliments et des Rapports</h1>
+
+    <h2>Liste des Aliments</h2>
+    <ul>
+        {% for alimentation in alimentations %}
+            <li>{{ alimentation.nomNourriture }} - Quantité : {{ alimentation.quantiteNourriture }}</li>
+        {% else %}
+            <li>Aucun aliment enregistré.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Liste des Rapports</h2>
+    <ul>
+        {% for rapport in rapports %}
+            <li>
+                {{ rapport.titre }} - Commentaire :
+                {% if rapport.animaux is not empty %}
+                    <ul>
+                        {% for animal in rapport.animaux %}
+                            <li>{{ animal.prenom}}</li> 
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <span>Aucun animal associé.</span>
+                {% endif %}
+            </li>
+        {% else %}
+            <li>Aucun rapport enregistré.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+
