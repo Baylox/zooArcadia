@@ -1,40 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion Alimentation & Rapport{% endblock %}
+{% block title %}Index des Rapports et Alimentation{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <h1>Gestion des Aliments et des Rapports</h1>
+    <h1>Index des Rapports et Alimentation</h1>
 
-    <h2>Liste des Aliments</h2>
-    <ul>
-        {% for alimentation in alimentations %}
-            <li>{{ alimentation.nomNourriture }} - Quantité : {{ alimentation.quantiteNourriture }}</li>
-        {% else %}
-            <li>Aucun aliment enregistré.</li>
-        {% endfor %}
-    </ul>
-
-    <h2>Liste des Rapports</h2>
-    <ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre du Rapport</th>
+                <th>Date du Rapport</th>
+                <th>Animal</th>
+                <th>Alimentation (en kg/jour)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for rapport in rapports %}
-            <li>
-                {{ rapport.titre }} - Commentaire :
-                {% if rapport.animaux is not empty %}
-                    <ul>
-                        {% for animal in rapport.animaux %}
-                            <li>{{ animal.prenom}}</li> 
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <span>Aucun animal associé.</span>
-                {% endif %}
-            </li>
+            <tr>
+                <td>{{ rapport.titre }}</td>
+                <td>{{ rapport.dateRapport ? rapport.dateRapport|date('Y-m-d') : '' }}</td>
+                <td>
+                    {% if rapport.animal %}
+                        {{ rapport.animal.prenom }}
+                    {% else %}
+                        <em>Pas d'animal associé</em>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if rapport.alimentation %}
+                        {{ rapport.alimentation.nomNourriture }} (Quantité : {{ rapport.alimentation.quantiteNourriture }} kg)
+                    {% else %}
+                        <em>Pas d'alimentation associée</em>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('dashboard_rapport_show', {'id': rapport.id}) }}">Voir</a>
+                    <a href="{{ path('dashboard_rapport_edit', {'id': rapport.id}) }}">Modifier</a>
+                </td>
+            </tr>
         {% else %}
-            <li>Aucun rapport enregistré.</li>
+            <tr>
+                <td colspan="5">Aucun enregistrement trouvé</td>
+            </tr>
         {% endfor %}
-    </ul>
-</div>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end mt-4">
+        <a href="{{ path('dashboard_alimentation_new') }}" class="btn btn-dark">
+            <i class="fas fa-plus"></i> Ajouter une Nouvelle Alimentation pour un animal
+        </a>
+    </div>
+    <a href="{{ path('dashboard_rapport_new') }}">Créer un nouveau Rapport</a>
 {% endblock %}
+
 
 

@@ -39,10 +39,7 @@ class Animal
     #[ORM\JoinColumn(nullable: false)]
     private ?Habitat $habitat = null;
 
-    /**
-     * @var Collection<int, Rapport>
-     */
-    #[ORM\ManyToMany(targetEntity: Rapport::class, mappedBy: 'animaux')]
+    #[ORM\OneToMany(mappedBy: 'animal', targetEntity: Rapport::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $rapports;
 
     /**
@@ -154,20 +151,22 @@ class Animal
         return $this->rapports;
     }
 
-    public function addRapport(Rapport $rapport): static
+    public function addRapport(Rapport $rapport): self
     {
         if (!$this->rapports->contains($rapport)) {
             $this->rapports->add($rapport);
-            $rapport->addAnimaux($this);
+            $rapport->setAnimal($this);
         }
 
         return $this;
     }
 
-    public function removeRapport(Rapport $rapport): static
+    public function removeRapport(Rapport $rapport): self
     {
         if ($this->rapports->removeElement($rapport)) {
-            $rapport->removeAnimaux($this);
+            if ($rapport->getAnimal() === $this) {
+                $rapport->setAnimal(null);
+            }
         }
 
         return $this;

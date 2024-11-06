@@ -25,11 +25,9 @@ class Rapport
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $details = null;
 
-    /**
-     * @var Collection<int, Animal>
-     */
-    #[ORM\ManyToMany(targetEntity: Animal::class, inversedBy: 'rapports')]
-    private Collection $animaux;
+    #[ORM\ManyToOne(targetEntity: Animal::class, inversedBy: 'rapports')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Animal $animal = null;
 
     #[ORM\OneToOne(targetEntity: Alimentation::class, cascade: ['persist', 'remove'])]
     private ?Alimentation $alimentation = null;
@@ -37,11 +35,6 @@ class Rapport
     #[ORM\ManyToOne(inversedBy: 'rapports')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Utilisateur $utilisateur = null;
-
-    public function __construct()
-    {
-        $this->animaux = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -72,26 +65,14 @@ class Rapport
         return $this;
     }
 
-    /**
-     * @return Collection<int, Animal>
-     */
-    public function getAnimaux(): Collection
+    public function getAnimal(): ?Animal
     {
-        return $this->animaux;
+        return $this->animal;
     }
 
-    public function addAnimaux(Animal $animaux): static
+    public function setAnimal(?Animal $animal): self
     {
-        if (!$this->animaux->contains($animaux)) {
-            $this->animaux->add($animaux);
-        }
-
-        return $this;
-    }
-
-    public function removeAnimaux(Animal $animaux): static
-    {
-        $this->animaux->removeElement($animaux);
+        $this->animal = $animal;
 
         return $this;
     }
