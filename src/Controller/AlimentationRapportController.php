@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AlimentationRapportController extends AbstractController
 {
-    #[Route('/gestion', name: 'gestion_alimentation_rapport_index')]
+    #[Route('/gestion/rapport/alimentation', name: 'gestion_alimentation_rapport_index')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $alimentations = $entityManager->getRepository(Alimentation::class)->findAll();

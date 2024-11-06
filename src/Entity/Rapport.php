@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\RapportRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,11 +23,11 @@ class Rapport
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $details = null;
 
-    #[ORM\ManyToOne(targetEntity: Animal::class, inversedBy: 'rapports')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Animal::class, inversedBy: 'rapports', fetch: 'EAGER')]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Animal $animal = null;
 
-    #[ORM\OneToOne(targetEntity: Alimentation::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Alimentation::class, mappedBy: 'rapport', cascade: ['persist', 'remove'])]
     private ?Alimentation $alimentation = null;
 
     #[ORM\ManyToOne(inversedBy: 'rapports')]
@@ -84,6 +82,9 @@ class Rapport
 
     public function setAlimentation(?Alimentation $alimentation): self
     {
+        if ($alimentation && $alimentation->getRapport() !== $this) {
+            $alimentation->setRapport($this);
+        }
         $this->alimentation = $alimentation;
 
         return $this;

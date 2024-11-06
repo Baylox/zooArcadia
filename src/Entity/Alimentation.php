@@ -24,7 +24,8 @@ class Alimentation
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $commentaireVeterinaire = null;
 
-    #[ORM\OneToOne(mappedBy: 'alimentation', targetEntity: Rapport::class)]
+    #[ORM\OneToOne(targetEntity: Rapport::class, inversedBy: 'alimentation', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Rapport $rapport = null;
 
     public function getId(): ?int
