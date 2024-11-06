@@ -24,8 +24,7 @@ class Alimentation
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $commentaireVeterinaire = null;
 
-    #[ORM\ManyToOne(inversedBy: 'alimentations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(mappedBy: 'alimentation', targetEntity: Rapport::class)]
     private ?Rapport $rapport = null;
 
     public function getId(): ?int
@@ -74,7 +73,7 @@ class Alimentation
         return $this->rapport;
     }
 
-    public function setRapport(?Rapport $rapport): static
+    public function setRapport(?Rapport $rapport): self
     {
         $this->rapport = $rapport;
 
