@@ -5,9 +5,11 @@ namespace App\Form;
 use App\Entity\Animal;
 use App\Entity\Rapport;
 use App\Entity\Utilisateur;
+use App\Entity\Alimentation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +23,9 @@ class RapportType extends AbstractType
             ->add('dateRapport', null, [
                 'widget' => 'single_text',
             ])
-            ->add('details')
+            ->add('details', TextareaType::class, [
+                'required' => false,
+            ])
             ->add('animal', EntityType::class, [
                 'class' => Animal::class,
                 'choice_label' => 'prenom',
@@ -32,17 +36,20 @@ class RapportType extends AbstractType
                 'choice_label' => 'prenom',
             ])
 
-            // Champs de l'entité Alimentation directement inclus
-            ->add('nomNourriture', null, [
+            // Champs de l'entité Alimentation
+            ->add('nomNourriture', EntityType::class, [
+                'class' => Alimentation::class,
+                'choice_label' => 'nomNourriture',
                 'mapped' => false,
                 'label' => 'Nom de la Nourriture',
+                'placeholder' => 'Choisir un aliment',
             ])
             ->add('quantiteNourriture', NumberType::class, [
                 'mapped' => false,
                 'label' => 'Quantité de Nourriture',
                 'scale' => 2,
             ])
-            ->add('commentaireVeterinaire', null, [
+            ->add('commentaireVeterinaire', TextareaType::class, [
                 'mapped' => false,
                 'label' => 'Commentaire du Vétérinaire',
                 'required' => false,
@@ -56,4 +63,5 @@ class RapportType extends AbstractType
         ]);
     }
 }
+
 
