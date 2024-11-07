@@ -27,6 +27,8 @@ final class DashRapportController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $rapport = new Rapport();
+        $rapport->setDateRapport(new \DateTime()); // Définir la date d'aujourd'hui par défaut
+        
         $form = $this->createForm(RapportType::class, $rapport);
         $form->handleRequest($request);
 
