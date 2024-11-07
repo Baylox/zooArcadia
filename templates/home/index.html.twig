@@ -1,13 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Env/Workspace/Studi/zooArcadia/src/Controller/MainController.php</code></li>
-        <li>Your template at <code>C:/Env/Workspace/Studi/zooArcadia/templates/main/index.html.twig</code></li>
-    </ul>
+<div class="container">
+    <h1>Bienvenue au Zoo Arcadia</h1>
+    <p>Découvrez nos horaires d'ouverture :</p>
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>Jour</th>
+                <th>Heure d'ouverture</th>
+                <th>Heure de fermeture</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for horaire in horaires %}
+                <tr>
+                    <td>{{ horaire.jour }}</td>
+                    <td>{{ horaire.heureOuverture|date('H:i') }}</td>
+                    <td>{{ horaire.heureFermeture|date('H:i') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
