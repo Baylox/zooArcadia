@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'horaire{% endblock %}
+
+{% block body %}
+<h1>Modifier l'horaire - {{ horaire.jour }}</h1>
+
+{{ form_start(form) }}
+    <p><strong>Jour :</strong> {{ horaire.jour }}</p> {# Jour affiché mais non modifiable #}
+    {{ form_row(form.heureOuverture, {'label': "Heure d'ouverture"}) }}
+    {{ form_row(form.heureFermeture, {'label': "Heure de fermeture"}) }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+{{ form_end(form) }}
+
+<a href="{{ path('horaire_index') }}" class="btn btn-secondary mt-3">Retour à la liste des horaires</a>
+{% endblock %}
+

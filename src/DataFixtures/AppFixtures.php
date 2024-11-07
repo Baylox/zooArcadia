@@ -69,6 +69,7 @@ class AppFixtures extends Fixture {
 
 
         ServiceFactory::createMany(3);
+        
 
         $manager->flush();
     }

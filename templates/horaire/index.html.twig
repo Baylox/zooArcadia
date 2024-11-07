@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Horaires{% endblock %}
+
+{% block body %}
+<h1>Horaires</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Jour</th>
+            <th>Heure d'ouverture</th>
+            <th>Heure de fermeture</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for horaire in horaires %}
+            <tr>
+                <td>{{ horaire.jour }}</td>
+                <td>{{ horaire.heureOuverture }}</td>
+                <td>{{ horaire.heureFermeture }}</td>
+                <td>
+                    <a href="{{ path('horaire_edit', { id: horaire.id }) }}" class="btn btn-warning btn-sm">Modifier</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+
