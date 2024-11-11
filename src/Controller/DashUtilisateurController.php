@@ -34,7 +34,7 @@ final class DashUtilisateurController extends AbstractController
         $pagination = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1), // Page actuelle, indente d'1 à chaque next
-            12 // Nombre d'éléments par page
+            10 // Nombre d'éléments par page
         );
 
         return $this->render('dash_utilisateur/index.html.twig', [
@@ -123,7 +123,7 @@ final class DashUtilisateurController extends AbstractController
         $pagination = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1), 
-            12 // Nombre d'éléments par page
+            10 // Nombre d'éléments par page
         );
     
         return $this->render('dash_utilisateur/index.html.twig', [
