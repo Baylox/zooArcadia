@@ -15,18 +15,18 @@ class HoraireType extends AbstractType
     {
         $builder
         ->add('heureOuverture', TextType::class, [
-            'label' => 'Heure d\'ouverture (Heure:Minute)',
-            'attr' => ['placeholder' => 'Heure:Minute'],
+            'label' => 'Heure d\'ouverture (HH:MM)',
+            'attr' => ['placeholder' => 'HH:MM'],
             'constraints' => [
                 new Regex([
                     'pattern' => '/^(?:[01]\d|2[0-3]):[0-5]\d$/',
-                    'message' => 'Veuillez entrer une heure au format Heure.Minute.',
+                    'message' => 'Veuillez entrer une heure au format Heure:Minute.',
                 ]),
             ],
         ])
         ->add('heureFermeture', TextType::class, [
-            'label' => 'Heure de fermeture (Heure:Minute)',
-            'attr' => ['placeholder' => 'Heure:Minute'],
+            'label' => 'Heure de fermeture (HH:MM)',
+            'attr' => ['placeholder' => 'HH:MM'],
             'constraints' => [
                 new Regex([
                     'pattern' => '/^(?:[01]\d|2[0-3]):[0-5]\d$/',
