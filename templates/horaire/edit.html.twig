@@ -3,15 +3,37 @@
 {% block title %}Modifier l'horaire{% endblock %}
 
 {% block body %}
-<h1>Modifier l'horaire - {{ horaire.jour }}</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="mb-4 text-center">Modifier l'horaire - {{ horaire.jour }}</h1>
 
-{{ form_start(form) }}
-    <p><strong>Jour :</strong> {{ horaire.jour }}</p> {# Jour affiché mais non modifiable #}
-    {{ form_row(form.heureOuverture, {'label': "Heure d'ouverture"}) }}
-    {{ form_row(form.heureFermeture, {'label': "Heure de fermeture"}) }}
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
-{{ form_end(form) }}
+            {% if is_granted('ROLE_ADMIN') %}
+                {{ form_start(form, {'attr': {'class': 'form-horizontal shadow-sm p-4 rounded bg-white'}}) }}
+                    <div class="form-group mb-4">
+                        <p class="font-weight-bold"><strong>Jour :</strong> {{ horaire.jour }}</p> {# Jour affiché mais non modifiable #}
+                    </div>
+                    <div class="form-group mb-3">
+                        {{ form_row(form.heureOuverture, {'label': "Heure d'ouverture", 'attr': {'class': 'form-control shadow-sm'}}) }}
+                    </div>
+                    <div class="form-group mb-3">
+                        {{ form_row(form.heureFermeture, {'label': "Heure de fermeture", 'attr': {'class': 'form-control shadow-sm'}}) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 shadow">Enregistrer</button>
+                {{ form_end(form) }}
+            {% else %}
+                <p class="text-muted text-center">Vous n'êtes pas autorisé à modifier cet horaire.</p>
+            {% endif %}
 
-<a href="{{ path('horaire_index') }}" class="btn btn-secondary mt-3">Retour à la liste des horaires</a>
+            <a href="{{ path('horaire_index') }}" class="btn btn-secondary w-100 mt-4">Retour à la liste des horaires</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+
+
+
+
+
 

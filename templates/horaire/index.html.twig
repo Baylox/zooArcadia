@@ -21,12 +21,17 @@
                 <td>{{ horaire.heureOuverture }}</td>
                 <td>{{ horaire.heureFermeture }}</td>
                 <td>
-                    <a href="{{ path('horaire_edit', { id: horaire.id }) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('horaire_edit', { id: horaire.id }) }}" class="btn btn-secondary btn-sm">Modifier</a>
+                    {% else %}
+                        <span class="text-muted">Non autorisé</span>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
 {% endblock %}
+
 
 
