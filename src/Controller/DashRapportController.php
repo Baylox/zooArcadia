@@ -11,17 +11,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/dash/rapport')]
 final class DashRapportController extends AbstractController
 {
     #[Route(name: 'dashboard_rapport_index', methods: ['GET'])]
-    public function index(RapportRepository $rapportRepository): Response
-    {
+    public function index(RapportRepository $rapportRepository, Request $request, PaginatorInterface $paginator): Response
+    {   
+        // Création de la requête pour récupérer les rapports
+        $queryBuilder = $rapportRepository->createQueryBuilder('r');
+    
+        // Utilisation du paginator 
+        $pagination = $paginator->paginate(
+            $queryBuilder, 
+            $request->query->getInt('page', 1), 
+            10 
+        );
+    
         return $this->render('dashboard/rapport/index.html.twig', [
-            'rapports' => $rapportRepository->findAll(),
+            'pagination' => $pagination
         ]);
     }
+    
 
     #[Route('/new', name: 'dashboard_rapport_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
