@@ -1,38 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur{% endblock %}
+{% block title %}Détails de l'Utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Utilisateur</h1>
+<div class="container mt-5">
+    <h1 class="text-center display-6 mb-4 text-primary fw-bold">Détails de l'Utilisateur</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ utilisateur.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ utilisateur.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ utilisateur.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ utilisateur.prenom }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped shadow-sm">
+            <tbody>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ utilisateur.email }}</td>
+                </tr>
+                <tr>
+                    <th>Rôles</th>
+                    <td>{{ utilisateur.roles ? utilisateur.roles|join(', ') : 'Aucun rôle attribué' }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ utilisateur.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Prénom</th>
+                    <td>{{ utilisateur.prenom }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <a href="{{ path('app_dash_utilisateur_index') }}">Retour</a>
-
-    <a href="{{ path('app_dash_utilisateur_edit', {'id': utilisateur.id}) }}">Editer</a>
-
-    {{ include('dash_utilisateur/_delete_form.html.twig') }}
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{{ path('app_dash_utilisateur_index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour à la liste
+        </a>
+        
+        <a href="{{ path('app_dash_utilisateur_edit', {'id': utilisateur.id}) }}" class="btn btn-primary">
+            <i class="fas fa-edit"></i> Editer
+        </a>
+        
+        {{ include('dash_utilisateur/_delete_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}
+
