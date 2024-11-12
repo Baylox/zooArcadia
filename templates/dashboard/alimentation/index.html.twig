@@ -3,33 +3,55 @@
 {% block title %}Index de l'Alimentation{% endblock %}
 
 {% block body %}
-    <h1>Index de l'Alimentation</h1>
+<div class="container mt-5">
+    <h1 class="text-center display-6 mb-4 text-primary fw-bold">Liste de l'Alimentation (Type de Nourriture)</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom de la Nourriture</th>
-                <th>Commentaire du Vétérinaire</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for alimentation in alimentations %}
-            <tr>
-                <td>{{ alimentation.nomNourriture }}</td>
-                <td>{{ alimentation.commentaireVeterinaire }}</td>
-                <td>
-                    <a href="{{ path('dashboard_alimentation_show', {'id': alimentation.id}) }}">Voir</a>
-                    <a href="{{ path('dashboard_alimentation_edit', {'id': alimentation.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">Aucun enregistrement trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped shadow-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th><i class="fas fa-utensils"></i> Nom de la Nourriture</th>
+                    <th><i class="fas fa-comment-medical"></i> Commentaire du Vétérinaire</th>
+                    <th class="text-center"><i class="fas fa-cog"></i> Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alimentation in alimentations %}
+                    <tr>
+                        <td class="align-middle">{{ alimentation.nomNourriture }}</td>
+                        <td class="align-middle text-truncate" style="max-width: 200px;" title="{{ alimentation.commentaireVeterinaire }}">
+                            {{ alimentation.commentaireVeterinaire | slice(0, 100) }}{% if alimentation.commentaireVeterinaire | length > 100 %}...{% endif %}
+                        </td>
+                        <td class="align-middle text-center">
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="{{ path('dashboard_alimentation_show', {'id': alimentation.id}) }}" class="btn btn-secondary btn-sm" data-toggle="tooltip" title="Voir">
+                                    <i class="fas fa-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('dashboard_alimentation_edit', {'id': alimentation.id}) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Modifier">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">Aucun enregistrement trouvé</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <a href="{{ path('dashboard_alimentation_new') }}">Créer nouveau</a>
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{{ path('dashboard_rapport_index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour au menu des rapports
+        </a>
+        
+        <a href="{{ path('dashboard_alimentation_new') }}" class="btn btn-dark">
+            <i class="fas fa-plus"></i> Ajouter une nourriture
+        </a>
+    </div>
+</div>
 {% endblock %}
+
+
