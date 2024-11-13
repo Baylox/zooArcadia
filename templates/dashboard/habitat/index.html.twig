@@ -57,13 +57,16 @@
         </table>
     </div>
 
-    <div class="d-flex justify-content-between mt-4">
+<div class="d-flex justify-content-between align-items-center mt-4">
+    <div>
         {% include '_partials/_return.html.twig' %}
-        
+    </div>
+    <div>
         <a href="{{ path('dashboard_habitat_new') }}" class="btn btn-dark">
             <i class="fas fa-plus"></i> Ajouter un Nouvel Habitat
         </a>
     </div>
+</div>
 {% endblock %}
 
 
