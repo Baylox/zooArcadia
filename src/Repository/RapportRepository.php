@@ -22,15 +22,17 @@ class RapportRepository extends ServiceEntityRepository
      * @param Animal $animal
      * @return Rapport[]
      */
-    public function findByAnimal(Animal $animal): array
+    public function findByAnimalPrenom(string $prenom): array
     {
         return $this->createQueryBuilder('r')
-            ->where('r.animal = :animal')
-            ->setParameter('animal', $animal)
-            ->orderBy('r.dateRapport', 'DESC') // Optionnel : trie par date décroissante
+            ->join('r.animal', 'a')
+            ->where('a.prenom = :prenom')
+            ->setParameter('prenom', $prenom)
+            ->orderBy('r.dateRapport', 'DESC')
             ->getQuery()
             ->getResult();
     }
+    
     
     //    /**
     //     * @return Rapport[] Returns an array of Rapport objects

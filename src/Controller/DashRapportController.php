@@ -12,26 +12,63 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Repository\AnimalRepository;
 
 final class DashRapportController extends AbstractController
 {
     #[Route('dash/rapport', name: 'dashboard_rapport_index', methods: ['GET'])]
-    public function index(RapportRepository $rapportRepository, PaginatorInterface $paginator, Request $request): Response
+   // Injection de AnimalRepository pour récupérer la liste des animaux
+    public function index(RapportRepository $rapportRepository, AnimalRepository $animalRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        // Récupère tous les rapports avec une requête paginée
-        $query = $rapportRepository->createQueryBuilder('r')
-        ->orderBy('r.dateRapport', 'DESC')
-        ->getQuery();
+        // Récupère le prénom de l’animal sélectionné
+        $animalPrenom = $request->query->get('animalPrenom', null);
 
-        // Utilisation du paginator pour gérer la pagination
+        // Construire la requête pour les rapports
+        $queryBuilder = $rapportRepository->createQueryBuilder('r')
+            ->orderBy('r.dateRapport', 'DESC');
+
+        // Filtrer par animal si un prénom est fourni
+        if ($animalPrenom) {
+            $queryBuilder
+                ->join('r.animal', 'a')
+                ->where('a.prenom = :prenom')
+                ->setParameter('prenom', $animalPrenom);
+        }
+
+        $query = $queryBuilder->getQuery();
+
+        // Paginater les rapports
         $rapports = $paginator->paginate(
             $query, 
             $request->query->getInt('page', 1), 
-            10 
+            10
+        );
+
+        // Récupère la liste des animaux pour la sélection
+        $animaux = $animalRepository->findAll();
+
+        return $this->render('dashboard/rapport/index.html.twig', [
+            'rapports' => $rapports,
+            'animaux' => $animaux,
+            'selectedAnimalPrenom' => $animalPrenom,
+        ]);
+    }
+    
+    // Route pour afficher les rapports filtrés par prénom d'animal
+    #[Route('/dash/rapport/animal/{animalPrenom}', name: 'dashboard_rapport_animal_prenom', methods: ['GET'])]
+    public function byAnimalPrenom(string $animalPrenom, RapportRepository $rapportRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+        $query = $rapportRepository->findByAnimalPrenom($animalPrenom);
+
+        $rapports = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
         );
 
         return $this->render('dashboard/rapport/index.html.twig', [
             'rapports' => $rapports,
+            'selectedAnimalPrenom' => $animalPrenom,
         ]);
     }
 
@@ -134,6 +171,7 @@ final class DashRapportController extends AbstractController
 
         return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }
 
 
