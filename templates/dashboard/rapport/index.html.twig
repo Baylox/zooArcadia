@@ -130,12 +130,11 @@
         </nav>
     </div>
 
+    {% include '_partials/_return.html.twig' %}
+    
     {# Boutons de création, visibles seulement pour les vétérinaires ou les administrateurs #}
     {% if is_granted('ROLE_VETERINAIRE') %}
-        <div class="d-flex justify-content-between mt-4">
-            <a href="{{ path('dashboard_alimentation_new') }}" class="btn btn-dark">
-                <i class="fas fa-plus"></i> Ajouter une Nouvelle Alimentation
-            </a>
+        <div class="d-flex justify-content-between mt-4">          
             <a href="{{ path('dashboard_rapport_new') }}" class="btn btn-dark">
                 <i class="fas fa-plus"></i> Créer un Nouveau Rapport
             </a>
