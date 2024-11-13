@@ -11,29 +11,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/dash/rapport')]
 final class DashRapportController extends AbstractController
 {
     #[Route(name: 'dashboard_rapport_index', methods: ['GET'])]
-    public function index(RapportRepository $rapportRepository, Request $request, PaginatorInterface $paginator): Response
-    {   
-        // Création de la requête pour récupérer les rapports
-        $queryBuilder = $rapportRepository->createQueryBuilder('r');
-    
-        // Utilisation du paginator 
-        $pagination = $paginator->paginate(
-            $queryBuilder, 
-            $request->query->getInt('page', 1), 
-            10 
-        );
-    
+    public function index(RapportRepository $rapportRepository): Response
+    {
         return $this->render('dashboard/rapport/index.html.twig', [
-            'pagination' => $pagination
+            'rapports' => $rapportRepository->findAll(),
         ]);
     }
-    
 
     #[Route('/new', name: 'dashboard_rapport_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -45,23 +33,28 @@ final class DashRapportController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Vérification des données pour Alimentation
-            $nomNourriture = $form->get('nomNourriture')->getData();
-            $quantiteNourriture = $form->get('quantiteNourriture')->getData();
-            $commentaireVeterinaire = $form->get('commentaireVeterinaire')->getData();
-
-            // Création de l'alimentation si des données sont présentes
-            if ($nomNourriture || $quantiteNourriture || $commentaireVeterinaire) {
+            // Récupérer l'objet Alimentation sélectionné
+            $alimentationSelectionnee = $form->get('nomNourriture')->getData();
+            
+            if ($alimentationSelectionnee) {
+                $nomNourriture = $alimentationSelectionnee->getNomNourriture(); // Accès au nom de l'alimentation
+        
+                // Assurez-vous que la quantité et le commentaire sont récupérés correctement
+                $quantiteNourriture = $form->get('quantiteNourriture')->getData();
+                $commentaireVeterinaire = $form->get('commentaireVeterinaire')->getData();
+        
+                // Créez une instance d'Alimentation si nécessaire
                 $alimentation = new Alimentation();
                 $alimentation->setNomNourriture($nomNourriture);
                 $alimentation->setQuantiteNourriture($quantiteNourriture);
                 $alimentation->setCommentaireVeterinaire($commentaireVeterinaire);
-
-                // Associer l'alimentation au rapport
+        
+                // Liez l'alimentation au rapport et persistez-la
                 $rapport->setAlimentation($alimentation);
                 $entityManager->persist($alimentation);
             }
-
+        
+            // Persister le rapport
             $entityManager->persist($rapport);
             $entityManager->flush();
 
@@ -87,31 +80,35 @@ final class DashRapportController extends AbstractController
     {
         $form = $this->createForm(RapportType::class, $rapport);
         
-        // Pré-remplir les champs d'Alimentation si existante
         if ($rapport->getAlimentation()) {
-            $form->get('nomNourriture')->setData($rapport->getAlimentation()->getNomNourriture());
+            $form->get('nomNourriture')->setData($rapport->getAlimentation()); // Utilise l'objet Alimentation entier
             $form->get('quantiteNourriture')->setData($rapport->getAlimentation()->getQuantiteNourriture());
             $form->get('commentaireVeterinaire')->setData($rapport->getAlimentation()->getCommentaireVeterinaire());
         }
-
+        
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            // Gestion de l'entité Alimentation
-            $nomNourriture = $form->get('nomNourriture')->getData();
+            // Récupération des données pour l'entité Alimentation
+            $alimentationSelectionnee = $form->get('nomNourriture')->getData(); // Objet Alimentation sélectionné
             $quantiteNourriture = $form->get('quantiteNourriture')->getData();
             $commentaireVeterinaire = $form->get('commentaireVeterinaire')->getData();
-
+        
+            // Utiliser l'alimentation sélectionnée ou en créer une nouvelle
             $alimentation = $rapport->getAlimentation() ?: new Alimentation();
-            $alimentation->setNomNourriture($nomNourriture);
+        
+            // Mettre à jour les champs d'Alimentation
+            $alimentation->setNomNourriture($alimentationSelectionnee->getNomNourriture());
             $alimentation->setQuantiteNourriture($quantiteNourriture);
             $alimentation->setCommentaireVeterinaire($commentaireVeterinaire);
-
+        
+            // Associer l'alimentation au rapport et la persister si nouvelle
             if (!$rapport->getAlimentation()) {
                 $rapport->setAlimentation($alimentation);
                 $entityManager->persist($alimentation);
             }
-
+        
+            $entityManager->persist($rapport);
             $entityManager->flush();
 
             return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
