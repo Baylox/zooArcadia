@@ -13,10 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Service\UploaderImage;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/dash/animal')]
+#[IsGranted('ROLE_EMPLOYE')]
 final class DashAnimalController extends AbstractController
-{
+{   
+
     #[Route(name: 'dashboard_animal_index', methods: ['GET'])]
     public function index(AnimalRepository $animalRepository): Response
     {
@@ -24,8 +27,9 @@ final class DashAnimalController extends AbstractController
             'animals' => $animalRepository->findAll(),
         ]);
     }
-
+    
     #[Route('/new', name: 'dashboard_animal_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
     {
         $animal = new Animal();
@@ -65,6 +69,7 @@ final class DashAnimalController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'dashboard_animal_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Animal $animal, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
     {
         $form = $this->createForm(AnimalType::class, $animal);
@@ -103,6 +108,7 @@ final class DashAnimalController extends AbstractController
     
 
     #[Route('/{id}', name: 'dashboard_animal_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Animal $animal, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$animal->getId(), $request->getPayload()->getString('_token'))) {
