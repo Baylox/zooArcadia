@@ -8,9 +8,8 @@ security:
 
     
     role_hierarchy:
-        ROLE_EMPLOYE: [ROLE_EMPLOYE]
-        ROLE_VETERINAIRE: [ROLE_VETERINAIRE, ROLE_EMPLOYE]
-        ROLE_ADMIN: [ROLE_ADMIN, ROLE_VETERINAIRE, ROLE_EMPLOYE]
+        ROLE_VETERINAIRE: [ROLE_EMPLOYE]
+        ROLE_ADMIN: [ROLE_VETERINAIRE]
         
     providers:
         # used to reload user from session & other features (e.g. switch_user)
