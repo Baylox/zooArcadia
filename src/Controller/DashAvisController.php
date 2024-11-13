@@ -8,7 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use App\Document\Avis;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_EMPLOYE')]
 class DashAvisController extends AbstractController
 {
     #[Route('/dash/avis', name: 'dashboard_avis')]
