@@ -73,7 +73,7 @@
                         </td>
                         <td class="align-middle">
                             {% if rapport.alimentation %}
-                                {{ rapport.alimentation.commentaireVeterinaire }}
+                                {{ rapport.alimentation.commentaireVeterinaire|length > 40 ? rapport.alimentation.commentaireVeterinaire|slice(0, 40) ~ '...' : rapport.alimentation.commentaireVeterinaire }}
                             {% else %}
                                 <em>Aucun commentaire</em>
                             {% endif %}
