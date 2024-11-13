@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AvisController extends AbstractController
 {
     #[Route('/avis', name: 'app_avis')]
+    
     public function index(Request $request, DocumentManager $dm): Response
     {
         $avis = new Avis();
