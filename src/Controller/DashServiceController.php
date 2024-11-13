@@ -12,8 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 #[Route('/dash/service')]
+#[IsGranted('ROLE_EMPLOYE')]
 final class DashServiceController extends AbstractController
 {
     #[Route(name: 'dashboard_service_index', methods: ['GET'])]
