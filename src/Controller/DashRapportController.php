@@ -11,30 +11,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 final class DashRapportController extends AbstractController
 {
-    #[Route('/dash/rapport', name: 'dashboard_rapport_index', methods: ['GET'])]
-    public function index(RapportRepository $rapportRepository, Request $request): Response
+    #[Route('dash/rapport', name: 'dashboard_rapport_index', methods: ['GET'])]
+    public function index(RapportRepository $rapportRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        // Page actuelle (par défaut, 1)
-        $page = $request->query->getInt('page', 1);
-        // Limite d'éléments par page
-        $limit = 10;
-        // Calcul de l'offset en fonction de la page
-        $offset = ($page - 1) * $limit;
-        $rapports = $rapportRepository->findBy([], null, $limit, $offset);
-    
-        // Total de rapports pour calculer le nombre de pages
-        $totalRapports = $rapportRepository->count([]);
-    
-        // Calcul du nombre total de pages
-        $totalPages = ceil($totalRapports / $limit);
-    
+        // Récupère tous les rapports avec une requête paginée
+        $query = $rapportRepository->createQueryBuilder('r')
+        ->orderBy('r.dateRapport', 'DESC')
+        ->getQuery();
+
+        // Utilisation du paginator pour gérer la pagination
+        $rapports = $paginator->paginate(
+            $query, 
+            $request->query->getInt('page', 1), 
+            10 
+        );
+
         return $this->render('dashboard/rapport/index.html.twig', [
-            'rapports' => $rapports,       
-            'totalPages' => $totalPages,    // Nombre total de pages
-            'currentPage' => $page,         // Page actuelle
+            'rapports' => $rapports,
         ]);
     }
 

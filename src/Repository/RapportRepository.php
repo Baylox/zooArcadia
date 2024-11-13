@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Rapport;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use App\Entity\Animal;
 /**
  * @extends ServiceEntityRepository<Rapport>
  */
@@ -16,6 +16,22 @@ class RapportRepository extends ServiceEntityRepository
         parent::__construct($registry, Rapport::class);
     }
 
+        /**
+     * Récupère les rapports associés à un animal spécifique.
+     *
+     * @param Animal $animal
+     * @return Rapport[]
+     */
+    public function findByAnimal(Animal $animal): array
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.animal = :animal')
+            ->setParameter('animal', $animal)
+            ->orderBy('r.dateRapport', 'DESC') // Optionnel : trie par date décroissante
+            ->getQuery()
+            ->getResult();
+    }
+    
     //    /**
     //     * @return Rapport[] Returns an array of Rapport objects
     //     */

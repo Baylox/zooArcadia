@@ -85,29 +85,31 @@
         </table>
     </div>
 
+    {# Contrôle pour la Pagination #}
     <div class="d-flex justify-content-center mt-4">
         <nav>
             <ul class="pagination">
-                {% if currentPage > 1 %}
+                {% if rapports.currentPageNumber > 1 %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ path('dashboard_rapport_index', {'page': currentPage - 1}) }}">Précédent</a>
+                        <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': rapports.currentPageNumber - 1})) }}">Précédent</a>
                     </li>
                 {% endif %}
 
-                {% for page in 1..totalPages %}
-                    <li class="page-item {{ page == currentPage ? 'active' : '' }}">
-                        <a class="page-link" href="{{ path('dashboard_rapport_index', {'page': page}) }}">{{ page }}</a>
+                {% for page in 1..rapports.pageCount %}
+                    <li class="page-item {{ page == rapports.currentPageNumber ? 'active' : '' }}">
+                        <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': page})) }}">{{ page }}</a>
                     </li>
                 {% endfor %}
 
-                {% if currentPage < totalPages %}
+                {% if rapports.currentPageNumber < rapports.pageCount %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ path('dashboard_rapport_index', {'page': currentPage + 1}) }}">Suivant</a>
+                        <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': rapports.currentPageNumber + 1})) }}">Suivant</a>
                     </li>
                 {% endif %}
             </ul>
         </nav>
     </div>
+
 
 
     <div class="d-flex justify-content-between mt-4">
