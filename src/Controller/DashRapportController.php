@@ -16,7 +16,7 @@ use App\Repository\AnimalRepository;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/dashboard/rapport')]
-#[IsGranted('ROLE_ADMIN')]
+#[IsGranted('ROLE_EMPLOYE')]
 class DashRapportController extends AbstractController
 {
     #[Route('/', name: 'dashboard_rapport_index', methods: ['GET'])]
@@ -75,6 +75,7 @@ class DashRapportController extends AbstractController
     }
 
     #[Route('/new', name: 'dashboard_rapport_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_VETERINAIRE')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $rapport = new Rapport();
@@ -121,6 +122,7 @@ class DashRapportController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'dashboard_rapport_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_VETERINAIRE')]
     public function edit(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(RapportType::class, $rapport);
@@ -161,6 +163,7 @@ class DashRapportController extends AbstractController
     }
 
     #[Route('/{id}', name: 'dashboard_rapport_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')] // Restriction : seuls les administrateurs peuvent supprimer un rapport
     public function delete(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$rapport->getId(), $request->request->get('_token'))) {

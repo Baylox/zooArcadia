@@ -11,7 +11,7 @@ class DashEmployeController extends AbstractController
     #[Route('/dash/employe', name: 'app_dash_employe')]
     public function index(): Response
     {
-        return $this->render('dashboard/dash_employe/index.html.twig', [
+        return $this->render('dashboard/menudashboard/index.html.twig', [
             'controller_name' => 'DashEmployeController',
         ]);
     }
