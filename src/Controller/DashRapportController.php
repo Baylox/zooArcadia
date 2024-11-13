@@ -13,11 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\AnimalRepository;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-final class DashRapportController extends AbstractController
+#[Route('/dashboard/rapport')]
+#[IsGranted('ROLE_ADMIN')]
+class DashRapportController extends AbstractController
 {
-    #[Route('dash/rapport', name: 'dashboard_rapport_index', methods: ['GET'])]
-   // Injection de AnimalRepository pour récupérer la liste des animaux
+    #[Route('/', name: 'dashboard_rapport_index', methods: ['GET'])]
     public function index(RapportRepository $rapportRepository, AnimalRepository $animalRepository, PaginatorInterface $paginator, Request $request): Response
     {
         // Récupère le prénom de l’animal sélectionné
@@ -27,7 +29,7 @@ final class DashRapportController extends AbstractController
         $queryBuilder = $rapportRepository->createQueryBuilder('r')
             ->orderBy('r.dateRapport', 'DESC');
 
-        // Filtrer par animal si un prénom est fourni
+        // Filtrer par animal avec la selection d'un animal
         if ($animalPrenom) {
             $queryBuilder
                 ->join('r.animal', 'a')
@@ -55,7 +57,7 @@ final class DashRapportController extends AbstractController
     }
     
     // Route pour afficher les rapports filtrés par prénom d'animal
-    #[Route('/dash/rapport/animal/{animalPrenom}', name: 'dashboard_rapport_animal_prenom', methods: ['GET'])]
+    #[Route('/animal/{animalPrenom}', name: 'dashboard_rapport_animal_prenom', methods: ['GET'])]
     public function byAnimalPrenom(string $animalPrenom, RapportRepository $rapportRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $query = $rapportRepository->findByAnimalPrenom($animalPrenom);
@@ -171,7 +173,6 @@ final class DashRapportController extends AbstractController
 
         return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
     }
-
 }
 
 
