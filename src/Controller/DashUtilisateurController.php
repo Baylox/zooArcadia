@@ -139,7 +139,7 @@ final class DashUtilisateurController extends AbstractController
         $pagination = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1),
-            12 
+            10 
         );
     
         return $this->render('dash_utilisateur/index.html.twig', [
