@@ -1,4 +1,3 @@
-<!--HEADER START-->
 <header>
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
@@ -30,8 +29,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_dash_admin') }}">Dashboard Admin</a>
                             </li>
-                        {% endif %}
-                        {% if is_granted('ROLE_EMPLOYE') %}
+                        {% elseif is_granted('ROLE_EMPLOYE') %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_dash_employe') }}">Dashboard Employé</a>
                             </li>
@@ -48,7 +46,6 @@
             </div>
         </div>
     </nav>
-    <!--NAVBAR END-->
 </header>
 <!--HEADER END-->
 

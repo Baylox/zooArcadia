@@ -1,11 +1,12 @@
-<div class="d-flex justify-content-between mt-4">
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_dash_admin') }}" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Retour au dashboard Admin
-        </a>
-    {% elseif is_granted('ROLE_EMPLOYE') %}
-        <a href="{{ path('app_dash_employe') }}" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Retour au dashboard Employé
-        </a>
-    {% endif %}
-</div>
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('app_dash_admin') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Retour au dashboard Admin
+    </a>
+{% elseif is_granted('ROLE_EMPLOYE') %}
+    <a href="{{ path('app_dash_employe') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Retour au dashboard Employé
+    </a>
+{% endif %}
+
+
+
