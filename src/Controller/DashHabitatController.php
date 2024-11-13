@@ -16,8 +16,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[IsGranted('ROLE_VETERINAIRE')]
+
 #[Route('/dashboard/habitat')]
+#[IsGranted('ROLE_VETERINAIRE')]
 final class DashHabitatController extends AbstractController
 {
     #[Route(name: 'dashboard_habitat_index', methods: ['GET'])]

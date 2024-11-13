@@ -15,8 +15,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Service\EmailService;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted('ROLE_ADMIN')]
 #[Route('/dash/utilisateur')]
+#[IsGranted('ROLE_ADMIN')]
 final class DashUtilisateurController extends AbstractController
 {
     private $emailService;

@@ -13,8 +13,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 #[Route('/dash/image')]
+#[IsGranted('ROLE_ADMIN')]
 class ImageController extends AbstractController
 {
     #[Route('/animal/{id}/list', name: 'dashboard_image_list', methods: ['GET'])]
