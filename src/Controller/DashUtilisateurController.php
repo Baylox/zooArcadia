@@ -14,6 +14,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Service\EmailService;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Form\UtilisateurCreationType;
 
 #[Route('/dash/utilisateur')]
 #[IsGranted('ROLE_ADMIN')]
@@ -47,27 +48,27 @@ final class DashUtilisateurController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $utilisateur = new Utilisateur();
-        $form = $this->createForm(UtilisateurType::class, $utilisateur);
+        $form = $this->createForm(UtilisateurCreationType::class, $utilisateur);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            // Hacher le mot de passe avant de l'enregistrer
-            $hashedPassword = $this->passwordHasher->hashPassword($utilisateur, $utilisateur->getPassword());
+            // Hacher un mot de passe par défaut ou généré si nécessaire
+            $hashedPassword = $this->passwordHasher->hashPassword($utilisateur, 'motdepassepardefaut');
             $utilisateur->setPassword($hashedPassword);
-
+    
             $entityManager->persist($utilisateur);
             $entityManager->flush();
-
-            // Envoyer l'email de bienvenue
+    
             $this->emailService->sendWelcomeEmail($utilisateur->getEmail());
-
+    
             return $this->redirectToRoute('app_dash_utilisateur_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('dash_utilisateur/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+    
 
     #[Route('/{id}', name: 'app_dash_utilisateur_show', methods: ['GET'])]
     public function show(Utilisateur $utilisateur): Response
