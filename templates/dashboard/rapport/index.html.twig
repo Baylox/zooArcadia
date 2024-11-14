@@ -13,6 +13,14 @@
 
     <h1 class="text-center mb-4">Liste des Rapports et Alimentation</h1>
 
+    <!-- Options de tri par date -->
+    <div class="d-flex justify-content-end mb-4">
+        <a href="{{ path('dashboard_rapport_index', app.request.query.all | merge({'order': 'ASC'})) }}" 
+            class="btn btn-outline-secondary {{ currentOrder == 'ASC' ? 'active' : '' }}">Tri croissant</a>
+        <a href="{{ path('dashboard_rapport_index', app.request.query.all | merge({'order': 'DESC'})) }}" 
+            class="btn btn-outline-secondary {{ currentOrder == 'DESC' ? 'active' : '' }}">Tri décroissant</a>
+    </div>
+
     {# Formulaire de sélection d'animal #}
     <form method="get" action="{{ path('dashboard_rapport_index') }}" class="mb-4">
         <div class="form-group">
@@ -29,7 +37,7 @@
         <button type="submit" class="btn btn-primary mt-2">Filtrer</button>
     </form>
 
-    
+
     
     {# Tableau des rapports animaliers #}
     <div class="table-responsive">
@@ -50,7 +58,7 @@
                 {% for rapport in rapports %}
                     <tr>
                         <td class="align-middle">{{ rapport.titre }}</td>
-                        <td class="align-middle">{{ rapport.dateRapport ? rapport.dateRapport|date('Y-m-d') : '' }}</td>
+                        <td class="align-middle">{{ rapport.dateRapport ? rapport.dateRapport|date('d-m-Y') : '' }}</td>
                         <td class="align-middle">
                             {% if rapport.animal %}
                                 {{ rapport.animal.prenom }}
@@ -140,12 +148,6 @@
             </a>
         {% endif %}
     </div>
-
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
 {% endblock %}
 
 

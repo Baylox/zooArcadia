@@ -24,10 +24,11 @@ class DashRapportController extends AbstractController
     {
         // Récupère le prénom de l’animal sélectionné
         $animalPrenom = $request->query->get('animalPrenom', null);
+        $order = $request->query->get('order', 'DESC'); // Tri par défaut : décroissant
 
         // Construire la requête pour les rapports
         $queryBuilder = $rapportRepository->createQueryBuilder('r')
-            ->orderBy('r.dateRapport', 'DESC');
+            ->orderBy('r.dateRapport', $order); // Utilise order pour trier
 
         // Filtrer par animal avec la selection d'un animal
         if ($animalPrenom) {
@@ -53,6 +54,7 @@ class DashRapportController extends AbstractController
             'rapports' => $rapports,
             'animaux' => $animaux,
             'selectedAnimalPrenom' => $animalPrenom,
+            'currentOrder' => $order, // Passer l'ordre actuel au template
         ]);
     }
     
