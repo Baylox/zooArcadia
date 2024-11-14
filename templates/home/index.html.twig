@@ -3,35 +3,79 @@
 {% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
-    {# Inclure le composant hero en dehors du conteneur pour qu'il prenne toute la largeur #}
+    {# Hero section en dehors du container pour occuper toute la largeur #}
     {% include '_partials/_hero.html.twig' with {
         intro_text: 'Bienvenue au Zoo Arcadia',
         title: 'Découvrez la faune sauvage',
         button_text: 'En savoir plus',
-        button_link: path('app_service') 
+        button_link: path('app_service')
     } %}
 
-    <div class="container">
-        <h1>Bienvenue au Zoo Arcadia</h1>
-        <p>Découvrez nos horaires d'ouverture :</p>
-        <table class="table text-center">
-            <thead>
-                <tr>
-                    <th>Jour</th>
-                    <th>Heure d'ouverture</th>
-                    <th>Heure de fermeture</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for horaire in horaires %}
+    <div class="container my-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4 text-primary">Bienvenue au Zoo Arcadia</h1>
+            <p class="lead text-muted">
+                <i class="fas fa-leaf text-success"></i> 
+                <span>Zoo Arcadia vous accueille près de la forêt de Brocéliande depuis 1960.</span>
+                <i class="fas fa-seedling text-success"></i>
+            </p>
+        </div>
+
+        <h2 class="mt-5 text-secondary text-center"><i class="fas fa-paw"></i> Nos habitats</h2>
+        <div class="row text-center mt-4">
+            <div class="col-md-4">
+                <i class="fas fa-sun fa-3x text-warning mb-3"></i>
+                <h4 class="text-uppercase">Savane</h4>
+                <p>Un espace vaste et ensoleillé pour nos grands fauves.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-tree fa-3x text-success mb-3"></i>
+                <h4 class="text-uppercase">Forêt tropicale</h4>
+                <p>Un habitat dense et humide abritant de nombreuses espèces.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-water fa-3x text-info mb-3"></i>
+                <h4 class="text-uppercase">Marais</h4>
+                <p>Un environnement aquatique unique pour nos espèces marécageuses.</p>
+            </div>
+        </div>
+
+        <h2 class="mt-5 text-secondary text-center"><i class="fas fa-clock"></i> Nos horaires d'ouverture</h2>
+        <p class="text-center mb-4">Nous sommes ouverts tous les jours pour vous accueillir.</p>
+        
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered text-center">
+                <thead class="thead-dark">
                     <tr>
-                        <td>{{ horaire.jour }}</td>
-                        <td>{{ horaire.heureOuverture|date('H:i') }}</td>
-                        <td>{{ horaire.heureFermeture|date('H:i') }}</td>
+                        <th><i class="fas fa-calendar-day"></i> Jour</th>
+                        <th><i class="fas fa-door-open"></i> Heure d'ouverture</th>
+                        <th><i class="fas fa-door-closed"></i> Heure de fermeture</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for horaire in horaires %}
+                        <tr>
+                            <td>{{ horaire.jour }}</td>
+                            <td>{{ horaire.heureOuverture|date('H:i') }}</td>
+                            <td>{{ horaire.heureFermeture|date('H:i') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="mt-5 text-secondary text-center"><i class="fas fa-comments"></i> Avis des visiteurs</h2>
+        <p class="text-center">
+            <i class="fas fa-star text-warning"></i> 
+            Partagez votre expérience et consultez les avis de nos visiteurs pour découvrir leurs moments inoubliables au Zoo Arcadia.
+        </p>
+
+        <div class="text-center mt-5">
+            <a href="{{ path('app_service') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-info-circle"></i> Préparez votre visite
+            </a>
+        </div>
     </div>
 {% endblock %}
+
 
