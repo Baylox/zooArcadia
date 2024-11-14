@@ -4,6 +4,14 @@
 
 {% block body %}
 <div class="container">
+    {# Inclure le composant hero #}
+    {% include '_partials/_hero.html.twig' with {
+        intro_text: 'Bienvenue au Zoo Arcadia',
+        title: 'Découvrez la faune sauvage',
+        button_text: 'En savoir plus',
+        button_link: path('app_service') 
+    } %}
+    
     <h1>Bienvenue au Zoo Arcadia</h1>
     <p>Découvrez nos horaires d'ouverture :</p>
     <table class="table text-center">
