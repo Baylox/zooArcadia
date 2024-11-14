@@ -28,11 +28,6 @@ body {
 
 main {
   flex: 1;
-  padding: 20px;
-}
-
-footer.footer {
-  margin-top: auto;
 }
 
 .navbar {
@@ -66,6 +61,7 @@ footer.footer {
 .footer {
   background-color: #A1AA75;
   color: #ffffff;
+  margin-top: 20px;
 }
 .footer .footer-hours {
   background-color: #E0D05C;
@@ -145,6 +141,32 @@ footer.footer {
 }
 .my-form button[type=submit]:hover {
   background-color: #89925a;
+}
+
+.hero-scene {
+  position: relative;
+}
+.hero-scene::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/hero.jpg);
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6);
+}
+.hero-scene * {
+  position: relative;
+}
+.hero-scene .hero-scene-content {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /*!
