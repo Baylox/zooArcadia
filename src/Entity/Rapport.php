@@ -31,7 +31,7 @@ class Rapport
     private ?Alimentation $alimentation = null;
 
     #[ORM\ManyToOne(inversedBy: 'rapports')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Utilisateur $utilisateur = null;
 
     public function getId(): ?int
