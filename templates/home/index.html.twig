@@ -22,41 +22,57 @@
         </div>
     </div>
 
-    <section id="habitats-carousel" class="my-5">
-        <div id="habitatCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="{{ asset('images/habitats/Marais.jpeg') }}" class="d-block w-100 carousel-image" alt="Marais">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Marais</h5>
-                        <p>Un habitat humide et luxuriant abritant tortues, amphibiens, et oiseaux aquatiques.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('images/habitats/pictureJungle.jpg') }}" class="d-block w-100 carousel-image" alt="Jungle">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Jungle</h5>
-                        <p>Une forêt dense avec des plantes exotiques et des animaux fascinants.</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('images/habitats/Savane.jpeg') }}" class="d-block w-100 carousel-image" alt="Savane">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Savane</h5>
-                        <p>Une vaste prairie ouverte avec des acacias et une faune emblématique.</p>
-                    </div>
+{# Habitats présentation #}
+<section id="habitats-carousel" class="my-5">
+    <div id="habitatCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- Marais -->
+            <div class="carousel-item active">
+                <img src="{{ asset('images/habitats/Marais.jpeg') }}" class="d-block w-100 carousel-image" alt="Marais">
+                <div class="carousel-caption d-none d-md-block caption-bg">
+                    <h5>Le Marais</h5>
+                    <p>Un habitat humide et luxuriant abritant tortues, amphibiens, et oiseaux aquatiques.</p>
+                    <p>
+                        <strong>Flore :</strong> Roseaux, nénuphars, cypéracées et graminées aquatiques.
+                    </p>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#habitatCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#habitatCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            <!-- Jungle -->
+            <div class="carousel-item">
+                <img src="{{ asset('images/habitats/pictureJungle.jpg') }}" class="d-block w-100 carousel-image" alt="Jungle">
+                <div class="carousel-caption d-none d-md-block caption-bg">
+                    <h5>La Jungle</h5>
+                    <p>Une forêt dense avec des plantes exotiques et des animaux fascinants dans leur habitat naturel.</p>
+                    <p>
+                        <strong>Flore :</strong> Lianes, fougères géantes, orchidées et arbres à haute canopée.
+                    </p>
+                </div>
+            </div>
+            <!-- Savane -->
+            <div class="carousel-item">
+                <img src="{{ asset('images/habitats/Savane.jpeg') }}" class="d-block w-100 carousel-image" alt="Savane">
+                <div class="carousel-caption d-none d-md-block caption-bg">
+                    <h5>La Savane</h5>
+                    <p>Une vaste prairie ouverte avec des acacias et une faune emblématique de la savane africaine.</p>
+                    <p>
+                        <strong>Flore :</strong> Herbes hautes, acacias et baobabs.
+                    </p>
+                </div>
+            </div>
         </div>
-    </section>
+        <button class="carousel-control-prev" type="button" data-bs-target="#habitatCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#habitatCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+
+
+
 
     <div class="container my-5">
         <h2 class="mt-5 text-secondary text-center"><i class="fas fa-clock"></i> Nos horaires d'ouverture</h2>
