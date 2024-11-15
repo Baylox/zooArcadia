@@ -1,0 +1,26 @@
+// Styles pour les images du carousel
+.carousel-image {
+    height: 500px;
+    object-fit: cover;
+}
+
+// Style pour le carousel
+#habitats-carousel .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.7); // Augmente l'opacité du fond
+    color: #ffffff; // Couleur de texte blanche pour la lisibilité
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%; // Pour ne pas prendre toute la largeur
+    margin: auto; // Centre la légende
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); // Ajoute une ombre pour le texte
+}
+
+.carousel-caption h5 {
+    font-size: 2rem; // Augmente la taille du titre
+    font-weight: bold;
+}
+
+.carousel-caption p {
+    font-size: 1.2rem; // Augmente la taille du paragraphe
+    line-height: 1.5; // Améliore l'espacement des lignes
+}

@@ -5,9 +5,9 @@
 {% block body %}
     {# Hero section en dehors du container pour occuper toute la largeur #}
     {% include '_partials/_hero.html.twig' with {
-        intro_text: 'Bienvenue au Zoo Arcadia',
-        title: 'Découvrez la faune sauvage',
-        button_text: 'En savoir plus',
+        intro_text: 'Plongez dans un monde sauvage et captivant',
+        title: 'Explorez le Zoo Arcadia',
+        button_text: 'Préparez votre visite',
         button_link: path('app_service')
     } %}
 
@@ -16,30 +16,49 @@
             <h1 class="display-4 text-primary">Bienvenue au Zoo Arcadia</h1>
             <p class="lead text-muted">
                 <i class="fas fa-leaf text-success"></i> 
-                <span>Zoo Arcadia vous accueille près de la forêt de Brocéliande depuis 1960.</span>
+                Arcadia vous accueille près de la forêt de Brocéliande depuis 1960.
                 <i class="fas fa-seedling text-success"></i>
             </p>
         </div>
+    </div>
 
-        <h2 class="mt-5 text-secondary text-center"><i class="fas fa-paw"></i> Nos habitats</h2>
-        <div class="row text-center mt-4">
-            <div class="col-md-4">
-                <i class="fas fa-sun fa-3x text-warning mb-3"></i>
-                <h4 class="text-uppercase">Savane</h4>
-                <p>Un espace vaste et ensoleillé pour nos grands fauves.</p>
+    <section id="habitats-carousel" class="my-5">
+        <div id="habitatCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{{ asset('images/habitats/Marais.jpeg') }}" class="d-block w-100 carousel-image" alt="Marais">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Marais</h5>
+                        <p>Un habitat humide et luxuriant abritant tortues, amphibiens, et oiseaux aquatiques.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('images/habitats/pictureJungle.jpg') }}" class="d-block w-100 carousel-image" alt="Jungle">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Jungle</h5>
+                        <p>Une forêt dense avec des plantes exotiques et des animaux fascinants.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('images/habitats/Savane.jpeg') }}" class="d-block w-100 carousel-image" alt="Savane">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Savane</h5>
+                        <p>Une vaste prairie ouverte avec des acacias et une faune emblématique.</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <i class="fas fa-tree fa-3x text-success mb-3"></i>
-                <h4 class="text-uppercase">Forêt tropicale</h4>
-                <p>Un habitat dense et humide abritant de nombreuses espèces.</p>
-            </div>
-            <div class="col-md-4">
-                <i class="fas fa-water fa-3x text-info mb-3"></i>
-                <h4 class="text-uppercase">Marais</h4>
-                <p>Un environnement aquatique unique pour nos espèces marécageuses.</p>
-            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#habitatCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#habitatCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
+    </section>
 
+    <div class="container my-5">
         <h2 class="mt-5 text-secondary text-center"><i class="fas fa-clock"></i> Nos horaires d'ouverture</h2>
         <p class="text-center mb-4">Nous sommes ouverts tous les jours pour vous accueillir.</p>
         

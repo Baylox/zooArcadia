@@ -12245,4 +12245,25 @@ textarea.form-control-lg {
 }
 .card .card-content form button:hover {
   background-color: #c9302c;
+}
+
+.carousel-image {
+  height: 500px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+#habitats-carousel .carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.carousel-caption h5, .carousel-caption .h5 {
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.carousel-caption p {
+  font-size: 1rem;
 }/*# sourceMappingURL=app.css.map */

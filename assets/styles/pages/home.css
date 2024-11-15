@@ -1,0 +1,25 @@
+.carousel-image {
+  height: 500px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+#habitats-carousel .carousel-caption {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 80%;
+  margin: auto;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.carousel-caption h5 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.carousel-caption p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}/*# sourceMappingURL=home.css.map */
