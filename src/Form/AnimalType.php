@@ -34,7 +34,7 @@ class AnimalType extends AbstractType
                 'choice_label' => 'nom',
             ])
             ->add('image', FileType::class, [
-                'label' => 'Image (fichier PNG ou JPEG)',
+                'label' => 'Image (fichier PNG, JPEG, JPG ou WEBP)',
                 'mapped' => false, // Le fichier est traité manuellement
                 'required' => false,
                 'constraints' => [
@@ -43,6 +43,8 @@ class AnimalType extends AbstractType
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg',
+                            'image/jpg',
+                            'image/webp'
                         ],
                         'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
                     ]),

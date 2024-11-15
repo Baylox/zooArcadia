@@ -27,6 +27,8 @@ class HabitatType extends AbstractType
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg',
+                            'image/jpg',
+                            'image/webp'
                         ],
                         'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
                     ]),

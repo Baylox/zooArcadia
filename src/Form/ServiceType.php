@@ -17,7 +17,7 @@ class ServiceType extends AbstractType
             ->add('nom')
             ->add('description')
             ->add('image', FileType::class, [
-                'label' => 'Image (fichier PNG ou JPEG)',
+                'label' => 'Image (fichier PNG, JPEG, JPG, WEBP)',
                 'mapped' => false, // Le fichier est traité manuellement
                 'required' => false,
                 'constraints' => [
@@ -26,6 +26,8 @@ class ServiceType extends AbstractType
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg',
+                            'image/jpg',
+                            'image/webp'
                         ],
                         'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
                     ]),
