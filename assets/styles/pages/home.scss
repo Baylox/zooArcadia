@@ -39,3 +39,13 @@
 .carousel-control-next {
     width: 5%; /* Réduire la zone cliquable si elle est trop large */
 }
+
+// Map
+
+.map-container {
+    iframe {
+        width: 100%;
+        height: 450px;
+        border: 0;
+    }
+}
