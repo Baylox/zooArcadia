@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    {# Habitats présentation #}
+    {# Section Habitats présentation #}
     <section id="habitats-carousel" class="my-5">
         <div id="habitatCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -65,43 +65,53 @@
         </div>
     </section>
 
-    <div class="container my-5">
-        <h2 class="mt-5 text-secondary text-center"><i class="fas fa-clock"></i> Nos horaires d'ouverture</h2>
-        <p class="text-center mb-4">Nous sommes ouverts tous les jours pour vous accueillir.</p>
-        
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered text-center">
-                <thead class="thead-dark">
-                    <tr>
-                        <th><i class="fas fa-calendar-day"></i> Jour</th>
-                        <th><i class="fas fa-door-open"></i> Heure d'ouverture</th>
-                        <th><i class="fas fa-door-closed"></i> Heure de fermeture</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for horaire in horaires %}
+    {# Section des horaires #}
+    <section class="opening-hours my-5">
+        <div class="container">
+            <h2 class="mt-5 text-secondary text-center">
+                <i class="fas fa-clock"></i> Nos horaires d'ouverture
+            </h2>
+            <p class="text-center mb-4">Nous sommes ouverts tous les jours pour vous accueillir.</p>
+            
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered text-center">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>{{ horaire.jour }}</td>
-                            <td>{{ horaire.heureOuverture|date('H:i') }}</td>
-                            <td>{{ horaire.heureFermeture|date('H:i') }}</td>
+                            <th><i class="fas fa-calendar-day"></i> Jour</th>
+                            <th><i class="fas fa-door-open"></i> Heure d'ouverture</th>
+                            <th><i class="fas fa-door-closed"></i> Heure de fermeture</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for horaire in horaires %}
+                            <tr>
+                                <td>{{ horaire.jour }}</td>
+                                <td>{{ horaire.heureOuverture|date('H:i') }}</td>
+                                <td>{{ horaire.heureFermeture|date('H:i') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
+    </section>
 
-        <h2 class="mt-5 text-secondary text-center"><i class="fas fa-comments"></i> Avis des visiteurs</h2>
-        <p class="text-center">
-            <i class="fas fa-star text-warning"></i> 
-            Partagez votre expérience et consultez les avis de nos visiteurs pour découvrir leurs moments inoubliables au Zoo Arcadia.
+    {# Section des avis #}
+    <section class="visitor-reviews my-5">
+        <h2 class="mt-5 text-secondary text-center">
+            <i class="fas fa-comments"></i> Avis des visiteurs
+        </h2>
+        <p class="text-center lead text-muted">
+            <i class="fas fa-star text-warning"></i> Découvrez les retours de nos visiteurs et partagez votre propre expérience inoubliable au Zoo Arcadia !
         </p>
-
-        <div class="text-center mt-5">
-            <a href="{{ path('app_service') }}" class="btn btn-primary btn-lg">
-                <i class="fas fa-info-circle"></i> Préparez votre visite
+        
+        <div class="d-flex justify-content-center mt-4">
+            <a href="{{ path('app_avis') }}" class="btn btn-lg btn-outline-primary px-4 py-2 shadow-sm" style="font-weight: bold;">
+                <i class="fas fa-pen"></i> Partager mon avis 
             </a>
         </div>
-    </div>
+    </section>
+
 
     {# Section de la carte interactive #}
     <section class="my-5">
