@@ -1,0 +1,35 @@
+#services {
+  padding: 3rem 0;
+}
+#services .service {
+  margin-bottom: 3rem;
+}
+#services .service h3 {
+  background-color: #3a2a10;
+  color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  width: 50%;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+#services .service .row {
+  display: flex;
+  align-items: stretch;
+}
+#services .service .custom-size {
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.5rem;
+}
+#services .service .col-md-6 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#services .service p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: justify;
+}/*# sourceMappingURL=services.css.map */
