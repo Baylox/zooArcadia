@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .carousel-image {
   height: 500px;
   -o-object-fit: cover;
@@ -22,4 +23,19 @@
 .carousel-caption p {
   font-size: 1.2rem;
   line-height: 1.5;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.6);
+  background-size: 40px 40px; /* Augmenter la taille de l'icône */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Rendre les flèches arrondies */
+  padding: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%; /* Réduire la zone cliquable si elle est trop large */
 }/*# sourceMappingURL=home.css.map */

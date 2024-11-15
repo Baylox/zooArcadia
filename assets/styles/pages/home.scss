@@ -24,3 +24,18 @@
     font-size: 1.2rem; // Augmente la taille du paragraphe
     line-height: 1.5; // Améliore l'espacement des lignes
 }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.6); 
+    background-size: 40px 40px; /* Augmenter la taille de l'icône */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Rendre les flèches arrondies */
+    padding: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%; /* Réduire la zone cliquable si elle est trop large */
+}

@@ -12254,16 +12254,36 @@ textarea.form-control-lg {
 }
 
 #habitats-carousel .carousel-caption {
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 15px;
-  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 80%;
+  margin: auto;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .carousel-caption h5, .carousel-caption .h5 {
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: bold;
 }
 
 .carousel-caption p {
-  font-size: 1rem;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.6);
+  background-size: 40px 40px; /* Augmenter la taille de l'icône */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Rendre les flèches arrondies */
+  padding: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%; /* Réduire la zone cliquable si elle est trop large */
 }/*# sourceMappingURL=app.css.map */
