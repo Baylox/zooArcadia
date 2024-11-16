@@ -148,6 +148,7 @@ main {
 
 .hero-scene {
   position: relative;
+  overflow: hidden;
 }
 .hero-scene::before {
   content: "";
@@ -160,6 +161,7 @@ main {
   background-size: cover;
   background-position: center;
   filter: brightness(0.6);
+  z-index: -1;
 }
 .hero-scene * {
   position: relative;
@@ -170,6 +172,42 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0 20px;
+  text-align: center;
+  color: #fff;
+  z-index: 1;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+.hero-scene .hero-scene-content p {
+  font-size: 1.5rem;
+}
+.hero-scene .hero-scene-content h1, .hero-scene .hero-scene-content .h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+.hero-scene .hero-btn {
+  background-color: #A1AA75;
+  color: #fff;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.hero-scene .hero-btn:hover {
+  background-color: #8f9c57;
+  transform: scale(1.05);
+}
+.hero-scene .hero-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(161, 170, 117, 0.5);
+}
+.hero-scene .hero-btn:active {
+  background-color: #7b8a45;
+  transform: scale(1);
 }
 
 /*!

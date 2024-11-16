@@ -1,11 +1,13 @@
 <div class="hero-scene text-center text-white">
-    <div class="hero-scene-content">   
-        <p>{{ intro_text | default('Partez à la découverte du monde animal au') }}</p>
-
-        <h1>{{ title | default('ZOO ARCADIA') }}</h1>
+    <div class="hero-scene-content d-flex flex-column justify-content-center align-items-center">
+        <p class="fs-4">{{ intro_text | default('Partez à la découverte du monde animal au') }}</p>
+        <h1 class="display-3 fw-bold">{{ title | default('ZOO ARCADIA') }}</h1>
 
         {% if button_text is defined and button_link is defined %}
-            <a href="{{ button_link }}" class="btn btn-primary">{{ button_text }}</a>
+            <!-- Ajout de la classe Bootstrap pour un espacement -->
+            <a href="{{ button_link }}" class="btn hero-btn mt-4">{{ button_text }}</a>
         {% endif %}
     </div>
 </div>
+
+
