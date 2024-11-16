@@ -1,27 +1,32 @@
 .hero-scene {
     position: relative;
-    &::before {
-        content: "";
+    overflow: hidden;
+
+    .hero-img {
+        object-fit: cover;
+        width: 100%;
+        height: auto; // Hauteur définie directement dans Twig
+    }
+
+    .hero-overlay {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url(../images/hero.webp);
-        background-size: cover;
-        background-position: center; 
-        filter: brightness(0.6); 
+        background: rgba(0, 0, 0, 0.5); // Overlay semi-transparent
+        mix-blend-mode: multiply; // Mélange avec l'image pour réduire la luminosité ( permet de créer un effet de fusion entre deux éléments visuels, pour l'image et la couleur de fond dans ce cas)
+        pointer-events: none; // Désactive les interactions sur l'overlay
     }
-  
-    * {
-        position: relative;
-    }
-  
+
     .hero-scene-content {
-        height: 400px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10; 
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); // Améliore la lisibilité du texte
     }
-  }
+}
+
+

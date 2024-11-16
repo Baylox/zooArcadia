@@ -148,28 +148,31 @@ main {
 
 .hero-scene {
   position: relative;
+  overflow: hidden;
 }
-.hero-scene::before {
-  content: "";
+.hero-scene .hero-img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+.hero-scene .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(../images/hero.webp);
-  background-size: cover;
-  background-position: center;
-  filter: brightness(0.6);
-}
-.hero-scene * {
-  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 .hero-scene .hero-scene-content {
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 /*!
