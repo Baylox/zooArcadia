@@ -1,11 +1,21 @@
-<div class="hero-scene text-center text-white">
-    <div class="hero-scene-content">   
-        <p>{{ intro_text | default('Partez à la découverte du monde animal au') }}</p>
+<div class="hero-scene text-center text-white position-relative">
+    <!-- Image  -->
+    <img src="{{ hero_image | default(asset('images/hero.webp')) }}" 
+        alt="{{ hero_alt | default('Découvrez notre univers animalier au Zoo Arcadia') }}" 
+        class="img-fluid w-100 hero-img" 
+        style="height: {{ hero_height | default('400px') }};">
 
-        <h1>{{ title | default('ZOO ARCADIA') }}</h1>
+    <!-- Overlay -->
+    <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
 
+    <div class="hero-scene-content position-absolute top-50 start-50 translate-middle text-center">
+        <p class="fs-4">{{ intro_text | default('Découvrez notre univers animalier') }}</p>
+        <h1 class="display-3 fw-bold">{{ title | default('Bienvenue au Zoo Arcadia') }}</h1>
         {% if button_text is defined and button_link is defined %}
-            <a href="{{ button_link }}" class="btn btn-primary">{{ button_text }}</a>
+            <a href="{{ button_link }}" class="btn btn-primary btn-lg mt-3 text-white">{{ button_text }}</a>
         {% endif %}
     </div>
 </div>
+
+
+
