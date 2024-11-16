@@ -14,10 +14,22 @@
                 {% for animal in animals %}
                     <div class="col-md-4 mb-4">
                         <div class="card h-100 shadow-sm">
+                            <!-- Preview de l'image -->
+                            {% if animal.images|length > 0 %}
+                                <img src="{{ asset('uploads/animaux_image/' ~ animal.images|first.fileName) }}" 
+                                    alt="{{ animal.prenom }}" 
+                                    class="card-img-top img-fluid" 
+                                    style="height: 200px; object-fit: cover;">
+                            {% else %}
+                                <img src="{{ asset('uploads/default_image.jpg') }}" 
+                                    alt="Image non disponible" 
+                                    class="card-img-top img-fluid" 
+                                    style="height: 200px; object-fit: cover;">
+                            {% endif %}
+
                             <div class="card-body">
                                 <h3 class="card-title text-center">{{ animal.prenom }}</h3>
-                                <p class="text-muted">Sexe : {{ animal.sexe }}</p>
-                                <p class="text-muted">État : {{ animal.etat }}</p>
+                                <p class="text-muted text-center">Espèce : {{ animal.espece.typeEspece }}</p>
                                 <div class="text-center mt-3">
                                     <a href="{{ path('app_animal_show', {'id': animal.id}) }}" class="btn btn-primary">
                                         Voir détails
@@ -34,6 +46,7 @@
     </div>
 </section>
 {% endblock %}
+
 
 
 
