@@ -3,6 +3,10 @@
 {% block title %}{{ habitat.nom }}{% endblock %}
 
 {% block body %}
+{% include '_partials/_hero.html.twig' with {
+        intro_text: 'Explorez nos habitats uniques',
+        title: 'Découvrez nos environnements',
+    } %}
 <section id="habitat-animals" class="py-5">
     <div class="container">
         <h1 class="text-center text-primary mb-4">{{ habitat.nom }}</h1>

@@ -3,66 +3,65 @@
 {% block title %}{{ animal.prenom }}{% endblock %}
 
 {% block body %}
-<section id="animal-details" class="py-5">
-    <div class="container">
-        <h1 class="text-center text-primary mb-5">{{ animal.prenom }}</h1>
+    <section id="animal-details" class="py-5">
+        <div class="container">
+            <h1 class="text-center text-primary mb-5">{{ animal.prenom }}</h1>
 
-        <!-- Détails principaux de l'animal -->
-        <div class="row align-items-center g-5">
-            <div class="col-md-6">
-                <h3 class="mb-4 text-secondary">Informations principales</h3>
+            <!-- Détails principaux de l'animal -->
+            <div class="row align-items-center g-5">
+                <div class="col-md-6">
+                    <h3 class="mb-4 text-secondary">Informations principales</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Nom :</strong> {{ animal.prenom }}</li>
+                        <li class="list-group-item"><strong>État :</strong> {{ animal.etat }}</li>
+                        <li class="list-group-item"><strong>Sexe :</strong> {{ animal.sexe }}</li>
+                        <li class="list-group-item"><strong>Description :</strong> {{ animal.description }}</li>
+                        <li class="list-group-item"><strong>Date de naissance :</strong> {{ animal.dob|date('d/m/Y') }}</li>
+                        <li class="list-group-item"><strong>Nombre de consultations :</strong> {{ animal.consultations }}</li>
+                    </ul>
+                </div>
+
+                <!-- Image de l'animal -->
+                <div class="col-md-6 d-flex justify-content-center">
+                    {% if animal.images|length > 0 %}
+                        <div class="card shadow-lg" style="width: 100%; max-width: 600px;">
+                            <img src="{{ asset('uploads/animaux_image/' ~ animal.images|first.fileName) }}" 
+                                alt="{{ animal.prenom }} dans son habitat {{ animal.habitat.nom|lower }}" 
+                                class="img-fluid rounded" 
+                                style="max-height: 500px; object-fit: contain;">
+                        </div>
+                    {% else %}
+                        <div class="card shadow-lg" style="width: 100%; max-width: 600px;">
+                            <img src="{{ asset('uploads/default_image.jpg') }}" 
+                                alt="Image non disponible" 
+                                class="img-fluid rounded" 
+                                style="max-height: 500px; object-fit: contain;">
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Espèce -->
+            <div class="mt-5">
+                <h3 class="text-secondary">Spécificités de l'espèce</h3>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong>Nom :</strong> {{ animal.prenom }}</li>
-                    <li class="list-group-item"><strong>État :</strong> {{ animal.etat }}</li>
-                    <li class="list-group-item"><strong>Sexe :</strong> {{ animal.sexe }}</li>
-                    <li class="list-group-item"><strong>Description :</strong> {{ animal.description }}</li>
-                    <li class="list-group-item"><strong>Date de naissance :</strong> {{ animal.dob|date('d/m/Y') }}</li>
-                    <li class="list-group-item"><strong>Nombre de consultations :</strong> {{ animal.consultations }}</li>
+                    <li class="list-group-item"><strong>Type d'espèce :</strong> {{ animal.espece.typeEspece }}</li>
+                    {% if animal.espece.evaluationExtinction is not null %}
+                        <li class="list-group-item"><strong>Évaluation du risque d'extinction :</strong> {{ animal.espece.evaluationExtinction }}</li>
+                    {% endif %}
+                    {% if animal.espece.traitsCaracteristiques is not null %}
+                        <li class="list-group-item"><strong>Traits caractéristiques :</strong> {{ animal.espece.traitsCaracteristiques }}</li>
+                    {% endif %}
                 </ul>
             </div>
 
-            <!-- Image de l'animal -->
-            <div class="col-md-6 d-flex justify-content-center">
-                {% if animal.images|length > 0 %}
-                    <div class="card shadow-lg" style="width: 100%; max-width: 600px;">
-                        <img src="{{ asset('uploads/animaux_image/' ~ animal.images|first.fileName) }}" 
-                            alt="{{ animal.prenom }} dans son habitat {{ animal.habitat.nom|lower }}" 
-                            class="img-fluid rounded" 
-                            style="max-height: 500px; object-fit: contain;">
-                    </div>
-                {% else %}
-                    <div class="card shadow-lg" style="width: 100%; max-width: 600px;">
-                        <img src="{{ asset('uploads/default_image.jpg') }}" 
-                            alt="Image non disponible" 
-                            class="img-fluid rounded" 
-                            style="max-height: 500px; object-fit: contain;">
-                    </div>
-                {% endif %}
+            <div class="mt-5 text-center">
+                <a href="{{ path('app_habitat_show', {'id': animal.habitat.id}) }}" class="btn btn-primary btn-lg shadow-sm">
+                    Retour à l'habitat
+                </a>
             </div>
         </div>
-
-        <!-- Espèce -->
-        <div class="mt-5">
-            <h3 class="text-secondary">Spécificités de l'espèce</h3>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><strong>Type d'espèce :</strong> {{ animal.espece.typeEspece }}</li>
-                {% if animal.espece.evaluationExtinction is not null %}
-                    <li class="list-group-item"><strong>Évaluation du risque d'extinction :</strong> {{ animal.espece.evaluationExtinction }}</li>
-                {% endif %}
-                {% if animal.espece.traitsCaracteristiques is not null %}
-                    <li class="list-group-item"><strong>Traits caractéristiques :</strong> {{ animal.espece.traitsCaracteristiques }}</li>
-                {% endif %}
-            </ul>
-        </div>
-
-        
-        <div class="mt-5 text-center">
-            <a href="{{ path('app_habitat_show', {'id': animal.habitat.id}) }}" class="btn btn-primary btn-lg shadow-sm">
-                Retour à l'habitat
-            </a>
-        </div>
-    </div>
-</section>
+    </section>
 {% endblock %}
 
 
