@@ -18,7 +18,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/dash/service')]
 #[IsGranted('ROLE_EMPLOYE')]
 final class DashServiceController extends AbstractController
-{
+{   
+    // Index des services
     #[Route(name: 'dashboard_service_index', methods: ['GET'])]
     public function index(ServiceRepository $serviceRepository): Response
     {
@@ -26,7 +27,7 @@ final class DashServiceController extends AbstractController
             'services' => $serviceRepository->findAll(),
         ]);
     }
-
+    // Création d'un nouveau service
     #[Route('/new', name: 'dashboard_service_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
     {
@@ -57,6 +58,7 @@ final class DashServiceController extends AbstractController
         ]);
     }
 
+    // Affichage d'un service
     #[Route('/{id}', name: 'dashboard_service_show', methods: ['GET'])]
     public function show(Service $service): Response
     {
@@ -65,6 +67,7 @@ final class DashServiceController extends AbstractController
         ]);
     }
 
+    // Modification d'un service
     #[Route('/{id}/edit', name: 'dashboard_service_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Service $service, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
     {
@@ -97,7 +100,7 @@ final class DashServiceController extends AbstractController
     }
     
 
-
+    // Suppression d'un service
     #[Route('/{id}', name: 'dashboard_service_delete', methods: ['POST'])]
     public function delete(Request $request, Service $service, EntityManagerInterface $entityManager): Response
     {

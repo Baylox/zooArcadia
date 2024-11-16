@@ -13,6 +13,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_EMPLOYE')]
 class DashAvisController extends AbstractController
 {
+    // Affiche les avis en attente ou validés
     #[Route('/dash/avis', name: 'dashboard_avis')]
     public function index(DocumentManager $dm, Request $request): Response
     {
@@ -52,6 +53,7 @@ class DashAvisController extends AbstractController
         ]);
     }
 
+    // Validation d'un avis
     #[Route('/dash/avis/{id}/validate', name: 'dashboard_avis_validate', methods: ['POST'])]
     public function validate(string $id, DocumentManager $dm): Response
     {

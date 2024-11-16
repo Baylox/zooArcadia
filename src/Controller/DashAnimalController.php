@@ -19,7 +19,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_EMPLOYE')]
 final class DashAnimalController extends AbstractController
 {   
-
+    // Index des animaux
     #[Route(name: 'dashboard_animal_index', methods: ['GET'])]
     public function index(AnimalRepository $animalRepository): Response
     {
@@ -28,6 +28,7 @@ final class DashAnimalController extends AbstractController
         ]);
     }
     
+    // Création d'un nouvel animal
     #[Route('/new', name: 'dashboard_animal_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
@@ -59,7 +60,7 @@ final class DashAnimalController extends AbstractController
         ]);
     }
     
-
+    // Affichage d'un animal
     #[Route('/{id}', name: 'dashboard_animal_show', methods: ['GET'])]
     public function show(Animal $animal): Response
     {
@@ -68,6 +69,7 @@ final class DashAnimalController extends AbstractController
         ]);
     }
 
+    // Modification d'un animal
     #[Route('/{id}/edit', name: 'dashboard_animal_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Animal $animal, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
@@ -107,6 +109,7 @@ final class DashAnimalController extends AbstractController
     }
     
 
+    // Suppression d'un animal 
     #[Route('/{id}', name: 'dashboard_animal_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Animal $animal, EntityManagerInterface $entityManager): Response

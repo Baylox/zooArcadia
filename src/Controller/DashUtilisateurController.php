@@ -44,6 +44,7 @@ final class DashUtilisateurController extends AbstractController
         ]);
     }
 
+    // Création d'un nouvel utilisateur
     #[Route('/new', name: 'app_dash_utilisateur_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -69,7 +70,7 @@ final class DashUtilisateurController extends AbstractController
         ]);
     }
     
-
+    // Affichage d'un utilisateur en particulier
     #[Route('/{id}', name: 'app_dash_utilisateur_show', methods: ['GET'])]
     public function show(Utilisateur $utilisateur): Response
     {
@@ -78,6 +79,7 @@ final class DashUtilisateurController extends AbstractController
         ]);
     }
 
+    // Modification d'un utilisateur
     #[Route('/{id}/edit', name: 'app_dash_utilisateur_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
     {
@@ -106,6 +108,7 @@ final class DashUtilisateurController extends AbstractController
         ]);
     }
 
+    // Suppression d'un utilisateur
     #[Route('/{id}', name: 'app_dash_utilisateur_delete', methods: ['POST'])]
     public function delete(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
     {
@@ -117,6 +120,7 @@ final class DashUtilisateurController extends AbstractController
         return $this->redirectToRoute('app_dash_utilisateur_index', [], Response::HTTP_SEE_OTHER);
     }
     
+    // Liste des employés
     #[Route('/gestion/employes', name: 'utilisateurs_employes')]
     public function employes(Request $request, UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator): Response
     {
@@ -132,7 +136,7 @@ final class DashUtilisateurController extends AbstractController
             'page_title' => 'Employés',
         ]);
     }
-    
+    // Liste des vétérinaires
     #[Route('/gestion/veterinaires', name: 'utilisateurs_veterinaires')]
     public function veterinaires(Request $request, UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator): Response
     {

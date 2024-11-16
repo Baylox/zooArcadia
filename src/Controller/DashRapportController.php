@@ -18,7 +18,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/dashboard/rapport')]
 #[IsGranted('ROLE_EMPLOYE')]
 class DashRapportController extends AbstractController
-{
+{   
+    // Route pour afficher les rapports
     #[Route('/', name: 'dashboard_rapport_index', methods: ['GET'])]
     public function index(RapportRepository $rapportRepository, AnimalRepository $animalRepository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -75,7 +76,7 @@ class DashRapportController extends AbstractController
             'selectedAnimalPrenom' => $animalPrenom,
         ]);
     }
-
+    // Route pour afficher les rapports filtrés par date
     #[Route('/new', name: 'dashboard_rapport_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_VETERINAIRE')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -114,7 +115,7 @@ class DashRapportController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+    // Route pour afficher un rapport en particulier
     #[Route('/{id}', name: 'dashboard_rapport_show', methods: ['GET'])]
     public function show(Rapport $rapport): Response
     {
@@ -122,7 +123,7 @@ class DashRapportController extends AbstractController
             'rapport' => $rapport,
         ]);
     }
-
+    // Route pour modifier un rapport
     #[Route('/{id}/edit', name: 'dashboard_rapport_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_VETERINAIRE')]
     public function edit(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
@@ -163,7 +164,8 @@ class DashRapportController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+    
+    // Route pour supprimer un rapport
     #[Route('/{id}', name: 'dashboard_rapport_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')] // Restriction : seuls les administrateurs peuvent supprimer un rapport
     public function delete(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response

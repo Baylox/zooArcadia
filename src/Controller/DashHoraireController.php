@@ -13,7 +13,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted('ROLE_ADMIN')]
 class DashHoraireController extends AbstractController
-{
+{   
+    // Index des horaires
     #[Route('/horaires', name: 'horaire_index')]
     public function index(DocumentManager $dm): Response
     {
@@ -24,6 +25,7 @@ class DashHoraireController extends AbstractController
         ]);
     }
 
+    // Modification d'un horaire
     #[Route('/horaires/{id}/edit', name: 'horaire_edit')]
     public function edit(string $id, DocumentManager $dm, Request $request): Response
     {

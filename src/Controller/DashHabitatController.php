@@ -20,7 +20,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/dashboard/habitat')]
 #[IsGranted('ROLE_VETERINAIRE')]
 final class DashHabitatController extends AbstractController
-{
+{   
+    // Index des habitats
     #[Route(name: 'dashboard_habitat_index', methods: ['GET'])]
     public function index(HabitatRepository $habitatRepository): Response
     {
@@ -29,6 +30,7 @@ final class DashHabitatController extends AbstractController
         ]);
     }
 
+    // Création d'un nouvel habitat
     #[Route('/new', name: 'dashboard_habitat_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
     {
@@ -60,7 +62,7 @@ final class DashHabitatController extends AbstractController
         ]);
     }
     
-
+    // Affichage d'un habitat
     #[Route('/{id}', name: 'dashboard_habitat_show', methods: ['GET'])]
     public function show(Habitat $habitat): Response
     {
@@ -69,6 +71,7 @@ final class DashHabitatController extends AbstractController
         ]);
     }
 
+    // Modification d'un habitat
     #[Route('/{id}/edit', name: 'dashboard_habitat_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Habitat $habitat, EntityManagerInterface $entityManager, UploaderImage $uploaderImage): Response
     {
@@ -100,6 +103,7 @@ final class DashHabitatController extends AbstractController
         ]);
     }
 
+    // Suppression d'un habitat
     #[Route('/{id}/delete', name: 'dashboard_habitat_delete', methods: ['POST'])]
     public function delete(Request $request, Habitat $habitat, EntityManagerInterface $entityManager): Response
     {

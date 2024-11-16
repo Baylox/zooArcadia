@@ -19,7 +19,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/dash/image')]
 #[IsGranted('ROLE_ADMIN')]
 class ImageController extends AbstractController
-{
+{   
+    // Liste des images d'un animal
     #[Route('/animal/{id}/list', name: 'dashboard_image_list', methods: ['GET'])]
     public function listImages(Animal $animal): Response
     {
@@ -28,7 +29,7 @@ class ImageController extends AbstractController
             'animal' => $animal,
         ]);
     }
-
+    // Liste de toutes les images
     #[Route('/list', name: 'dashboard_image_list_all', methods: ['GET'])]
     public function listAllImages(EntityManagerInterface $entityManager): Response
     {
@@ -37,7 +38,7 @@ class ImageController extends AbstractController
             'images' => $images,
         ]);
     }
-
+    // Suppression d'une image
     #[Route('/{id}/confirm-delete', name: 'image_confirm_delete', methods: ['GET'])]
     public function confirmDelete(Image $image): Response
     {
@@ -45,7 +46,7 @@ class ImageController extends AbstractController
             'image' => $image,
         ]);
     }
-
+    // Suppression d'une image
     #[Route('/{id}/delete', name: 'dashboard_image_delete', methods: ['POST'])]
     public function deleteImage(Request $request, Image $image, EntityManagerInterface $entityManager): Response
     {
@@ -64,6 +65,7 @@ class ImageController extends AbstractController
         return $this->redirectToRoute('dashboard_image_list_all');
     }
 
+    // Ajout d'une image à un animal
     #[Route('/animal/{id}/add', name: 'dashboard_image_add', methods: ['GET', 'POST'])]
     public function addImage(Request $request, Animal $animal, UploaderImage $uploaderImage, EntityManagerInterface $entityManager): Response
     {
