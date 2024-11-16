@@ -48,6 +48,8 @@ class Animal
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'animal')]
     private Collection $images;
 
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
+    private int $consultations = 0;
     public function __construct()
     {
         $this->rapports = new ArrayCollection();
@@ -201,5 +203,14 @@ class Animal
 
         return $this;
     }
+    public function getConsultations(): int
+    {
+        return $this->consultations;
+    }
 
+    public function incrementConsultations(): self
+    {
+        $this->consultations++;
+        return $this;
+    }
 }

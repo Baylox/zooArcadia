@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ habitat.nom }}{% endblock %}
+
+{% block body %}
+<section id="habitat-animals" class="py-5">
+    <div class="container">
+        <h1 class="text-center text-primary mb-4">{{ habitat.nom }}</h1>
+
+        <p class="mb-4">{{ habitat.description }}</p>
+
+        {% if animals|length > 0 %}
+            <div class="row">
+                {% for animal in animals %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title text-center">{{ animal.prenom }}</h3>
+                                <p class="text-muted">Sexe : {{ animal.sexe }}</p>
+                                <p class="text-muted">État : {{ animal.etat }}</p>
+                                <div class="text-center mt-3">
+                                    <a href="{{ path('app_animal_show', {'id': animal.id}) }}" class="btn btn-primary">
+                                        Voir détails
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center text-muted">Aucun animal dans cet habitat.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+
+

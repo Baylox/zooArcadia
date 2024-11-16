@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ animal.prenom }}{% endblock %}
+
+{% block body %}
+<section id="animal-details" class="py-5">
+    <div class="container">
+        <!-- Titre principal -->
+        <h1 class="text-center text-primary mb-5">{{ animal.prenom }}</h1>
+
+        <!-- Conteneur principal -->
+        <div class="row align-items-center g-5">
+            <!-- Détails principaux de l'animal -->
+            <div class="col-md-6">
+                <h3 class="mb-4 text-secondary">Informations principales</h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Nom :</strong> {{ animal.prenom }}</li>
+                    <li class="list-group-item"><strong>État :</strong> {{ animal.etat }}</li>
+                    <li class="list-group-item"><strong>Sexe :</strong> {{ animal.sexe }}</li>
+                    <li class="list-group-item"><strong>Description :</strong> {{ animal.description }}</li>
+                    <li class="list-group-item"><strong>Date de naissance :</strong> {{ animal.dob|date('d/m/Y') }}</li>
+                    <li class="list-group-item"><strong>Nombre de consultations :</strong> {{ animal.consultations }}</li>
+                </ul>
+            </div>
+
+            <!-- Image de l'animal -->
+            <div class="col-md-6 text-center">
+                {% if animal.images|length > 0 %}
+                    <div class="card">
+                        <img src="{{ asset('uploads/animaux_image/' ~ animal.images|first.fileName) }}" 
+                            alt="{{ animal.prenom }}" 
+                            class="img-fluid card-img-top w-100">
+                    </div>
+                {% else %}
+                    <div class="card">
+                        <img src="{{ asset('uploads/default_image.jpg') }}" 
+                            alt="Image non disponible" 
+                            class="img-fluid card-img-top w-100">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Spécificités de l'espèce -->
+        <div class="mt-5">
+            <h3 class="text-secondary">Spécificités de l'espèce</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Type d'espèce :</strong> {{ animal.espece.typeEspece }}</li>
+                {% if animal.espece.evaluationExtinction is not null %}
+                    <li class="list-group-item"><strong>Évaluation du risque d'extinction :</strong> {{ animal.espece.evaluationExtinction }}</li>
+                {% endif %}
+                {% if animal.espece.traitsCaracteristiques is not null %}
+                    <li class="list-group-item"><strong>Traits caractéristiques :</strong> {{ animal.espece.traitsCaracteristiques }}</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <!-- Bouton de retour -->
+        <div class="mt-5 text-center">
+            <a href="{{ path('app_habitat_show', {'id': animal.habitat.id}) }}" class="btn btn-primary btn-lg">
+                Retour à l'habitat
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+
+
+
