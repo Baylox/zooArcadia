@@ -1,8 +1,13 @@
 <header>
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('images/Logo.jpg') }}" alt="Logo" class="navbar-logo">
+            <a class="navbar-brand" href="{{ path('app_home') }}">
+            <img 
+                src="{{ asset('images/Logo.webp') }}" 
+                alt="Logo du Zoo Arcadia" 
+                class="navbar-logo img-fluid" 
+                width="70" 
+                height="70">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
