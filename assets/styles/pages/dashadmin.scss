@@ -1,79 +1,70 @@
-// Variables de couleur
-$primary: #A1AA75; // Vert
-$secondary: #5D6537; // Vert foncé
-$tertiary: #E0D05C; // Jaune
-$dark: #3A2A10; // Marron
-
-$black: #292222;
-$white: #ffffff;
-
 .admin-dashboard-header {
     font-size: 2.5rem;
     font-weight: bold;
-    color: $primary;
+    color: vars.$primary;
     margin-bottom: 2rem;
 }
 
 .admin-list-group {
     .list-group-item {
-        border: 1px solid $secondary;
+        border: 1px solid vars.$secondary;
         border-left-width: 6px;
         font-size: 1.3rem;
         padding: 1.5rem;
         transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        color: $black;
+        color: vars.$black;
 
         &:hover {
-            background-color: $tertiary;
+            background-color: vars.$tertiary;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-            color: $dark;
+            color: vars.$dark;
         }
 
         &.admin-user-list {
-            border-left-color: $tertiary;
+            border-left-color: vars.$tertiary;
 
             &:hover {
-                border-left-color: darken($tertiary, 10%);
+                border-left-color: color.adjust(vars.$tertiary, $lightness: -10%);
             }
         }
 
         &.admin-animal-list {
-            border-left-color: $primary;
+            border-left-color: vars.$primary;
 
             &:hover {
-                border-left-color: darken($primary, 10%);
+                border-left-color: color.adjust(vars.$primary, $lightness: -10%);
             }
         }
 
         &.admin-report-list {
-            border-left-color: $secondary;
+            border-left-color: vars.$secondary;
 
             &:hover {
-                border-left-color: darken($secondary, 10%);
+                border-left-color: color.adjust(vars.$secondary, $lightness: -10%);
             }
         }
 
         &.admin-food-list {
-            border-left-color: lighten($primary, 10%);
+            border-left-color: color.adjust(vars.$primary, $lightness: 10%);
 
             &:hover {
-                border-left-color: $secondary;
+                border-left-color: vars.$secondary;
             }
         }
 
         &.admin-habitat-list {
-            border-left-color: $dark;
+            border-left-color: vars.$dark;
 
             &:hover {
-                border-left-color: lighten($dark, 10%);
+                border-left-color: color.adjust(vars.$dark, $lightness: 10%);
             }
         }
 
         &.admin-image-list {
-            border-left-color: $tertiary;
+            border-left-color: vars.$tertiary;
 
             &:hover {
-                border-left-color: darken($tertiary, 10%);
+                border-left-color: color.adjust(vars.$tertiary, $lightness: -10%);
             }
         }
 
@@ -83,7 +74,7 @@ $white: #ffffff;
 
         i {
             font-size: 1.7rem;
-            color: $secondary;
+            color: vars.$secondary;
         }
     }
 }
