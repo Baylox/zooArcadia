@@ -22,6 +22,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_habitat') }}">Habitats</a>
+                    </li>                 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="avisDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,10 +34,7 @@
                             <li><a class="dropdown-item" href="{{ path('app_avis') }}">Donner votre avis</a></li>
                             <li><a class="dropdown-item" href="{{ path('app_valide_avis') }}">Ils en parlent</a></li>
                         </ul>
-                    </li>                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
-                    </li>
+                    </li>   
                     {% if app.user %}
                         {% if is_granted('ROLE_ADMIN') %}
                             <li class="nav-item">
