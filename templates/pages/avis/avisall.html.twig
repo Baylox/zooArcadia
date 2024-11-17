@@ -4,24 +4,50 @@
 
 {% block body %}
     {% include '_partials/_hero.html.twig' with {
-        intro_text: 'Laissez-vous inspirer par ces avis',
+        intro_text: 'Découvrez les retours de nos visiteurs satisfaits',
         title: 'Ce que nos visiteurs pensent de nous',
     } %}
 
     <div class="container my-5">
-        <h1 class="text-center text-primary mb-4"><i class="fas fa-comments"></i> Avis Validés</h1>
+        <h1 class="text-center text-primary mb-4"><i class="fas fa-comments"></i> Vos impressions</h1>
 
         {% if avis_valides|length == 0 %}
-            <p class="text-center text-muted">Aucun avis validé pour le moment.</p>
+            <p class="text-center text-muted">Aucun avis pour le moment, laissez-nous le vôtre !</p>
         {% else %}
-            <div class="list-group shadow">
+            <div class="row g-4">
                 {% for avis in avis_valides %}
-                    <div class="list-group-item">
-                        <h5 class="text-primary">{{ avis.pseudo }}</h5>
-                        <p>{{ avis.commentaire }}</p>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <i class="fas fa-user fa-lg"></i>
+                                    </div>
+                                    <h5 class="ms-3 text-primary fw-bold mb-0">{{ avis.pseudo }}</h5>
+                                </div>
+                                <p class="text-muted flex-grow-1">{{ avis.commentaire }}</p>
+                            </div>
+                            <div class="card-footer bg-light text-end">
+                                <small class="text-success"><i class="fas fa-check-circle"></i> Merci pour votre retour !</small>
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
+
+            <!-- Pagination -->
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% for i in 1..totalPages %}
+                        <li class="page-item {% if i == currentPage %}active{% endif %}">
+                            <a class="page-link" href="{{ path('app_valide_avis', { page: i }) }}">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
         {% endif %}
     </div>
 {% endblock %}
+
+
+

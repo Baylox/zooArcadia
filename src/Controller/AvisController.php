@@ -53,13 +53,33 @@ class AvisController extends AbstractController
         ]);
     }
     #[Route('/avis/valides', name: 'app_valide_avis', methods: ['GET'])]
-    public function validatedAvis(DocumentManager $dm): Response
+    public function validatedAvis(DocumentManager $dm, Request $request): Response
     {
-        // Récupère uniquement les avis validés, sans tri
-        $avis_valides = $dm->getRepository(Avis::class)->findBy(['isValide' => true]);
+        $page = max(1, $request->query->getInt('page', 1)); // Page actuelle (par défaut 1)
+        $limit = 9; // Nombre d'avis par page
+        $offset = ($page - 1) * $limit; // Décalage pour MongoDB
+    
+        // Récupère les avis validés avec pagination
+        $queryBuilder = $dm->getRepository(Avis::class)->createQueryBuilder()
+            ->field('isValide')->equals(true)
+            ->skip($offset)
+            ->limit($limit);
+    
+        $avis_valides = $queryBuilder->getQuery()->execute();
+    
+        // Calcul du nombre total d'avis validés
+        $totalAvis = $dm->getRepository(Avis::class)->createQueryBuilder()
+            ->field('isValide')->equals(true)
+            ->count()
+            ->getQuery()
+            ->execute();
+    
+        $totalPages = ceil($totalAvis / $limit); // Calcul du nombre total de pages
     
         return $this->render('pages/avis/avisall.html.twig', [
             'avis_valides' => $avis_valides,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
         ]);
     }
 }
