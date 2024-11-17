@@ -21,12 +21,29 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            // Envoyer un email au zoo
-            $email = (new Email())
-                ->from($data['email'])
-                ->to('zoo@arcadia.fr') // Adresse email du zoo
-                ->subject($data['titre'])
-                ->text($data['description']);
+            // Validation stricte pour l'email
+            $email = filter_var($data['email'], FILTER_VALIDATE_EMAIL); // Vérifie si l'email est valide
+            if (!$email) {
+                $this->addFlash('error', 'Adresse email invalide.');
+                return $this->redirectToRoute('app_contact');
+            }
+
+            // Nettoyer les données
+            $titre = strip_tags($data['titre']); 
+            $description = strip_tags($data['description']); 
+            $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL); // Supprime les caractères non valides
+ 
+                /// Construire l'email
+                $email = (new Email())
+                ->from($email)
+                ->to('zoo@arcadia.fr')
+                ->subject($titre)
+                ->text(sprintf(
+                    "Nouveau message reçu :\n\nTitre : %s\n\nDescription :\n%s\n\nDe : %s",
+                    $titre,
+                    $description,
+                    $email
+                ));
             
             $mailer->send($email);
 
