@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+
 class AvisController extends AbstractController
 {
     #[Route('/avis', name: 'app_avis', methods: ['GET', 'POST'])]
@@ -51,6 +52,17 @@ class AvisController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    #[Route('/avis/valides', name: 'app_valide_avis', methods: ['GET'])]
+    public function validatedAvis(DocumentManager $dm): Response
+    {
+        // Récupère uniquement les avis validés, sans tri
+        $avis_valides = $dm->getRepository(Avis::class)->findBy(['isValide' => true]);
+    
+        return $this->render('pages/avis/avisall.html.twig', [
+            'avis_valides' => $avis_valides,
+        ]);
+    }
 }
+
 
 

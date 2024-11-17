@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avis Validés{% endblock %}
+
+{% block body %}
+    {% include '_partials/_hero.html.twig' with {
+        intro_text: 'Laissez-vous inspirer par ces avis',
+        title: 'Ce que nos visiteurs pensent de nous',
+    } %}
+
+    <div class="container my-5">
+        <h1 class="text-center text-primary mb-4"><i class="fas fa-comments"></i> Avis Validés</h1>
+
+        {% if avis_valides|length == 0 %}
+            <p class="text-center text-muted">Aucun avis validé pour le moment.</p>
+        {% else %}
+            <div class="list-group shadow">
+                {% for avis in avis_valides %}
+                    <div class="list-group-item">
+                        <h5 class="text-primary">{{ avis.pseudo }}</h5>
+                        <p>{{ avis.commentaire }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
