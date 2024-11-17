@@ -1,7 +1,11 @@
 .hero-scene {
     position: relative;
     overflow: hidden;
-
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px; // Hauteur du hero
+    
     &::before {
         content: "";
         position: absolute;
@@ -9,28 +13,25 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url(../images/hero.webp);
-        background-size: cover;
-        background-position: center;
-        filter: brightness(0.6);
-        z-index: -1;
+        background-color: rgba(0, 0, 0, 0.5); // Overlay noir avec opacité
+        z-index: 1;
     }
 
     * {
         position: relative;
+        z-index: 2; // Le contenu reste visible au-dessus de l'overlay
     }
 
     .hero-scene-content {
-        height: 400px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 0 20px;
         text-align: center;
-        color: #fff;
-        z-index: 1;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        color: #fff; // Texte en blanc
+        height: 100%;
+        z-index: 3;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); // Donne de la lisibilité au texte
 
         p {
             font-size: 1.5rem; 
@@ -41,35 +42,11 @@
             font-weight: bold;
         }
     }
-
-    .hero-btn {
-        background-color: #A1AA75;
-        color: #fff;
-        border: none;
-        padding: 15px 40px; // Agrandir le padding pour rendre le bouton plus grand
-        font-size: 1.2rem; // Augmenter la taille du texte du bouton
-        border-radius: 10px;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-
-        &:hover {
-            background-color: #8f9c57;
-            transform: scale(1.05);
-        }
-
-        &:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(161, 170, 117, 0.5);
-        }
-
-        &:active {
-            background-color: #7b8a45;
-            transform: scale(1);
-        }
-    }
 }
+
+
+
+
 
 
 
