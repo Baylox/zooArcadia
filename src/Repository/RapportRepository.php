@@ -22,16 +22,16 @@ class RapportRepository extends ServiceEntityRepository
      * @param Animal $animal
      * @return Rapport[]
      */
-    public function findByAnimalPrenom(string $prenom): array
+    public function findByAnimalPrenomQuery(string $prenom): \Doctrine\ORM\Query // Ilfaut une query pour pouvoir la paginer et non un array
     {
         return $this->createQueryBuilder('r')
             ->join('r.animal', 'a')
             ->where('a.prenom = :prenom')
             ->setParameter('prenom', $prenom)
             ->orderBy('r.dateRapport', 'DESC')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
     }
+    
     
     
     //    /**

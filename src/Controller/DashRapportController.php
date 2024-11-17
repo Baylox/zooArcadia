@@ -27,6 +27,7 @@ class DashRapportController extends AbstractController
         $animalPrenom = $request->query->get('animalPrenom', null);
         $order = $request->query->get('order', 'DESC'); // Tri par défaut : décroissant
 
+
         // Construire la requête pour les rapports
         $queryBuilder = $rapportRepository->createQueryBuilder('r')
             ->orderBy('r.dateRapport', $order); // Utilise order pour trier
@@ -41,10 +42,13 @@ class DashRapportController extends AbstractController
 
         $query = $queryBuilder->getQuery();
 
+        // Récupère la valeur de la page, en s'assurant qu'elle est >= 1 pour éviter une erreur
+        $page = max(1, $request->query->getInt('page', 1)); 
+
         // Paginater les rapports
         $rapports = $paginator->paginate(
-            $query, 
-            $request->query->getInt('page', 1), 
+            $query,
+            $page, 
             10
         );
 
@@ -63,13 +67,15 @@ class DashRapportController extends AbstractController
     #[Route('/animal/{animalPrenom}', name: 'dashboard_rapport_animal_prenom', methods: ['GET'])]
     public function byAnimalPrenom(string $animalPrenom, RapportRepository $rapportRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $query = $rapportRepository->findByAnimalPrenom($animalPrenom);
+        // Récupère les rapports pour l'animal sélectionné
+        $query = $rapportRepository->findByAnimalPrenomQuery($animalPrenom);
 
         $rapports = $paginator->paginate(
             $query,
-            $request->query->getInt('page', 1),
+            max(1, $request->query->getInt('page', 0)),
             10
         );
+        
 
         return $this->render('dashboard/rapport/index.html.twig', [
             'rapports' => $rapports,

@@ -11,7 +11,7 @@
         </div>
     {% endfor %}
 
-    <h1 class="text-center mb-4">Liste des Rapports et Alimentation</h1>
+    <h1 class="text-primary fw-bold text-center mb-4 mt-4">Liste des Rapports</h1>
 
     <!-- Options de tri par date -->
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -44,6 +44,7 @@
         <button type="submit" class="btn btn-primary ml-2">Filtrer</button>
     </form>
 
+{% if rapports|length > 0 %}
     <!-- Tableau des rapports animaliers -->
     <div class="table-responsive">
         <table class="table table-striped table-hover">
@@ -118,31 +119,25 @@
             </tbody>
         </table>
     </div>
-
-    <!-- Contrôle pour la Pagination -->
+   <!-- Afficher la pagination uniquement si la liste n'est pas vide -->
     <div class="d-flex justify-content-center mt-4">
         <nav>
             <ul class="pagination">
-                {% if rapports.currentPageNumber > 1 %}
-                    <li class="page-item">
-                        <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': rapports.currentPageNumber - 1})) }}">Précédent</a>
-                    </li>
-                {% endif %}
-
                 {% for page in 1..rapports.pageCount %}
                     <li class="page-item {{ page == rapports.currentPageNumber ? 'active' : '' }}">
-                        <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': page})) }}">{{ page }}</a>
+                        <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': page})) }}">
+                            {{ page }}
+                        </a>
                     </li>
                 {% endfor %}
-
-                {% if rapports.currentPageNumber < rapports.pageCount %}
-                    <li class="page-item">
-                        <a class="page-link" href="{{ path(app.request.attributes.get('_route'), app.request.query.all | merge({'page': rapports.currentPageNumber + 1})) }}">Suivant</a>
-                    </li>
-                {% endif %}
             </ul>
         </nav>
     </div>
+{% else %}
+    <!-- Afficher un message si la liste est vide -->
+    <p class="text-center">Aucun rapport trouvé pour cet animal.</p>
+{% endif %}
+
     <div class="d-flex justify-content-between mt-4">
         {% include '_partials/_return.html.twig' %}
         
