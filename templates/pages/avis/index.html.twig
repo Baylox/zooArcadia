@@ -18,8 +18,9 @@
                 {{ form_label(form.pseudo, 'Pseudo', {'label_attr': {'class': 'form-label text-primary fw-bold'}}) }}
                 <div class="input-group">
                     <span class="input-group-text bg-primary text-white"><i class="fas fa-user"></i></span>
-                    {{ form_widget(form.pseudo, {'attr': {'class': 'form-control', 'placeholder': 'Votre pseudo'}}) }}
+                    {{ form_widget(form.pseudo, {'attr': {'class': 'form-control', 'placeholder': 'Votre surnom animalier !'}}) }}
                 </div>
+                <!--Erreur lié au pseudo-->
                 {% for error in form.pseudo.vars.errors %}
                     <div class="alert alert-danger mt-1">{{ error.message }}</div>
                 {% endfor %}
@@ -30,8 +31,9 @@
                 {{ form_label(form.commentaire, 'Commentaire', {'label_attr': {'class': 'form-label text-primary fw-bold'}}) }}
                 <div class="input-group">
                     <span class="input-group-text bg-primary text-white"><i class="fas fa-comments"></i></span>
-                    {{ form_widget(form.commentaire, {'attr': {'class': 'form-control', 'placeholder': 'Votre commentaire'}}) }}
+                    {{ form_widget(form.commentaire, {'attr': {'class': 'form-control', 'placeholder': 'Exprimez vos émotions sur votre visite'}}) }}
                 </div>
+                <!--Erreur lié au commentaire-->
                 {% for error in form.commentaire.vars.errors %}
                     <div class="alert alert-danger mt-1">{{ error.message }}</div>
                 {% endfor %}
