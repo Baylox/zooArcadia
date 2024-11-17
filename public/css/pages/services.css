@@ -19,8 +19,7 @@
 }
 #services .service .custom-size {
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 0.5rem;
 }
 #services .service .col-md-6 {
@@ -32,4 +31,4 @@
   font-size: 1.1rem;
   line-height: 1.6;
   text-align: justify;
-}/*# sourceMappingURL=services.css.map */
+}
