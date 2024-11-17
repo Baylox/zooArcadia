@@ -29,6 +29,9 @@ Encore
 
     // Ajoute un hash aux noms de fichiers en production pour gérer le cache
     .enableVersioning(Encore.isProduction())
+    
+    // Désactive la génération de source maps en production
+    .enableSourceMaps(false)
 
     // Configure Babel pour gérer les fonctionnalités modernes de JavaScript
     .configureBabelPresetEnv((config) => {
