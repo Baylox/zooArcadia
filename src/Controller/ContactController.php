@@ -22,7 +22,7 @@ class ContactController extends AbstractController
             $data = $form->getData();
 
             // Validation stricte pour l'email
-            $email = filter_var($data['email'], FILTER_VALIDATE_EMAIL); // Vérifie si l'email est valide
+            $email = filter_var($data['email'], FILTER_VALIDATE_EMAIL); // Vérifie si l'email est valide et sypprimme les caractères spéciaux
             if (!$email) {
                 $this->addFlash('error', 'Adresse email invalide.');
                 return $this->redirectToRoute('app_contact');
@@ -31,7 +31,7 @@ class ContactController extends AbstractController
             // Nettoyer les données
             $titre = strip_tags($data['titre']); 
             $description = strip_tags($data['description']); 
-            $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL); // Supprime les caractères non valides
+            
  
                 /// Construire l'email
                 $email = (new Email())
