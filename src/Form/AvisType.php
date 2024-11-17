@@ -25,6 +25,10 @@ class AvisType extends AbstractType
                         'minMessage' => 'Le pseudo doit contenir au moins {{ limit }} caractères.',
                         'maxMessage' => 'Le pseudo ne peut pas dépasser {{ limit }} caractères.',
                     ]),
+                    new Assert\Regex([ // Vérifie que le pseudo ne contient que des lettres, chiffres, tirets ou underscores
+                        'pattern' => '/^[a-zA-Z0-9-_]+$/',
+                        'message' => 'Le pseudo ne peut contenir que des lettres, chiffres, tirets ou underscores.', 
+                    ]),
                 ],
             ])
             ->add('commentaire', TextareaType::class, [
@@ -36,6 +40,10 @@ class AvisType extends AbstractType
                         'max' => 500,
                         'minMessage' => 'Le commentaire doit contenir au moins {{ limit }} caractères.',
                         'maxMessage' => 'Le commentaire ne peut pas dépasser {{ limit }} caractères.',
+                    ]),
+                    new Assert\Regex([
+                        'pattern' => '/^[^<>]*$/',
+                        'message' => 'Le commentaire ne peut pas contenir les caractères < ou >.', // Vérifie que le commentaire ne contient pas de balises HTML pour
                     ]),
                 ],
             ]);
