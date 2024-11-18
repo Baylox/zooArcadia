@@ -16,7 +16,12 @@
         {% for image in images %}
             <div class="card m-2" style="width: 200px;">
                 <div class="card-image">
-                    <img src="/uploads/{{ image.animal ? 'animaux_image' : 'habitats_image' }}/{{ image.fileName }}" alt="Image {{ image.id }}" class="card-img-top" style="height: 150px; object-fit: cover;"/>
+                    <img 
+                    src="/uploads/{{ image.animal ? 'animaux_image' : (image.habitat ? 'habitats_image' : 'services_image') }}/{{ image.fileName }}" 
+                    alt="Image {{ image.id }}" 
+                    class="card-img-top" 
+                    style="height: 150px; object-fit: cover;" 
+                    />
                 </div>
                 <div class="card-body text-center">
                     <a href="{{ path('image_confirm_delete', {'id': image.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
