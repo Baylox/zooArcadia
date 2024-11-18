@@ -3,7 +3,6 @@
 {% block title %}Liste de toutes les images{% endblock %}
 
 {% block body %}
-    <h1 class="text-center mb-4">Liste de toutes les images</h1>
     {% for label, messages in app.flashes %}
         <div class="alert alert-{{ label }}">
             {% for message in messages %}
@@ -11,7 +10,9 @@
             {% endfor %}
         </div>
     {% endfor %}
-    
+
+    <h1 class="text-center display-6 mb-4 mt-4 text-primary fw-bold">Liste des images</h1>
+
     <div class="card-gallery d-flex flex-wrap justify-content-center">
         {% for image in images %}
             <div class="card m-2" style="width: 200px;">
