@@ -7,5 +7,7 @@
 
     {{ include('/dashboard/rapport/_form.html.twig') }}
 
-    <a href="{{ path('dashboard_rapport_index') }}">retour à la liste</a>
+    <a href="{{ path('dashboard_rapport_index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Retour à la liste
+    </a>
 {% endblock %}

@@ -7,5 +7,7 @@
 
     {{ include('dashboard/animal/_form.html.twig') }}
 
-    <a href="{{ path('dashboard_animal_index') }}">Retour à la liste</a>
+    <a href="{{ path('dashboard_animal_index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Retour à la liste
+    </a>
 {% endblock %}
