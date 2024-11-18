@@ -3,6 +3,13 @@
 {% block title %}Index de l'Alimentation{% endblock %}
 
 {% block body %}
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endfor %}
 <div class="container mt-5">
     <h1 class="text-center display-6 mb-4 text-primary fw-bold">Liste de l'Alimentation (Type de Nourriture)</h1>
 
