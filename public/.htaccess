@@ -1,12 +1,7 @@
 <IfModule mod_rewrite.c>
-    Options -MultiViews
     RewriteEngine On
 
-    # Rediriger vers HTTPS (optionnel, si nécessaire)
-    RewriteCond %{HTTPS} !=on
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-    # Si une requête pointe vers un fichier ou un dossier existant, ne rien faire
+    # Si la requête pointe vers un fichier ou un dossier existant, ne rien faire
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
 
@@ -14,29 +9,4 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 
-# Désactiver l'exécution des scripts PHP dans les répertoires sensibles
-<FilesMatch "\.(yml|yaml|twig|md|htaccess|json|lock|dist|xml|env)$">
-    Require all denied
-</FilesMatch>
-
-# Désactiver la liste des répertoires
-Options -Indexes
-
-# Limiter l'accès aux fichiers sensibles
-<FilesMatch "(app|config|autoload|composer)\.(json|lock|php)$">
-    Require all denied
-</FilesMatch>
-
-# Améliorer la sécurité des en-têtes HTTP
-<IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-    Header set X-XSS-Protection "1; mode=block"
-    Header set X-Frame-Options "SAMEORIGIN"
-    Header set Referrer-Policy "no-referrer-when-downgrade"
-    Header set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self';"
-</IfModule>
-
-# Gérer les erreurs personnalisées
-ErrorDocument 404 /index.php
-ErrorDocument 500 /index.php
 
