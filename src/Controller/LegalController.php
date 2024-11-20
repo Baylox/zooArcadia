@@ -15,12 +15,4 @@ class LegalController extends AbstractController
             'page_title' => 'Mentions légales',
         ]);
     }
-
-    #[Route('/politique-de-confidentialite', name: 'politique_confidentialite', methods: ['GET'])]
-    public function politiqueConfidentialite(): Response
-    {
-        return $this->render('legal/confidentialite.html.twig', [
-            'page_title' => 'Politique de confidentialité',
-        ]);
-    }
 }
