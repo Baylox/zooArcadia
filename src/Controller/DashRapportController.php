@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\AnimalRepository;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Service\RapportService;
 
 #[Route('/dashboard/rapport')]
 #[IsGranted('ROLE_EMPLOYE')]
@@ -85,42 +86,25 @@ class DashRapportController extends AbstractController
     // Route pour afficher les rapports filtrés par date
     #[Route('/new', name: 'dashboard_rapport_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_VETERINAIRE')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, RapportService $rapportService): Response
     {
         $rapport = new Rapport();
         $rapport->setDateRapport(new \DateTime());
-
+    
         $form = $this->createForm(RapportType::class, $rapport);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            $alimentationSelectionnee = $form->get('nomNourriture')->getData();
-
-            if ($alimentationSelectionnee) {
-                $nomNourriture = $alimentationSelectionnee->getNomNourriture();
-                $quantiteNourriture = $form->get('quantiteNourriture')->getData();
-                $commentaireVeterinaire = $form->get('commentaireVeterinaire')->getData();
-
-                $alimentation = new Alimentation();
-                $alimentation->setNomNourriture($nomNourriture);
-                $alimentation->setQuantiteNourriture($quantiteNourriture);
-                $alimentation->setCommentaireVeterinaire($commentaireVeterinaire);
-
-                $rapport->setAlimentation($alimentation);
-                $entityManager->persist($alimentation);
-            }
-
-            $entityManager->persist($rapport);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
+            $rapportService->createRapportWithAlimentation($rapport, $form);
+    
+            return $this->redirectToRoute('dashboard_rapport_index');
         }
-
+    
         return $this->render('dashboard/rapport/new.html.twig', [
-            'rapport' => $rapport,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
+    
     // Route pour afficher un rapport en particulier
     #[Route('/{id}', name: 'dashboard_rapport_show', methods: ['GET'])]
     public function show(Rapport $rapport): Response
@@ -132,44 +116,29 @@ class DashRapportController extends AbstractController
     // Route pour modifier un rapport
     #[Route('/{id}/edit', name: 'dashboard_rapport_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_VETERINAIRE')]
-    public function edit(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Rapport $rapport, RapportService $rapportService): Response
     {
         $form = $this->createForm(RapportType::class, $rapport);
-
+    
         if ($rapport->getAlimentation()) {
             $form->get('nomNourriture')->setData($rapport->getAlimentation());
             $form->get('quantiteNourriture')->setData($rapport->getAlimentation()->getQuantiteNourriture());
             $form->get('commentaireVeterinaire')->setData($rapport->getAlimentation()->getCommentaireVeterinaire());
         }
-
+    
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            $alimentationSelectionnee = $form->get('nomNourriture')->getData();
-            $quantiteNourriture = $form->get('quantiteNourriture')->getData();
-            $commentaireVeterinaire = $form->get('commentaireVeterinaire')->getData();
-
-            $alimentation = $rapport->getAlimentation() ?: new Alimentation();
-            $alimentation->setNomNourriture($alimentationSelectionnee->getNomNourriture());
-            $alimentation->setQuantiteNourriture($quantiteNourriture);
-            $alimentation->setCommentaireVeterinaire($commentaireVeterinaire);
-
-            if (!$rapport->getAlimentation()) {
-                $rapport->setAlimentation($alimentation);
-                $entityManager->persist($alimentation);
-            }
-
-            $entityManager->persist($rapport);
-            $entityManager->flush();
-
+            $rapportService->updateRapportWithAlimentation($rapport, $form);
+    
             return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('dashboard/rapport/edit.html.twig', [
             'rapport' => $rapport,
             'form' => $form->createView(),
         ]);
-    }
+    }    
     
     // Route pour supprimer un rapport
     #[Route('/{id}', name: 'dashboard_rapport_delete', methods: ['POST'])]
