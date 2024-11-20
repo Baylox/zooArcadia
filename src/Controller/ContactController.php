@@ -9,11 +9,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\EmailService;
 
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
-    public function index(Request $request, MailerInterface $mailer): Response
+    public function index(Request $request, EmailService $emailService): Response
     {
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
@@ -34,18 +35,14 @@ class ContactController extends AbstractController
             
  
                 /// Construire l'email
-                $email = (new Email())
-                ->from($email)
-                ->to('zoo@arcadia.fr')
-                ->subject($titre)
-                ->text(sprintf(
+                $text = sprintf(
                     "Nouveau message reçu :\n\nTitre : %s\n\nDescription :\n%s\n\nDe : %s",
                     $titre,
                     $description,
                     $email
-                ));
+                );
             
-            $mailer->send($email);
+                $emailService->sendEmail($email, 'zoo@arcadia.fr', $titre, $text);
 
             $this->addFlash('success', 'Votre message a été envoyé avec succès.');
             return $this->redirectToRoute('app_contact');
