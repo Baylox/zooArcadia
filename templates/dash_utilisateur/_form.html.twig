@@ -3,18 +3,21 @@
         {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
         {{ form_help(form.prenom, {'attr': {'class': 'form-text'}}) }}
+        {{ form_errors(form.prenom) }}
     </div>
     
     <div class="mb-3">
         {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
         {{ form_help(form.nom, {'attr': {'class': 'form-text'}}) }}
+        {{ form_errors(form.nom) }}
     </div>
 
     <div class="mb-3">
         {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
         {{ form_help(form.email, {'attr': {'class': 'form-text'}}) }}
+        {{ form_errors(form.email) }}
     </div>
 
     <div class="mb-3">
@@ -27,6 +30,7 @@
                 </div>
             {% endfor %}
             {{ form_help(form.roles, {'attr': {'class': 'form-text'}}) }}
+            {{ form_errors(form.roles) }}
         </div>
     </div>
 
@@ -34,6 +38,7 @@
         {{ form_label(form.password, 'Nouveau mot de passe', {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.password, {'attr': {'class': 'form-control'}, 'value': ''}) }}
         {{ form_help(form.password) }}
+        {{ form_errors(form.password) }}
     </div>
 
     <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>

@@ -18,9 +18,10 @@
     </div>
 
     <div class="mb-3">
-        {{ form_label(form.image, 'Image (fichier PNG ou JPEG)') }}
+        {{ form_label(form.image, 'Image (fichier PNG ou JPEG ou WEBP)') }}
         {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
         {{ form_help(form.image) }}
+        
     </div>
 
     <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>

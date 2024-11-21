@@ -71,12 +71,12 @@ class ImageController extends AbstractController
     {
         $form = $this->createFormBuilder()
             ->add('image', FileType::class, [
-                'label' => 'Ajouter une image (PNG, JPEG)',
+                'label' => 'Ajouter une image (PNG, JPEG ou WEBP)',
                 'mapped' => false,
                 'required' => true,
                 'constraints' => [
                     new File([
-                        'mimeTypes' => ['image/png', 'image/jpeg'],
+                        'mimeTypes' => ['image/png', 'image/jpeg', 'image/webp'],
                         'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
                     ]),
                 ],
