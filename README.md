@@ -67,21 +67,21 @@ git clone https://github.com/Baylox/zooArcadia.git
 
 Aller dans le répertoire du projet
 ```bash
-  cd my-project
+cd zooArcadia
 ```
 
 ### 🔧 Installer les dépendances PHP 
 
 
 ```bash
-  composer install
+composer install
 ```
 
 
 ### 🔧  Installez les dépendances front-end via npm 
 
 ```bash
-  npm install
+npm install
 ```
 Cela installera toutes les dépendances listées dans le fichier package.json, y compris Webpack Encore et d'autres librairies front-end.
 
@@ -89,20 +89,20 @@ Cela installera toutes les dépendances listées dans le fichier package.json, y
 Une fois les dépendances installées, vous pouvez compiler les assets avec Webpack Encore. Voici la commande pour générer les fichiers optimisés pour la production :
 
 ```bash
-  npm run build
+npm run build
 ```
 **Cela génère les fichiers compilés et minifiés dans le répertoire public/build/, qui seront utilisés par Symfony pour servir les assets dans les pages.**
 
 ⚠️ *Si vous êtes en environnement de développement* et que vous souhaitez une compilation plus rapide (sans optimisation), vous pouvez utiliser la commande suivante :
 
 ```bash
-  npm run dev
+npm run dev
 ```
 ### 💻 Lancer le serveur Symfony 
 Pour démarrer le serveur Symfony, utilisez la commande suivante :
 
 ```bash
-  symfony server:start
+symfony server:start
 ```
 
 Cela démarrera le serveur de développement. Vous pouvez accéder à l'application via votre navigateur à l'adresse 
@@ -121,17 +121,17 @@ Si vous n'êtes pas un examinateur, vous n'avez pas à vous soucier de cette par
 Une fois que la base de données est prête, vous pouvez charger les fixtures en exécutant la commande suivante dans le terminal à partir de la racine du projet 
 
 ```bash
-    php bin/console doctrine:fixtures:load
+php bin/console doctrine:fixtures:load
 ```
 Cela peuplera la base de données avec les fausses données de test définies dans les fixtures. Si vous souhaitez réinitialiser la base de données avant de charger les fixtures, vous pouvez utiliser l'option --no-interaction pour éviter toute confirmation :
 
 ```bash
-    php bin/console doctrine:fixtures:load --no-interaction
+php bin/console doctrine:fixtures:load --no-interaction
 ```
 ## ⚡Exécuter les Tests
 
 Pour exécuter tous les tests unitaires actuels, vous pouvez utiliser la commande suivante :
 
 ```bash
-  php bin/phpunit
+php bin/phpunit
 ```
