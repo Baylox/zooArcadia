@@ -59,8 +59,6 @@ Assurez-vous également que votre serveur de base de données (MySQL et MongoDB)
 # Installation
 ---
 ---
----
----
 ### 🔽 Cloner le projet
 
 ```bash
