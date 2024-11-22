@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Index des Rapports et Alimentation{% endblock %}
+{% block title %}Index des Rapports{% endblock %}
 
 {% block body %}
     {% for label, messages in app.flashes %}
@@ -53,10 +53,7 @@
                         <th>Titre du Rapport</th>
                         <th>Date du Rapport</th>
                         <th>Animal</th>
-                        <th>Nom de la Nourriture</th>
-                        <th>Quantité (kg)</th>
-                        <th>Commentaire Vétérinaire</th>
-                        <th>Rédacteur</th>
+                        <th>Rédacteur du rapport</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -70,27 +67,6 @@
                                     {{ rapport.animal.prenom }}
                                 {% else %}
                                     <em>Pas d'animal associé</em>
-                                {% endif %}
-                            </td>
-                            <td class="align-middle">
-                                {% if rapport.alimentation %}
-                                    {{ rapport.alimentation.nomNourriture }}
-                                {% else %}
-                                    <em>Pas d'alimentation associée</em>
-                                {% endif %}
-                            </td>
-                            <td class="align-middle">
-                                {% if rapport.alimentation %}
-                                    {{ rapport.alimentation.quantiteNourriture }}
-                                {% else %}
-                                    <em>Non spécifié</em>
-                                {% endif %}
-                            </td>
-                            <td class="align-middle">
-                                {% if rapport.alimentation %}
-                                    {{ rapport.alimentation.commentaireVeterinaire|length > 40 ? rapport.alimentation.commentaireVeterinaire|slice(0, 40) ~ '...' : rapport.alimentation.commentaireVeterinaire }}
-                                {% else %}
-                                    <em>Aucun commentaire</em>
                                 {% endif %}
                             </td>
                             <td class="align-middle">
@@ -113,7 +89,7 @@
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="8" class="text-center">Aucun enregistrement trouvé</td>
+                            <td colspan="6" class="text-center">Aucun enregistrement trouvé</td>
                         </tr>
                     {% endfor %}
                 </tbody>
