@@ -116,26 +116,26 @@ class DashRapportController extends AbstractController
             'rapport' => $rapport,
         ]);
     }
+
     // Route pour modifier un rapport
     #[Route('/{id}/edit', name: 'dashboard_rapport_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_VETERINAIRE')]
-    public function edit(Request $request, Rapport $rapport, RapportService $rapportService): Response
+    public function edit(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(RapportType::class, $rapport);
-    
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $rapportService->updateRapportWithAlimentation($rapport, $form);
-    
+            $entityManager->flush();
+
             return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
         }
-    
+
         return $this->render('dashboard/rapport/edit.html.twig', [
             'rapport' => $rapport,
             'form' => $form->createView(),
         ]);
-    }    
+    }
     
     // Route pour supprimer un rapport
     #[Route('/{id}', name: 'dashboard_rapport_delete', methods: ['POST'])]
