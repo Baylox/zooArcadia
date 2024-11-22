@@ -83,27 +83,30 @@ class DashRapportController extends AbstractController
             'selectedAnimalPrenom' => $animalPrenom,
         ]);
     }
-    // Route pour afficher les rapports filtrés par date
+
+    // Route pour créer un nouveau rapport de base
     #[Route('/new', name: 'dashboard_rapport_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_VETERINAIRE')]
-    public function new(Request $request, RapportService $rapportService): Response
+    public function newBasic(Request $request, EntityManagerInterface $entityManager): Response
     {
         $rapport = new Rapport();
         $rapport->setDateRapport(new \DateTime());
-    
+
         $form = $this->createForm(RapportType::class, $rapport);
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $rapportService->createRapportWithAlimentation($rapport, $form);
-    
+            $entityManager->persist($rapport);
+            $entityManager->flush();
+
             return $this->redirectToRoute('dashboard_rapport_index');
         }
-    
+
         return $this->render('dashboard/rapport/new.html.twig', [
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
+
     
     // Route pour afficher un rapport en particulier
     #[Route('/{id}', name: 'dashboard_rapport_show', methods: ['GET'])]
