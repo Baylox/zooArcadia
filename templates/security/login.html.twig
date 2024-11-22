@@ -1,36 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Formulaire de connexion{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="login-form bg-light mt-4 p-4">
-                <form method="post" class="row g-3">
-                    <h1 class="h3 mb-3 font-weight-normal">Merci de bien vouloir vous connecter</h1>
-                    
-                    {% if error %}
-                        <div class="alert alert-danger">{{ error.messageKey }}</div>
-                    {% endif %}
+    <div class="d-flex align-items-center justify-content-center vh-100 bg-light">
+        <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+            <form method="post" class="row g-3">
+                <h1 class="h4 mb-3 text-center">
+                    <i class="fas fa-user-circle text-primary"></i> Connexion
+                </h1>
 
-                    <div class="col-12">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" name="email" id="inputEmail" class="form-control" required autofocus>
+                {% if error %}
+                    <div class="alert alert-danger text-center">
+                        <i class="fas fa-exclamation-circle"></i> Email ou mot de passe incorrect. Veuillez réessayer.
                     </div>
-                    <div class="col-12">
-                        <label for="inputPassword">Mot de passe</label>
-                        <input type="password" name="password" id="inputPassword" class="form-control" required>
-                    </div>
-                    
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authentification') }}">
+                {% endif %}
 
-                    <div class="col-12">
-                        <button class="btn btn-lg btn-primary float-end" type="submit">
-                            Se connecter
-                        </button>
-                    </div>
-                </form>
-            </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-primary text-white">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Adresse email" required autofocus>
+                </div>
+                
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-primary text-white">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+                </div>
+                
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authentification') }}">
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-sign-in-alt"></i> Se connecter
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}
+

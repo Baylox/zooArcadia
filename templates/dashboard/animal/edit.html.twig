@@ -3,11 +3,28 @@
 {% block title %}Modifier l'animal{% endblock %}
 
 {% block body %}
-    <h1>Modifier l'animal</h1>
+    <div class="card-body">
+        {# Afficher l'image actuelle si elle existe #}
+        {% if animal.images|length > 0 %}
+            <div class="d-flex flex-column align-items-center mb-4">
+                <img src="/uploads/animaux_image/{{ animal.images|first.fileName }}" alt="Image de {{ animal.prenom }}" class="img-thumbnail mb-3" style="width: 300px; height: 300px; object-fit: cover;">
+            </div>
+        {% endif %}
 
-    {{ include('dashboard/animal/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="mb-4">
+                {{ include('dashboard/animal/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+            </div>
+        {% endif %}
+    </div>
 
-    <a href="{{ path('dashboard_animal_index') }}">Retour à la liste</a>
-
-    {{ include('dashboard/animal/_delete_form.html.twig') }}
+    <div class="card-footer mt-3 d-flex justify-content-between">
+        <a href="{{ path('dashboard_animal_index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+        
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ include('dashboard/animal/_delete_form.html.twig') }}
+        {% endif %}
+    </div>
 {% endblock %}
+
+

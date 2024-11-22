@@ -23,16 +23,19 @@ class HabitatType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        //'maxSize' => '1024k',
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg',
+                            'image/jpg',
+                            'image/webp'
                         ],
-                    'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
-                ]),
-            ],
-        ]);
-    }
+                        'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
+                    ]),
+                ],
+            ]);
+        }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

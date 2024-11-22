@@ -37,4 +37,15 @@ class EmailService
             ]);
         }
     }
+
+    public function sendEmail(string $from, string $to, string $subject, string $text): void
+    {
+        $email = (new Email())
+            ->from($from)
+            ->to($to)
+            ->subject($subject)
+            ->text($text);
+
+        $this->mailer->send($email);
+    }
 }

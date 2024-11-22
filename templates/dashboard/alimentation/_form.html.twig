@@ -1,4 +1,25 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-dark">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'my-form'}}) }}
+<div class="container mt-5">
+
+    <div class="mb-3">
+        {{ form_label(form.nomNourriture, 'Nom de la Nourriture', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.nomNourriture, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.nomNourriture, {'attr': {'class': 'form-text text-muted'}}) }}
+        {{ form_errors(form.nomNourriture) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.commentaireVeterinaire, 'Commentaire du Vétérinaire', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.commentaireVeterinaire, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+        {{ form_help(form.commentaireVeterinaire, {'attr': {'class': 'form-text text-muted'}}) }}
+        {{ form_errors(form.nomNourriture) }}
+    </div>
+
+    <div class="text-center mt-4">
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+</div>
 {{ form_end(form) }}
+
+
+

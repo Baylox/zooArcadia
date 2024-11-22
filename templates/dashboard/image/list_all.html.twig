@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de toutes les images{% endblock %}
+
+{% block body %}
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <h1 class="text-center display-6 mb-4 mt-4 text-primary fw-bold">Liste des images</h1>
+
+    <div class="card-gallery d-flex flex-wrap justify-content-center">
+        {% for image in images %}
+            <div class="card m-2" style="width: 200px;">
+                <div class="card-image">
+                    <img 
+                    src="/uploads/{{ image.animal ? 'animaux_image' : (image.habitat ? 'habitats_image' : 'services_image') }}/{{ image.fileName }}" 
+                    alt="Image {{ image.id }}" 
+                    class="card-img-top" 
+                    style="height: 150px; object-fit: cover;" 
+                    />
+                </div>
+                <div class="card-body text-center">
+                    <a href="{{ path('image_confirm_delete', {'id': image.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucune image trouvée.</p>
+        {% endfor %}
+    </div>
+
+    {% include '_partials/_return.html.twig' %}
+{% endblock %}
+
+
+
+

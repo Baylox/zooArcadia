@@ -3,9 +3,16 @@
 {% block title %}Nouvelle Alimentation{% endblock %}
 
 {% block body %}
-    <h1>Créer une nouvelle Alimentation</h1>
+    <h1 class="text-center display-6 mb-4 text-primary fw-bold">Créer une nouvelle alimentation</h1>
 
-    {{ include('dashboard/alimentation/_form.html.twig') }}
+    <div class="container">
+        {{ include('dashboard/alimentation/_form.html.twig') }}
 
-    <a href="{{ path('dashboard_alimentation_index') }}">Retour à la liste</a>
+        <div class="text-center mt-4">
+            <a href="{{ path('dashboard_alimentation_index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
+        </div>
+    </div>
 {% endblock %}
+

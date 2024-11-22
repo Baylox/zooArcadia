@@ -39,15 +39,21 @@ class Animal
     #[ORM\JoinColumn(nullable: false)]
     private ?Habitat $habitat = null;
 
-    /**
-     * @var Collection<int, Rapport>
-     */
-    #[ORM\ManyToMany(targetEntity: Rapport::class, mappedBy: 'animaux')]
+    #[ORM\OneToMany(mappedBy: 'animal', targetEntity: Rapport::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $rapports;
 
+    /**
+     * @var Collection<int, Image>
+     */
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'animal')]
+    private Collection $images;
+
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
+    private int $consultations = 0;
     public function __construct()
     {
         $this->rapports = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,22 +153,64 @@ class Animal
         return $this->rapports;
     }
 
-    public function addRapport(Rapport $rapport): static
+    public function addRapport(Rapport $rapport): self
     {
         if (!$this->rapports->contains($rapport)) {
             $this->rapports->add($rapport);
-            $rapport->addAnimaux($this);
+            $rapport->setAnimal($this);
         }
 
         return $this;
     }
 
-    public function removeRapport(Rapport $rapport): static
+    public function removeRapport(Rapport $rapport): self
     {
         if ($this->rapports->removeElement($rapport)) {
-            $rapport->removeAnimaux($this);
+            if ($rapport->getAnimal() === $this) {
+                $rapport->setAnimal(null);
+            }
         }
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getAnimal() === $this) {
+                $image->setAnimal(null);
+            }
+        }
+
+        return $this;
+    }
+    public function getConsultations(): int
+    {
+        return $this->consultations;
+    }
+
+    public function incrementConsultations(): self
+    {
+        $this->consultations++;
         return $this;
     }
 }

@@ -17,14 +17,15 @@ class Alimentation
     #[ORM\Column(length: 255)]
     private ?string $nomNourriture = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?float $quantiteNourriture = null;  
+    #[ORM\Column(type: Types::FLOAT)]
+    private ?float $quantiteNourriture = null;
+ 
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $commentaireVeterinaire = null;
 
-    #[ORM\ManyToOne(inversedBy: 'alimentations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(targetEntity: Rapport::class, inversedBy: 'alimentation', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?Rapport $rapport = null;
 
     public function getId(): ?int
@@ -73,7 +74,7 @@ class Alimentation
         return $this->rapport;
     }
 
-    public function setRapport(?Rapport $rapport): static
+    public function setRapport(?Rapport $rapport): self
     {
         $this->rapport = $rapport;
 

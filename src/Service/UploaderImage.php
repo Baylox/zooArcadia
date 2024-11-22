@@ -13,12 +13,27 @@ class UploaderImage
     public function __construct(SluggerInterface $slugger, string $uploadDir)
     {
         $this->slugger = $slugger;
-        $this->uploadDir = $uploadDir;
+        $this->uploadDir = $uploadDir; //public/uploads
     }
 
-    public function upload(UploadedFile $uploadedFile): string
+    public function uploadAnimalImage(UploadedFile $uploadedFile): string
     {
-        $destination = $this->uploadDir . '/animaux_image'; // Le dossier où le fichier doit être stocké
+        return $this->upload($uploadedFile, 'animaux_image');
+    }
+
+    public function uploadHabitatImage(UploadedFile $uploadedFile): string
+    {
+        return $this->upload($uploadedFile, 'habitats_image');
+    }
+
+    public function uploadServiceImage(UploadedFile $uploadedFile): string
+    {
+        return $this->upload($uploadedFile, 'services_image');
+    }
+    // Encapsulation de la logique de l'upload
+    private function upload(UploadedFile $uploadedFile, string $subdirectory): string 
+    {
+        $destination = $this->uploadDir . '/' . $subdirectory;
 
         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
         $newFilename = $this->slugger->slug($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
@@ -28,4 +43,5 @@ class UploaderImage
         return $newFilename;
     }
 }
+
 

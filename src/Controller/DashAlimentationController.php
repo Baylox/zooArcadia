@@ -10,10 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/dashboard/alimentation')]
-final class AlimentationController extends AbstractController
-{
+#[IsGranted('ROLE_EMPLOYE')]
+final class DashAlimentationController extends AbstractController
+{   
+    // Index des alimentations
     #[Route(name: 'dashboard_alimentation_index', methods: ['GET'])]
     public function index(AlimentationRepository $alimentationRepository): Response
     {
@@ -22,6 +25,7 @@ final class AlimentationController extends AbstractController
         ]);
     }
 
+    // Création d'une nouvelle alimentation
     #[Route('/new', name: 'dashboard_alimentation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,6 +46,7 @@ final class AlimentationController extends AbstractController
         ]);
     }
 
+    // Affichage d'une alimentation
     #[Route('/dashboard/alimentation/{id}', name: 'dashboard_alimentation_show', methods: ['GET'])]
     public function show(Alimentation $alimentation): Response
     {
@@ -50,6 +55,7 @@ final class AlimentationController extends AbstractController
         ]);
     }
 
+    // Modification d'une alimentation
     #[Route('/dashboard/alimentation/{id}/edit', name: 'dashboard_alimentation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Alimentation $alimentation, EntityManagerInterface $entityManager): Response
     {
@@ -68,6 +74,7 @@ final class AlimentationController extends AbstractController
         ]);
     }
 
+    // Suppression d'une alimentation
     #[Route('/dashboard/alimentation/{id}', name: 'dashboard_alimentation_delete', methods: ['POST'])]
     public function delete(Request $request, Alimentation $alimentation, EntityManagerInterface $entityManager): Response
     {

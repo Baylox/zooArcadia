@@ -13,14 +13,20 @@ class Image
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $fileName = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $path = null;
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: true, onDelete: "CASCADE")]
+    private ?Animal $animal = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: true, onDelete: "CASCADE")]
     private ?Habitat $habitat = null;
+
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: true, onDelete: "CASCADE")]
+    private ?Service $service = null;
 
     public function getId(): ?int
     {
@@ -32,22 +38,22 @@ class Image
         return $this->fileName;
     }
 
-    public function setFileName(string $fileName): static
+    public function setFileName(?string $fileName): static
     {
         $this->fileName = $fileName;
 
         return $this;
     }
 
-    public function getPath(): ?string
+    public function getAnimal(): ?Animal
     {
-        return $this->path;
+        return $this->animal;
     }
-
-    public function setPath(string $path): static
+    
+    public function setAnimal(?Animal $animal): static
     {
-        $this->path = $path;
-
+        $this->animal = $animal;
+    
         return $this;
     }
 
@@ -59,6 +65,18 @@ class Image
     public function setHabitat(?Habitat $habitat): static
     {
         $this->habitat = $habitat;
+
+        return $this;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(?Service $service): static
+    {
+        $this->service = $service;
 
         return $this;
     }

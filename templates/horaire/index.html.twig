@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Horaires{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center display-6 mb-4 text-primary fw-bold">Horaires</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped shadow-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th><i class="fas fa-calendar-day"></i> Jour</th>
+                    <th><i class="fas fa-clock"></i> Heure d'ouverture</th>
+                    <th><i class="fas fa-clock"></i> Heure de fermeture</th>
+                    <th class="text-center"><i class="fas fa-cog"></i> Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for horaire in horaires %}
+                    <tr>
+                        <td class="align-middle">{{ horaire.jour }}</td>
+                        <td class="align-middle">{{ horaire.heureOuverture }}</td>
+                        <td class="align-middle">{{ horaire.heureFermeture }}</td>
+                        <td class="align-middle text-center">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('horaire_edit', { id: horaire.id }) }}" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                            {% else %}
+                                <span class="text-muted">Non autorisé</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">Aucun horaire trouvé</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4">
+        {% include '_partials/_return.html.twig' %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+

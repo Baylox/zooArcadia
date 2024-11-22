@@ -3,11 +3,20 @@
 {% block title %}Modifier Alimentation{% endblock %}
 
 {% block body %}
-    <h1>Modifier Alimentation</h1>
+<div class="container mt-5">
+    <h1 class="text-center display-6 mb-4 text-primary fw-bold">Modifier Alimentation</h1>
 
-    {{ include('dashboard/alimentation/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <div class="rounded p-4 bg-tertiary">
+        {{ include('dashboard/alimentation/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    </div>
 
-    <a href="{{ path('dashboard_alimentation_index') }}">Retour à la liste</a>
-
-    {{ include('dashboard/alimentation/_delete_form.html.twig') }}
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{{ path('dashboard_alimentation_index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Voir la liste générale d'alimentation
+        </a>
+        {{ include('dashboard/alimentation/_delete_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}
+
+

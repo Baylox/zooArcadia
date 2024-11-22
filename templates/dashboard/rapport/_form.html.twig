@@ -1,4 +1,59 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
+{{ form_start(form, {'attr': {'class': 'my-form'}}) }}
+
+    <div class="mb-3">
+        {{ form_label(form.titre, 'Titre') }}
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.titre) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.dateRapport, 'Date du Rapport') }}
+        {{ form_widget(form.dateRapport, {'attr': {'class': 'form-control', 'type': 'date'}}) }}
+        {{ form_help(form.dateRapport) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.details, 'Détails') }}
+        {{ form_widget(form.details, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+        {{ form_help(form.details) }}
+    </div>
+
+    <h3 class="mt-4">Informations sur l'Alimentation</h3>
+
+    <div class="mb-3">
+        {{ form_label(form.nomNourriture, 'Nom de la Nourriture') }}
+        {{ form_widget(form.nomNourriture, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.nomNourriture) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.quantiteNourriture, 'Quantité de Nourriture') }}
+        {{ form_widget(form.quantiteNourriture, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.quantiteNourriture) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.commentaireVeterinaire, 'Commentaire Vétérinaire') }}
+        {{ form_widget(form.commentaireVeterinaire, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+        {{ form_help(form.commentaireVeterinaire) }}
+    </div>
+
+
+    <div class="mb-3">
+        {{ form_label(form.animal, 'Animal') }}
+        {{ form_widget(form.animal, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.animal) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.utilisateur, 'Vétérinaire') }}
+        {{ form_widget(form.utilisateur, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.utilisateur) }}
+    </div>
+
     <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+
 {{ form_end(form) }}
+
+
+

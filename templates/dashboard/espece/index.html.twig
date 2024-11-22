@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Espèces{% endblock %}
+
+{% block body %}
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <h1 class="text-primary fw-bold text-center mb-4">Liste des Espèces</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Type</th>
+                    <th>Évaluation Extinction</th>
+                    <th>Traits Caractéristiques</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th class="text-center">Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for espece in especes %}
+                    <tr>
+                        <td>{{ espece.typeEspece }}</td>
+                        <td>{{ espece.evaluationExtinction }}</td>
+                        <td>{{ espece.traitsCaracteristiques }}</td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td class="text-center">
+                                <a href="{{ path('espece_edit', {id: espece.id}) }}" class="btn btn-primary btn-sm mx-1">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <form action="{{ path('espece_delete', {id: espece.id}) }}" method="post" class="d-inline">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ espece.id) }}">
+                                    <button type="submit" class="btn btn-dark btn-sm mx-1" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette espèce ?');">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </button>
+                                </form>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="{% if is_granted('ROLE_ADMIN') %}4{% else %}3{% endif %}" class="text-center">Aucune espèce enregistrée</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{{ path('dashboard_animal_index') }}" class="btn btn-secondary mx-1">
+            <i class="fas fa-arrow-left"></i> Retour à la liste des Animaux
+        </a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('espece_new') }}" class="btn btn-dark mx-1">
+                <i class="fas fa-plus"></i> Ajouter une Nouvelle Espèce
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+

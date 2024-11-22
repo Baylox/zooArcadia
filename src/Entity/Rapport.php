@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\RapportRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,27 +23,16 @@ class Rapport
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $details = null;
 
-    /**
-     * @var Collection<int, Animal>
-     */
-    #[ORM\ManyToMany(targetEntity: Animal::class, inversedBy: 'rapports')]
-    private Collection $animaux;
+    #[ORM\ManyToOne(targetEntity: Animal::class, inversedBy: 'rapports', fetch: 'EAGER')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Animal $animal = null;
 
-    /**
-     * @var Collection<int, Alimentation>
-     */
-    #[ORM\OneToMany(targetEntity: Alimentation::class, mappedBy: 'rapport')]
-    private Collection $alimentations;
+    #[ORM\OneToOne(targetEntity: Alimentation::class, mappedBy: 'rapport', cascade: ['persist', 'remove'])]
+    private ?Alimentation $alimentation = null;
 
     #[ORM\ManyToOne(inversedBy: 'rapports')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Utilisateur $utilisateur = null;
-
-    public function __construct()
-    {
-        $this->animaux = new ArrayCollection();
-        $this->alimentations = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -76,56 +63,29 @@ class Rapport
         return $this;
     }
 
-    /**
-     * @return Collection<int, Animal>
-     */
-    public function getAnimaux(): Collection
+    public function getAnimal(): ?Animal
     {
-        return $this->animaux;
+        return $this->animal;
     }
 
-    public function addAnimaux(Animal $animaux): static
+    public function setAnimal(?Animal $animal): self
     {
-        if (!$this->animaux->contains($animaux)) {
-            $this->animaux->add($animaux);
-        }
+        $this->animal = $animal;
 
         return $this;
     }
 
-    public function removeAnimaux(Animal $animaux): static
+    public function getAlimentation(): ?Alimentation
     {
-        $this->animaux->removeElement($animaux);
-
-        return $this;
+        return $this->alimentation;
     }
 
-    /**
-     * @return Collection<int, Alimentation>
-     */
-    public function getAlimentations(): Collection
+    public function setAlimentation(?Alimentation $alimentation): self
     {
-        return $this->alimentations;
-    }
-
-    public function addAlimentation(Alimentation $alimentation): static
-    {
-        if (!$this->alimentations->contains($alimentation)) {
-            $this->alimentations->add($alimentation);
+        if ($alimentation && $alimentation->getRapport() !== $this) {
             $alimentation->setRapport($this);
         }
-
-        return $this;
-    }
-
-    public function removeAlimentation(Alimentation $alimentation): static
-    {
-        if ($this->alimentations->removeElement($alimentation)) {
-            // set the owning side to null (unless already changed)
-            if ($alimentation->getRapport() === $this) {
-                $alimentation->setRapport(null);
-            }
-        }
+        $this->alimentation = $alimentation;
 
         return $this;
     }

@@ -5,11 +5,13 @@ namespace App\Form;
 use App\Entity\Animal;
 use App\Entity\Espece;
 use App\Entity\Habitat;
-use App\Entity\Rapport;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Validator\Constraints\File;
 
 class AnimalType extends AbstractType
 {
@@ -31,7 +33,23 @@ class AnimalType extends AbstractType
                 'class' => Habitat::class,
                 'choice_label' => 'nom',
             ])
-        ;
+            ->add('image', FileType::class, [
+                'label' => 'Image (fichier PNG, JPEG, JPG ou WEBP)',
+                'mapped' => false, // Le fichier est traité manuellement
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        //'maxSize' => 2024k',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/webp'
+                        ],
+                        'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
+                    ]),
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

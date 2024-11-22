@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Habitats{% endblock %}
+
+{% block body %}
+        {% include '_partials/_hero.html.twig' with {
+        intro_text: 'Plongez dans un monde sauvage et captivant',
+        title: 'Une aventure animalière inoubliable',
+    } %}
+
+<section id="habitats" class="py-5">
+        <h1 class="text-center display-4 text-primary mb-5">
+            Nos Habitats
+        </h1>
+
+        <div class="d-flex flex-column gap-5 px-3 px-md-5">
+            {% for habitat in habitats %}
+                <div class="card shadow-lg border-0 overflow-hidden w-100">
+                    <div class="row g-0 align-items-stretch flex-column flex-md-row">
+
+                        <!-- Image de l'habitat -->
+                        <div class="col-md-6 d-flex overflow-hidden">
+                            {% if habitat.images|length > 0 %}
+                                <img src="{{ asset('uploads/habitats_image/' ~ habitat.images|first.fileName) }}" 
+                                    alt="{{ habitat.nom }}" 
+                                    class="img-fluid w-100 h-100 object-fit-cover">
+                            {% else %}
+                                <div class="d-flex align-items-center justify-content-center bg-secondary text-white w-100 h-100">
+                                    <span class="fs-4">Pas d'image associée</span>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Description de l'habitat -->
+                        <div class="col-md-6 d-flex flex-column justify-content-center p-4 p-md-5">
+                            <div class="card-body">
+                                <h2 class="card-title text-primary fw-bold mb-3 mb-md-4 fs-3 fs-md-2">{{ habitat.nom }}</h2>
+                                <p class="card-text fs-5 fs-md-4 text-dark">
+                                    {{ habitat.description }}
+                                </p>
+                                <div class="mt-3 mt-md-4">
+                                    <a href="{{ path('app_habitat_show', {'id': habitat.id}) }}" 
+                                        class="btn btn-primary btn-lg">
+                                        Découvrir les animaux
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-center text-muted fs-3">Aucun habitat trouvé.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+
+
+
+
