@@ -120,12 +120,6 @@ class DashRapportController extends AbstractController
     {
         $form = $this->createForm(RapportType::class, $rapport);
     
-        if ($rapport->getAlimentation()) {
-            $form->get('nomNourriture')->setData($rapport->getAlimentation());
-            $form->get('quantiteNourriture')->setData($rapport->getAlimentation()->getQuantiteNourriture());
-            $form->get('commentaireVeterinaire')->setData($rapport->getAlimentation()->getCommentaireVeterinaire());
-        }
-    
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
@@ -146,15 +140,14 @@ class DashRapportController extends AbstractController
     public function delete(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$rapport->getId(), $request->request->get('_token'))) {
-            if ($rapport->getAlimentation()) {
-                $entityManager->remove($rapport->getAlimentation());
-            }
+            // Suppression du rapport uniquement
             $entityManager->remove($rapport);
             $entityManager->flush();
         }
-
+    
         return $this->redirectToRoute('dashboard_rapport_index', [], Response::HTTP_SEE_OTHER);
     }
+    
 }
 
 
