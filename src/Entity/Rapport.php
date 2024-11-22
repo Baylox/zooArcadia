@@ -27,9 +27,6 @@ class Rapport
     #[ORM\JoinColumn(nullable: true)]
     private ?Animal $animal = null;
 
-    #[ORM\OneToOne(targetEntity: Alimentation::class, mappedBy: 'rapport', cascade: ['persist', 'remove'])]
-    private ?Alimentation $alimentation = null;
-
     #[ORM\ManyToOne(inversedBy: 'rapports')]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Utilisateur $utilisateur = null;
@@ -71,21 +68,6 @@ class Rapport
     public function setAnimal(?Animal $animal): self
     {
         $this->animal = $animal;
-
-        return $this;
-    }
-
-    public function getAlimentation(): ?Alimentation
-    {
-        return $this->alimentation;
-    }
-
-    public function setAlimentation(?Alimentation $alimentation): self
-    {
-        if ($alimentation && $alimentation->getRapport() !== $this) {
-            $alimentation->setRapport($this);
-        }
-        $this->alimentation = $alimentation;
 
         return $this;
     }
