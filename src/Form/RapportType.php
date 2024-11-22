@@ -23,9 +23,6 @@ class RapportType extends AbstractType
             ->add('dateRapport', null, [
                 'widget' => 'single_text',
             ])
-            ->add('details', TextareaType::class, [
-                'required' => false,
-            ])
             ->add('animal', EntityType::class, [
                 'class' => Animal::class,
                 'choice_label' => 'prenom',
@@ -35,23 +32,7 @@ class RapportType extends AbstractType
                 'class' => Utilisateur::class,
                 'choice_label' => 'prenom',
             ])
-
-            // Champs de l'entité Alimentation
-            ->add('nomNourriture', EntityType::class, [
-                'class' => Alimentation::class,
-                'choice_label' => 'nomNourriture',
-                'mapped' => false,
-                'label' => 'Nom de la Nourriture',
-                'placeholder' => 'Choisir un aliment',
-            ])
-            ->add('quantiteNourriture', NumberType::class, [
-                'mapped' => false,
-                'label' => 'Quantité de Nourriture',
-                'scale' => 2,
-            ])
-            ->add('commentaireVeterinaire', TextareaType::class, [
-                'mapped' => false,
-                'label' => 'Commentaire du Vétérinaire',
+            ->add('details', TextareaType::class, [
                 'required' => false,
             ]);
     }

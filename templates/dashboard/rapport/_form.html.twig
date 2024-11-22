@@ -18,27 +18,6 @@
         {{ form_help(form.details) }}
     </div>
 
-    <h3 class="mt-4">Informations sur l'Alimentation</h3>
-
-    <div class="mb-3">
-        {{ form_label(form.nomNourriture, 'Nom de la Nourriture') }}
-        {{ form_widget(form.nomNourriture, {'attr': {'class': 'form-control'}}) }}
-        {{ form_help(form.nomNourriture) }}
-    </div>
-
-    <div class="mb-3">
-        {{ form_label(form.quantiteNourriture, 'Quantité de Nourriture') }}
-        {{ form_widget(form.quantiteNourriture, {'attr': {'class': 'form-control'}}) }}
-        {{ form_help(form.quantiteNourriture) }}
-    </div>
-
-    <div class="mb-3">
-        {{ form_label(form.commentaireVeterinaire, 'Commentaire Vétérinaire') }}
-        {{ form_widget(form.commentaireVeterinaire, {'attr': {'class': 'form-control', 'rows': 3}}) }}
-        {{ form_help(form.commentaireVeterinaire) }}
-    </div>
-
-
     <div class="mb-3">
         {{ form_label(form.animal, 'Animal') }}
         {{ form_widget(form.animal, {'attr': {'class': 'form-control'}}) }}

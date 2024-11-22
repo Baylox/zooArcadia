@@ -64,10 +64,6 @@ class AppFixtures extends Fixture {
         // Créer 10 rapports en associant chaque rapport à un animal aléatoire
         RapportFactory::createMany(10);
 
-        // Créer 10 alimentations
-        AlimentationFactory::createMany(10);
-
-
         ServiceFactory::createMany(3);
         
 
