@@ -113,12 +113,14 @@ http://127.0.0.1:8000 ou http://localhost:8000.
 
 ## 🗃️ Base de données 
 
-Ce projet ne comprend pas de migrations Doctrine. Bien que des fixtures soient présentes pour peupler la base de données avec des données de test, ces données ne sont pas réelles. Elles ont été créées uniquement pour les besoins des tests. Ces fixtures ne peuvent être utilisées que si les fichiers SQL nécessaires à la création des tables ont été importés dans la base de données. Ces fichiers SQL ne sont pas versionnés et sont fournis uniquement aux examinateurs dans le cadre de l'évaluation.
+Ce projet ne comprend pas de migrations Doctrine. Afin de séparer les environnements de développement et de production et pour des raisons de sécurité, les données réelles de la base de données ne sont pas partagées.
 
-Si vous n'êtes pas un examinateur, vous n'avez pas à vous soucier de cette partie. Les fichiers SQL nécessaires à la création des tables seront fournis séparément aux examinateurs. Une fois que la base de données est configurée et les tables créées, vous pourrez charger les fixtures pour insérer des fausses données à des fins de tests. 
+Des données de test fictives ont été créées et sont présentes dans le dossier App.Fixtures. Elles sont uniquement destinées à vérifier le bon fonctionnement de l'application pendant le développement. Les données réelles ne sont pas partagées pour éviter tout risque lié à leur divulgation ou utilisation incorrecte dans un environnement de test. Les fichiers SQL nécessaires à la création des tables sont fournis séparément aux examinateurs et ne sont pas versionnés. Ainsi, bien que ces fichiers soient fournis aux examinateurs pour configurer la base de données, vous pourrez utiliser les données de test pour vérifier le fonctionnement de l'application pendant le développement.
 
-##  🔄 Lancer les Fixtures 
-Une fois que la base de données est prête, vous pouvez charger les fixtures en exécutant la commande suivante dans le terminal à partir de la racine du projet 
+**De facto si vous êtes un examinateur, vous n'avez pas à vous soucier de cette partie. Les fichiers SQL nécessaires à la création des tables seront fournis séparément aux examinateurs. Une fois la base de données configurée et les tables créées, vous pourrez charger les véritables données.**
+
+##  🔄 Lancer les Fixtures **(Pour le développement)**
+Une fois que la base de données est prête, vous pouvez charger les données de test en exécutant la commande suivante dans le terminal à partir de la racine du projet 
 
 ```bash
 php bin/console doctrine:fixtures:load
