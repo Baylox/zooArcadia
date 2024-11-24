@@ -3,9 +3,13 @@
 {% block title %}Nouvel utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouvel Utilisateur</h1>
+    <h1 class="mb-4 text-center text-primary fw-bold">Créer un nouvel Utilisateur</h1>
 
     {{ include('dash_utilisateur/_form.html.twig') }}
 
-    <a href="{{ path('app_dash_utilisateur_index') }}">Retour/a>
+    <div class="mt-4 d-flex justify-content-between">
+        <a href="{{ path('app_dash_utilisateur_index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour à la liste
+        </a>
+    </div>
 {% endblock %}

@@ -6,6 +6,11 @@ security:
 
     hide_user_not_found: false # A ENLEVER EN PROD
 
+    
+    role_hierarchy:
+        ROLE_VETERINAIRE: [ROLE_EMPLOYE]
+        ROLE_ADMIN: [ROLE_VETERINAIRE]
+        
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
@@ -31,8 +36,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/employe, roles: ROLE_EMPLOYE }
+        - { path: ^/veterinaire, roles: ROLE_VETERINAIRE }
 
 when@test:
     security:

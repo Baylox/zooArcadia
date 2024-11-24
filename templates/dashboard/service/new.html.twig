@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Service{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h1 class="display-5 text-center mb-4 text-primary fw-bold">Créer un nouveau service</h1>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="p-4 border rounded shadow-sm bg-light">
+                    {{ include('dashboard/service/_form.html.twig') }}
+                </div>
+            {% else %}
+                <div class="alert alert-warning text-center mt-3">
+                    Vous n'êtes pas autorisé à créer un nouveau service.
+                </div>
+            {% endif %}
+
+            <div class="text-center mt-4">
+                <a href="{{ path('dashboard_service_index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Retour à la liste des services
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

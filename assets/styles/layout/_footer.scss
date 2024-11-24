@@ -1,69 +1,42 @@
+// Styles du footer
 .footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    background-color: $primary;
-    color: $white;
-  
-    .footer-hours {
+  background-color: $primary;
+  color: $white;
+  margin-top: 20px;
+  .footer-hours {
       background-color: $tertiary;
       border: 2px solid darken($tertiary, 10%);
       border-radius: 10px;
       padding: 20px;
       color: $dark;
-      
       h4 {
-        font-weight: bold;
+          font-weight: bold;
       }
-  
       ul {
-        padding-left: 0;
-        list-style-type: none;
-  
-        li {
-          padding: 5px 0;
-        }
+          padding-left: 0;
+          list-style-type: none;
+          li {
+              padding: 5px 0;
+          }
       }
-    }
-  
-    .footer-legal {
-      color: $dark;
-      margin-bottom: 20px;
-  
-      address {
-        font-style: normal;
-      }
-    }
-  
-    .footer-social {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  
-      a {
-        color: $dark;
-        margin: 0 10px;
-        text-decoration: none;
-  
-        &:hover {
-          color: $tertiary;
-        }
-      }
-    }
-  
-    .footer-social {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      a {
-        margin: 0 10px;
-        font-size: 1.5rem; // Ajustez la taille des icônes si nécessaire
-      }
-    }
-    
-  
-    .footer-copyright {
-      color: $dark;
-    }
   }
+  .footer-social {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      a {
+          color: $white;
+          margin: 0 10px;
+          font-size: 1.5rem;
+          &:hover {
+              color: $tertiary;
+          }
+      }
+  }
+  .footer-copyright {
+      background-color: $secondary;
+      color: $dark;
+      padding: 10px;
+  }
+}
   

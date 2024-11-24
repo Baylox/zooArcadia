@@ -1,0 +1,24 @@
+{{ form_start(form, {'attr': {'class': 'my-form'}}) }}
+
+    <div class="mb-3">
+        {{ form_label(form.typeEspece, 'Type d\'Espèce') }}
+        {{ form_widget(form.typeEspece, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.typeEspece) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.evaluationExtinction, 'Évaluation Extinction') }}
+        {{ form_widget(form.evaluationExtinction, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.evaluationExtinction) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.traitsCaracteristiques, 'Traits Caractéristiques') }}
+        {{ form_widget(form.traitsCaracteristiques, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+        {{ form_errors(form.traitsCaracteristiques) }}
+    </div>
+
+    <button class="btn btn-primary w-100">{{ button_label|default('Enregistrer') }}</button>
+
+{{ form_end(form) }}
+

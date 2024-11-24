@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Animal{% endblock %}
+
+{% block body %}
+    <h1 class="display-4 text-center">{{ animal.prenom }}</h1>
+
+    <table class="table table-striped">
+        <tbody>
+            {% for label, value in {
+                'Prenom': animal.prenom,
+                'Etat': animal.etat,
+                'Sexe': animal.sexe,
+                'Description': animal.description,
+                'Date de naissance': animal.dob ? animal.dob|date('d/m/Y') : '',
+                'Espèce': animal.espece.typeEspece,
+                'Habitat': animal.habitat.nom
+            } %}
+                <tr>
+                    <th>{{ label }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end gap-2 mb-3">
+        <a href="{{ path('dashboard_animal_index') }}" class="btn btn-secondary">
+            <i class="fas fa-list"></i> Retour à la liste
+        </a>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('dashboard_animal_edit', {'id': animal.id}) }}" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Modifier
+            </a>
+            {{ include('dashboard/animal/_delete_form.html.twig', { 'button_label': '<i class="fas fa-trash-alt"></i> Supprimer' }) }}
+        {% endif %}
+    </div>
+{% endblock %}
+

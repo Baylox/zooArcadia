@@ -1,0 +1,52 @@
+.hero-scene {
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px; // Hauteur du hero
+    
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); // Overlay noir avec opacité
+        z-index: 1;
+    }
+
+    * {
+        position: relative;
+        z-index: 2; // Le contenu reste visible au-dessus de l'overlay
+    }
+
+    .hero-scene-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff; // Texte en blanc
+        height: 100%;
+        z-index: 3;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); // Donne de la lisibilité au texte
+
+        p {
+            font-size: 1.5rem; 
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+    }
+}
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Rapport{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center display-6 mb-4 text-primary fw-bold">Modifier le Rapport</h1>
+>
+    {{ include('dashboard/rapport/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{{ path('dashboard_rapport_index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour à la liste
+        </a>
+        
+        {{ include('dashboard/rapport/_delete_form.html.twig') }}
+    </div>
+</div>
+{% endblock %}
+

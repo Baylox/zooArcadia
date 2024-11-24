@@ -28,6 +28,8 @@
 }
 
 .navbar-logo {
-    height: 70px;
-    border-radius: 50%;
+    height: 70px; 
+    width: 70px; 
+    border-radius: 50%; // Rend l'image circulaire
+    object-fit: cover; // Ajuste l'image à son conteneur
 }

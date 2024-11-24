@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Soumettre un Avis{% endblock %}
+
+{% block body %}
+    {% include '_partials/_hero.html.twig' with {
+        intro_text: 'Votre avis compte pour nous',
+        title: 'Partagez votre expérience',
+    } %}
+
+    <div class="container my-5 p-4 bg-light rounded shadow">
+        <h1 class="text-center text-primary mb-4"><i class="fas fa-comment-dots"></i> Soumettre un Avis</h1>
+
+        {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+
+            <!-- Pseudo -->
+            <div class="mb-3">
+                {{ form_label(form.pseudo, 'Pseudo', {'label_attr': {'class': 'form-label text-primary fw-bold'}}) }}
+                <div class="input-group">
+                    <span class="input-group-text bg-primary text-white"><i class="fas fa-user"></i></span>
+                    {{ form_widget(form.pseudo, {'attr': {'class': 'form-control', 'placeholder': 'Votre surnom animalier !'}}) }}
+                </div>
+                <!--Erreur lié au pseudo-->
+                {% for error in form.pseudo.vars.errors %}
+                    <div class="alert alert-danger mt-1">{{ error.message }}</div>
+                {% endfor %}
+            </div>
+
+            <!-- Commentaire -->
+            <div class="mb-3">
+                {{ form_label(form.commentaire, 'Commentaire', {'label_attr': {'class': 'form-label text-primary fw-bold'}}) }}
+                <div class="input-group">
+                    <span class="input-group-text bg-primary text-white"><i class="fas fa-comments"></i></span>
+                    {{ form_widget(form.commentaire, {'attr': {'class': 'form-control', 'placeholder': 'Exprimez vos émotions sur votre visite'}}) }}
+                </div>
+                <!--Erreur lié au commentaire-->
+                {% for error in form.commentaire.vars.errors %}
+                    <div class="alert alert-danger mt-1">{{ error.message }}</div>
+                {% endfor %}
+            </div>
+
+            <!-- Bouton d'envoi -->
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-paper-plane"></i> Envoyer</button>
+            </div>
+
+        {{ form_end(form) }}
+
+        <!-- Alerte de succès -->
+        {% if app.session.flashBag.has('avis_submitted') %}
+            <div class="alert alert-success mt-4 text-center">
+                {% for message in app.session.flashBag.get('avis_submitted') %}
+                    <p class="mb-0"><i class="fas fa-check-circle"></i> {{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+
+
+
+
+

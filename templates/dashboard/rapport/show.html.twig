@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du Rapport{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center display-6 mb-4 text-primary fw-bold">Détails du Rapport</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped shadow-sm">
+            <tbody>
+                <tr>
+                    <th>Titre du Rapport</th>
+                    <td>{{ rapport.titre }}</td>
+                </tr>
+                <tr>
+                    <th>Date du Rapport</th>
+                    <td>{{ rapport.dateRapport ? rapport.dateRapport|date('d/m/Y') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Animal</th>
+                    <td>
+                        {% if rapport.animal %}
+                            {{ rapport.animal.prenom }}
+                        {% else %}
+                            <em>Pas d'animal associé</em>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Nom de la Nourriture</th>
+                    <td>
+                        {% if rapport.alimentation %}
+                            {{ rapport.alimentation.nomNourriture }}
+                        {% else %}
+                            <em>Pas d'alimentation</em>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Quantité (kg/L)</th>
+                    <td>
+                        {% if rapport.alimentation %}
+                            {{ rapport.alimentation.quantiteNourriture }}
+                        {% else %}
+                            <em>Non spécifié</em>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Commentaire Vétérinaire</th>
+                    <td>
+                        {% if rapport.alimentation %}
+                            {{ rapport.alimentation.commentaireVeterinaire }}
+                        {% else %}
+                            <em>Aucun commentaire</em>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Rédacteur</th>
+                    <td>
+                        {% if rapport.utilisateur %}
+                            {{ rapport.utilisateur.prenom }} {{ rapport.utilisateur.nom }}
+                        {% else %}
+                            <em>Non assigné</em>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{{ path('dashboard_rapport_index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour à la liste
+        </a>
+        
+        {% if is_granted('ROLE_VETERINAIRE') %}
+            <a href="{{ path('dashboard_rapport_edit', {'id': rapport.id}) }}" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Modifier
+            </a>
+            
+            {{ include('dashboard/rapport/_delete_form.html.twig') }}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
