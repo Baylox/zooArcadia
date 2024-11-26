@@ -26,7 +26,7 @@
 /node_modules/
 ###< symfony/asset-mapper ###
 
-/public/uploads
+#/public/uploads
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
