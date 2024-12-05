@@ -4,6 +4,8 @@
     "bootstrap-icons": "^1.11.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "@hotwired/stimulus": "^3.0.0",
     "@hotwired/turbo": "^7.1.1 || ^8.0",
     "@symfony/stimulus-bridge": "^3.2.2",
@@ -13,6 +15,8 @@
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.81.0",
     "sass-loader": "^16.0.1",
+    "webpack": "^5.97.0",
+    "webpack-cli": "^5.1.4",
     "webpack-notifier": "^1.15.0"
   },
   "scripts": {
