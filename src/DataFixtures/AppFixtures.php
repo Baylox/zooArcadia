@@ -6,7 +6,6 @@ use App\Factory\AnimalFactory;
 use App\Factory\UtilisateurFactory;
 use App\Factory\EspeceFactory;
 use App\Factory\RapportFactory;
-use App\Factory\AlimentationFactory; 
 use App\Entity\Habitat;
 use App\Factory\ServiceFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;

@@ -40,7 +40,7 @@ COPY webpack.config.js ./
 RUN composer self-update
 RUN composer install --optimize-autoloader --no-scripts
 
-# Étape 10 : Installer les dépendances et construire les assets
+# Étape 10 : Installer les dépendances Nodes et construction des assets
 RUN npm cache clean --force
 RUN npm install
 

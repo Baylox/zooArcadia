@@ -18,9 +18,10 @@ services:
   ###> doctrine/mongodb-odm-bundle ###
   mongodb:
     image: mongo:6.0
+    container_name: mongodb_local
     environment:
-      MONGO_USERNAME: ${MONGODB_USER:-admin}
-      MONGO_PASSWORD: ${MONGODB_PASSWORD:-password}
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
     ports:
       - "27017:27017"
     volumes:
