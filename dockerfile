@@ -1,6 +1,8 @@
 # Étape 1 : Utiliser une image PHP avec Apache
 FROM php:8.1-apache
 
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
 # Étape 2 : Mise à jour et installation des extensions nécessaires
 RUN apt-get update && apt-get install -y --no-install-recommends \
     zip unzip git curl libpng-dev libjpeg-dev libfreetype6-dev \
@@ -22,8 +24,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 RUN a2enmod rewrite
 
 # Étape 6 : Définir les variables d'environnement pour Symfony
-ENV APP_ENV=prod
-ENV APP_DEBUG=0
+ENV APP_ENV=dev
+ENV APP_DEBUG=1
 
 # Étape 7 : Définir le répertoire de travail
 WORKDIR /var/www/html
@@ -50,13 +52,10 @@ COPY . .
 
 RUN npm run build
 
-# Étape 12 : Configurer les permissions des fichiers pour Apache
-RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
-
-# Étape 13 : Exposer le port 80
+# Étape 12 : Exposer le port 80
 EXPOSE 80
 
-# Étape 14 : Lancer Apache en mode foreground
+# Étape 13 : Lancer Apache en mode foreground
 CMD ["apache2-foreground"]
 
 
