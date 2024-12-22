@@ -13,7 +13,7 @@ use Doctrine\Persistence\ObjectManager;
 
 
 class AppFixtures extends Fixture {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         // Créer 10 utilisateurs
         UtilisateurFactory::createMany(10);
