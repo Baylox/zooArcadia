@@ -1,9 +1,9 @@
-# Étape 1 : Utiliser une image PHP avec Apache
-FROM php:8.1-apache
+FROM php:8.3.13-apache
 
+# Configurer le nom du serveur Apache
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Étape 2 : Mise à jour et installation des extensions nécessaires
+# Installer les dépendances nécessaires
 RUN apt-get update && apt-get install -y --no-install-recommends \
     zip unzip git curl libpng-dev libjpeg-dev libfreetype6-dev \
     libxml2-dev libicu-dev libxslt-dev libzip-dev pkg-config libssl-dev \
@@ -13,50 +13,46 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && pecl install mongodb && docker-php-ext-enable mongodb \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Étape 3 : Installer Composer
+# Installer Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Étape 4 : Installer Node.js
+# Installer Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs 
 
-# Étape 5 : Activer mod_rewrite pour Apache
+# Activer le module rewrite d'Apache
 RUN a2enmod rewrite
 
-# Étape 6 : Définir les variables d'environnement pour Symfony
-ENV APP_ENV=dev
-ENV APP_DEBUG=1
+# Modifier le répertoire racine d'Apache
+RUN sed -i 's|/var/www/html|/var/www/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Étape 7 : Définir le répertoire de travail
-WORKDIR /var/www/html
+# Copier la configuration Apache personnalisée
+COPY docker/apache.conf /etc/apache2/conf-available/
+RUN a2enconf apache
 
-RUN mkdir -p var/cache var/log && \
-    chown -R www-data:www-data var/cache var/log
+# Définir le répertoire de travail
+WORKDIR /var/www
 
-# Étape 8 : Copier uniquement les fichiers nécessaires pour Composer et npm
-COPY composer.json composer.lock package.json package-lock.json ./
-#Webpack encore
-COPY webpack.config.js ./
-
-# Étape 9 : Installer les dépendances PHP
-RUN composer self-update
-RUN composer install --optimize-autoloader --no-scripts
-
-# Étape 10 : Installer les dépendances Nodes et construction des assets
-RUN npm cache clean --force
-RUN npm install
-
-
-# Étape 11 : Copier le reste du projet
+# Copier le contenu du projet
 COPY . .
 
-RUN npm run build
+# Installer les dépendances PHP avec Composer
+RUN composer install
 
-# Étape 12 : Exposer le port 80
+# Installer les dépendances Node.js et construire le projet
+RUN npm install && npm run build
+
+# Créer les répertoires nécessaires et configurer les permissions
+RUN mkdir -p var/cache var/log \
+    && chown -R www-data:www-data /var/www/ \
+    && chmod -R 777 var
+
+# Exposer le port 80
 EXPOSE 80
 
-# Étape 13 : Lancer Apache en mode foreground
+# Démarrer Apache en premier plan
 CMD ["apache2-foreground"]
+
 
 
 

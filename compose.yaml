@@ -1,6 +1,25 @@
-version: '3.8'
-
 services:
+
+  ###> symfony/php ###
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www
+      - ./var/log:/var/www/var/log
+      - ./var/cache:/var/www/var/cache
+    environment:
+      SYMFONY_ENV: dev
+    depends_on:
+      - database
+      - mongodb
+    networks:
+      - zoo
+  ###< symfony/php ###
+
   ###> doctrine/doctrine-bundle ###
   database:
     image: mysql:8.0
@@ -13,6 +32,8 @@ services:
       - "3307:3306"
     volumes:
       - database_data:/var/lib/mysql:rw
+    networks:
+      - zoo
   ###< doctrine/doctrine-bundle ###
 
   ###> doctrine/mongodb-odm-bundle ###
@@ -27,6 +48,8 @@ services:
       - "27017:27017"
     volumes:
       - ./scripts/nosql.js:/docker-entrypoint-initdb.d/nosql.js
+    networks:
+      - zoo
   ###< doctrine/mongodb-odm-bundle ###
 
   ###> symfony/mailer ###
@@ -38,26 +61,16 @@ services:
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    networks:
+      - zoo
   ###< symfony/mailer ###
 
-  ###> symfony/php ###
-  php:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
-    volumes:
-      - .:/var/www/html
-      - ./var/cache:/var/www/html/var/cache
-      - ./var/log:/var/www/html/var/log
-    environment:
-      SYMFONY_ENV: dev
-    depends_on:
-      - database
-      - mongodb
-  ###< symfony/php ###
+
 
 volumes:
   database_data:
   mongo_data:
+
+networks:
+  zoo:
+    driver: bridge
