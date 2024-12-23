@@ -15,6 +15,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Service\EmailService;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Form\UtilisateurCreationType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/dash/utilisateur')]
 #[IsGranted('ROLE_ADMIN')]
@@ -121,24 +122,34 @@ final class DashUtilisateurController extends AbstractController
     }
     
     // Liste des employés
-    #[Route('/gestion/employes', name: 'utilisateurs_employes')]
-    public function employes(Request $request, UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator): Response
+    #[Route('/ajax/employes', name: 'ajax_utilisateurs_employes', methods: ['GET'])]
+    public function ajaxEmployes(Request $request, UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator): JsonResponse
     {
         $queryBuilder = $utilisateurRepository->findEmployesQueryBuilder();
         $pagination = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1), 
-            10 // Nombre d'éléments par page
+            10
         );
     
-        return $this->render('dash_utilisateur/index.html.twig', [
-            'utilisateurs' => $pagination,
-            'page_title' => 'Employés',
-        ]);
+        $data = [];
+        foreach ($pagination as $utilisateur) {
+            $data[] = [
+                'email' => $utilisateur->getEmail(),
+                'nom' => $utilisateur->getNom(),
+                'prenom' => $utilisateur->getPrenom(),
+                'roles' => $utilisateur->getRoles(),
+            ];
+        }
+    
+        // Déboguer les données
+        dump($data);
+    
+        return new JsonResponse($data);
     }
-    // Liste des vétérinaires
-    #[Route('/gestion/veterinaires', name: 'utilisateurs_veterinaires')]
-    public function veterinaires(Request $request, UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator): Response
+
+    #[Route('/ajax/veterinaires', name: 'ajax_utilisateurs_veterinaires', methods: ['GET'])]
+    public function ajaxVeterinaires(Request $request, UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator): JsonResponse
     {
         $queryBuilder = $utilisateurRepository->findVeterinairesQueryBuilder();
         $pagination = $paginator->paginate(
@@ -146,11 +157,18 @@ final class DashUtilisateurController extends AbstractController
             $request->query->getInt('page', 1),
             10 
         );
-    
-        return $this->render('dash_utilisateur/index.html.twig', [
-            'utilisateurs' => $pagination,
-            'page_title' => 'Vétérinaires',
-        ]);
+
+        $data = [];
+        foreach ($pagination as $utilisateur) {
+            $data[] = [
+                'email' => $utilisateur->getEmail(),
+                'nom' => $utilisateur->getNom(),
+                'prenom' => $utilisateur->getPrenom(),
+                'roles' => $utilisateur->getRoles(),
+            ];
+        }
+
+        return new JsonResponse($data);
     }
 }
 
