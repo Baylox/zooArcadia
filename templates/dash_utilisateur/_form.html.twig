@@ -1,0 +1,45 @@
+{{ form_start(form, {'attr': {'class': 'my-form'}}) }}
+    <div class="mb-3">
+        {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.prenom, {'attr': {'class': 'form-text'}}) }}
+        {{ form_errors(form.prenom) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.nom, {'attr': {'class': 'form-text'}}) }}
+        {{ form_errors(form.nom) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+        {{ form_help(form.email, {'attr': {'class': 'form-text'}}) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.roles, 'Rôles', {'label_attr': {'class': 'form-label'}}) }}
+        <div class="form-check">
+            {% for role in form.roles %}
+                <div class="form-check">
+                    {{ form_widget(role, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_label(role, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                </div>
+            {% endfor %}
+            {{ form_help(form.roles, {'attr': {'class': 'form-text'}}) }}
+            {{ form_errors(form.roles) }}
+        </div>
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.password, 'Nouveau mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.password, {'attr': {'class': 'form-control'}, 'value': ''}) }}
+        {{ form_help(form.password) }}
+        {{ form_errors(form.password) }}
+    </div>
+
+    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

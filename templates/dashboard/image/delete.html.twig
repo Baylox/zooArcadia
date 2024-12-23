@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation de suppression{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 text-center">
+        <h1 class="text-danger mb-4">Confirmer la suppression</h1>
+        <p class="mb-4">Êtes-vous sûr de vouloir supprimer cette image ? Cette action est irréversible.</p>
+
+        <div class="d-flex justify-content-center gap-3">
+            <form method="post" action="{{ path('dashboard_image_delete', {'id': image.id}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+                <button class="btn btn-danger">Supprimer</button>
+            </form>
+            <a href="{{ path('dashboard_image_list_all') }}" class="btn btn-outline-secondary">Annuler</a>
+        </div>
+    </div>
+{% endblock %}
+
+

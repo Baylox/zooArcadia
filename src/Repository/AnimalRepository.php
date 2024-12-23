@@ -16,6 +16,21 @@ class AnimalRepository extends ServiceEntityRepository
         parent::__construct($registry, Animal::class);
     }
 
+    /**
+     * Incrémente le compteur de consultations pour un animal.
+     *
+     * @param Animal $animal
+     */
+    public function incrementConsultations(Animal $animal): void
+    {
+        $animal->incrementConsultations();
+        $this->getEntityManager()->flush();
+    }
+}
+
+
+
+
     //    /**
     //     * @return Animal[] Returns an array of Animal objects
     //     */
@@ -40,4 +55,4 @@ class AnimalRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-}
+

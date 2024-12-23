@@ -1,0 +1,39 @@
+// Définition des polices utilisées
+$font-family-sans-serif: "Fredoka", sans-serif !default;
+$font-family-serif: "Lato", serif !default;
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
+
+// Styles de typographie
+body {
+  font-family: $font-family-serif;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-sans-serif;
+}
+
+// Styles responsives pour la typographie
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+
+// Positionnement en bas de page
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  flex: 1;  // Permet de pousser le footer en bas de page
+}
+

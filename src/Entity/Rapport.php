@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\RapportRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -16,33 +14,22 @@ class Rapport
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $Titre = null;
+
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateRapport = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $details = null;
 
-    /**
-     * @var Collection<int, Animal>
-     */
-    #[ORM\ManyToMany(targetEntity: Animal::class, inversedBy: 'rapports')]
-    private Collection $animaux;
-
-    /**
-     * @var Collection<int, Alimentation>
-     */
-    #[ORM\OneToMany(targetEntity: Alimentation::class, mappedBy: 'rapport')]
-    private Collection $alimentations;
+    #[ORM\ManyToOne(targetEntity: Animal::class, inversedBy: 'rapports', fetch: 'EAGER')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Animal $animal = null;
 
     #[ORM\ManyToOne(inversedBy: 'rapports')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Utilisateur $utilisateur = null;
-
-    public function __construct()
-    {
-        $this->animaux = new ArrayCollection();
-        $this->alimentations = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -73,56 +60,14 @@ class Rapport
         return $this;
     }
 
-    /**
-     * @return Collection<int, Animal>
-     */
-    public function getAnimaux(): Collection
+    public function getAnimal(): ?Animal
     {
-        return $this->animaux;
+        return $this->animal;
     }
 
-    public function addAnimaux(Animal $animaux): static
+    public function setAnimal(?Animal $animal): self
     {
-        if (!$this->animaux->contains($animaux)) {
-            $this->animaux->add($animaux);
-        }
-
-        return $this;
-    }
-
-    public function removeAnimaux(Animal $animaux): static
-    {
-        $this->animaux->removeElement($animaux);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Alimentation>
-     */
-    public function getAlimentations(): Collection
-    {
-        return $this->alimentations;
-    }
-
-    public function addAlimentation(Alimentation $alimentation): static
-    {
-        if (!$this->alimentations->contains($alimentation)) {
-            $this->alimentations->add($alimentation);
-            $alimentation->setRapport($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAlimentation(Alimentation $alimentation): static
-    {
-        if ($this->alimentations->removeElement($alimentation)) {
-            // set the owning side to null (unless already changed)
-            if ($alimentation->getRapport() === $this) {
-                $alimentation->setRapport(null);
-            }
-        }
+        $this->animal = $animal;
 
         return $this;
     }
@@ -135,6 +80,18 @@ class Rapport
     public function setUtilisateur(?Utilisateur $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->Titre;
+    }
+
+    public function setTitre(string $Titre): static
+    {
+        $this->Titre = $Titre;
 
         return $this;
     }

@@ -1,0 +1,16 @@
+// Import des fichiers base
+@import 'base/variables';
+@import 'base/typography';
+
+// Import des fichiers partials
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/form';
+@import 'layout/hero';
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+@import 'pages/dashadmin';
+@import 'pages/listimages';
+@import 'pages/home';
+@import 'pages/services';

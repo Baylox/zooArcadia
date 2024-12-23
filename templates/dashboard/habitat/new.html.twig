@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Habitat{% endblock %}
+
+{% block body %}
+    <h1 classe="mb-4 text-center text-primary fw-bold">Créer un nouvel Habitat</h1>
+
+    {{ include('dashboard/habitat/_form.html.twig') }}
+
+    <a href="{{ path('dashboard_habitat_index') }}">Retour à la liste</a>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Espèce{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4 text-center text-primary fw-bold">Créer une Nouvelle Espèce</h1>
+
+    {{ include('dashboard/espece/_form.html.twig', { form: form }) }}
+
+    <a href="{{ path('espece_index') }}" class="btn btn-secondary mt-3 ms-3">
+        <i class="fas fa-arrow-left"></i> Retour à la liste des Espèces
+    </a>
+{% endblock %}
+
+
+

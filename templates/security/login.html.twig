@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-center vh-100 bg-light">
+        <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+            <form method="post" class="row g-3">
+                <h1 class="h4 mb-3 text-center">
+                    <i class="fas fa-user-circle text-primary"></i> Connexion
+                </h1>
+
+                {% if error %}
+                    <div class="alert alert-danger text-center">
+                        <i class="fas fa-exclamation-circle"></i> Email ou mot de passe incorrect. Veuillez réessayer.
+                    </div>
+                {% endif %}
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-primary text-white">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Adresse email" required autofocus>
+                </div>
+                
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-primary text-white">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+                </div>
+                
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authentification') }}">
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-sign-in-alt"></i> Se connecter
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

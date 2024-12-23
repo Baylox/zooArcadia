@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Services{% endblock %}
+
+{% block body %}
+    {# Hero section en dehors du container pour occuper toute la largeur #}
+    {% include '_partials/_hero.html.twig' with {
+        intro_text: 'Découvrez nos services exceptionnels',
+        title: 'Des prestations sur mesure pour vous',
+    } %}
+
+    <section id="services" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center text-primary display-4 mb-5">Nos Services</h2>
+
+            {% for service in services %}
+                <div class="service mb-5 p-4 rounded shadow-lg bg-white">
+                    <h3 class="text-center bg-primary text-white p-3 rounded">{{ service.nom }}</h3>
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            {% if service.images|length > 0 %}
+                                <img class="img-fluid rounded-5 mb-4 mb-md-0 w-100" src="{{ asset('uploads/services_image/' ~ service.images|first.fileName) }}" alt="{{ service.nom }}">
+                            {% else %}
+                                <img class="img-fluid rounded-5 mb-4 mb-md-0 w-100" src="{{ asset('images/default-service.webp') }}" alt="Image par défaut">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted lead">{{ service.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-center text-muted">Aucun service disponible pour le moment.</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+
