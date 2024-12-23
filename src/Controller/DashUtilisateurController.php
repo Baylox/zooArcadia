@@ -142,9 +142,6 @@ final class DashUtilisateurController extends AbstractController
             ];
         }
     
-        // Déboguer les données
-        dump($data);
-    
         return new JsonResponse($data);
     }
 

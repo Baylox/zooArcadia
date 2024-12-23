@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                console.log('Données reçues:', data); // Pour déboguer
                 resultsContainer.innerHTML = '';
                 if (data.length === 0) {
                     resultsContainer.innerHTML = '<p>Aucun résultat trouvé</p>';
@@ -26,20 +25,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             })
             .catch(error => {
-                console.error('Erreur:', error);
                 resultsContainer.innerHTML = '<p>Une erreur est survenue</p>';
             });
     }
 
     employesButton?.addEventListener('click', () => {
-        const url = employesButton.dataset.url;
-        console.log('URL employés:', url); // Pour déboguer
-        handleUserFetch(url);
+        handleUserFetch(employesButton.dataset.url);
     });
 
     veterinairesButton?.addEventListener('click', () => {
-        const url = veterinairesButton.dataset.url;
-        console.log('URL vétérinaires:', url); // Pour déboguer
-        handleUserFetch(url);
+        handleUserFetch(veterinairesButton.dataset.url);
     });
 });
