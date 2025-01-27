@@ -8,21 +8,44 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 resultsContainer.innerHTML = '';
+
                 if (data.length === 0) {
                     resultsContainer.innerHTML = '<p>Aucun résultat trouvé</p>';
                     return;
                 }
+
+                // Crée un tableau pour afficher les données
+                const table = document.createElement('table');
+                table.classList.add('table', 'table-striped', 'table-bordered', 'mt-3');
+
+                // Crée l'en-tête du tableau
+                const thead = document.createElement('thead');
+                thead.innerHTML = `
+                    <tr>
+                        <th>Email</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Rôles</th>
+                    </tr>
+                `;
+                table.appendChild(thead);
+
+                // Crée le corps du tableau
+                const tbody = document.createElement('tbody');
+
                 data.forEach(user => {
-                    const userElement = document.createElement('div');
-                    userElement.classList.add('user-card', 'mb-3', 'p-3', 'border');
-                    userElement.innerHTML = `
-                        <p>Email: ${user.email || 'N/A'}</p>
-                        <p>Nom: ${user.nom || 'N/A'}</p>
-                        <p>Prénom: ${user.prenom || 'N/A'}</p>
-                        <p>Rôles: ${(user.roles || []).join(', ') || 'N/A'}</p>
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.email}</td>
+                        <td>${user.nom}</td>
+                        <td>${user.prenom}</td>
+                        <td>${(user.roles || []).join(' / ') || 'N/A'}</td>
                     `;
-                    resultsContainer.appendChild(userElement);
+                    tbody.appendChild(row);
                 });
+
+                table.appendChild(tbody);
+                resultsContainer.appendChild(table);
             })
             .catch(error => {
                 resultsContainer.innerHTML = '<p>Une erreur est survenue</p>';
