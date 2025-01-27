@@ -6,48 +6,49 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "8080:80"   # Expose le serveur PHP sur le port 8080
     volumes:
-      - .:/var/www
-      - ./var/log:/var/www/var/log
-      - ./var/cache:/var/www/var/cache
+      - .:/var/www # Montage du dossier de l'application
+      - ./var/log:/var/www/var/log # Montage des logs
+      - ./var/cache:/var/www/var/cache # Montage du cache
     environment:
-      SYMFONY_ENV: dev
-    depends_on:
-      - database
-      - mongodb
+      SYMFONY_ENV: dev # Environnement de développement pour docker
+    depends_on: # Dépendances des services
+      - database # mysql (SQL)
+      - mongodb # mongo (NoSQL)
     networks:
-      - zoo
+      - zoo  # Réseau pour communiquer avec les autres services
+
   ###< symfony/php ###
 
   ###> doctrine/doctrine-bundle ###
   database:
-    image: mysql:8.0
+    image: mysql:8.0 # Version de MySQL
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-zooarcadia}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
-      MYSQL_USER: ${MYSQL_USER:-zoo_user}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-zooarcadia} # Base de données par défaut
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword} # Mot de passe root par défaut
+      MYSQL_USER: ${MYSQL_USER:-zoo_user} # Utilisateur par défaut
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password} # Mot de passe par défaut
     ports:
-      - "3307:3306"
+      - "3307:3306" # Expose le serveur MySQL sur le port 3307
     volumes:
-      - database_data:/var/lib/mysql:rw
+      - database_data:/var/lib/mysql:rw # Volume pour les données de la base de données
     networks:
       - zoo
   ###< doctrine/doctrine-bundle ###
 
   ###> doctrine/mongodb-odm-bundle ###
   mongodb:
-    image: mongo:6.0
-    container_name: mongodb_local
+    image: mongo:6.0 # Version de MongoDB
+    container_name: mongodb_local # Nom du conteneur
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: symfony
+      MONGO_INITDB_ROOT_USERNAME: admin 
+      MONGO_INITDB_ROOT_PASSWORD: password 
+      MONGO_INITDB_DATABASE: symfony 
     ports:
-      - "27017:27017"
+      - "27017:27017" # Expose le service MongoDB sur le port 27017
     volumes:
-      - ./scripts/nosql.js:/docker-entrypoint-initdb.d/nosql.js
+      - ./scripts/nosql.js:/docker-entrypoint-initdb.d/nosql.js # Lancement de scripts automatiques
     networks:
       - zoo
   ###< doctrine/mongodb-odm-bundle ###
