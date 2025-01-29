@@ -24,8 +24,8 @@ class AvisController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Nettoyage des données pour éviter les balises HTML malveillantes
-            $avis->setPseudo(strip_tags($avis->getPseudo()));
-            $avis->setCommentaire(strip_tags($avis->getCommentaire()));
+            $avis->setPseudo(htmlspecialchars($avis->getPseudo(), ENT_QUOTES, 'UTF-8'));
+            $avis->setCommentaire(htmlspecialchars($avis->getCommentaire(), ENT_QUOTES, 'UTF-8'));
             
             // Revalider l'objet après nettoyage
             $errors = $validator->validate($avis);
