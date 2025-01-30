@@ -15,7 +15,7 @@ class Rapport
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $Titre = null;
+    private ?string $titre = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateRapport = null;
@@ -86,12 +86,12 @@ class Rapport
 
     public function getTitre(): ?string
     {
-        return $this->Titre;
+        return $this->titre;
     }
 
-    public function setTitre(string $Titre): static
+    public function setTitre(string $titre): static
     {
-        $this->Titre = $Titre;
+        $this->titre = $titre;
 
         return $this;
     }

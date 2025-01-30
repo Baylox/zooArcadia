@@ -22,7 +22,7 @@ final class RapportFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'titre' => self::faker()->paragraph(25),
+            'titre' => substr(self::faker()->sentence(3), 0, 50),
             'utilisateur' => UtilisateurFactory::randomOrCreate(), // Utilise un utilisateur existant ou en crée un
             'date_rapport' => self::faker()->dateTimeBetween('-1 year', 'now'),
             'details' => self::faker()->optional()->paragraph(),

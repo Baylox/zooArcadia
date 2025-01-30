@@ -28,7 +28,7 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: zooarcadia
     ports:
-      - "3307:3306" # Expose le serveur MySQL sur le port 3307
+      - "3307:3307" # Expose le serveur MySQL sur le port 3307
     volumes:
       - database_data:/var/lib/mysql:rw # Volume pour les données de la base de données
     networks:
