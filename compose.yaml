@@ -25,10 +25,8 @@ services:
   database:
     image: mysql:8.0 # Version de MySQL
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-zooarcadia} # Base de données par défaut
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword} # Mot de passe root par défaut
-      MYSQL_USER: ${MYSQL_USER:-zoo_user} # Utilisateur par défaut
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password} # Mot de passe par défaut
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: zooarcadia
     ports:
       - "3307:3306" # Expose le serveur MySQL sur le port 3307
     volumes:
@@ -48,6 +46,7 @@ services:
     ports:
       - "27017:27017" # Expose le service MongoDB sur le port 27017
     volumes:
+      - mongo_data:/data/db # Volume pour les données de MongoDB
       - ./scripts/nosql.js:/docker-entrypoint-initdb.d/nosql.js # Lancement de scripts automatiques
     networks:
       - zoo

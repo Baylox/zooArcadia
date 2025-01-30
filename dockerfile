@@ -5,6 +5,7 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Installer les dépendances nécessaires
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    default-mysql-client \
     zip unzip git curl libpng-dev libjpeg-dev libfreetype6-dev \
     libxml2-dev libicu-dev libxslt-dev libzip-dev pkg-config libssl-dev \
     libonig-dev \
