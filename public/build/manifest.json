@@ -1,8 +1,8 @@
 {
-  "build/app.css": "/build/app.942b9370.css",
-  "build/app.js": "/build/app.66bc0870.js",
-  "build/runtime.js": "/build/runtime.ced75ccf.js",
-  "build/537.5e1393ce.js": "/build/537.5e1393ce.js",
+  "build/app.css": "/build/app.css",
+  "build/app.js": "/build/app.js",
+  "build/runtime.js": "/build/runtime.js",
+  "build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_core-js_modules_es_array-270cda.js": "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js-node_modules_core-js_modules_es_array-270cda.js",
   "build/images/hero.webp": "/build/images/hero.webp",
   "build/images/habitats/pictureJungle.webp": "/build/images/habitats/pictureJungle.webp",
   "build/images/Logo.webp": "/build/images/Logo.webp",

@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const veterinairesButton = document.getElementById('veterinaires-button');
     const resultsContainer = document.getElementById('results-container');
 
+    // Ne fait rien si les deux boutons sont absents
+    if (!employesButton && !veterinairesButton) {
+        return; 
+    }
+
     // Fonction pour récupérer et afficher les données utilisateur
     function handleUserFetch(url) {
         fetch(url) // Envoi de la requête HTTP GET vers l'URL fournie
