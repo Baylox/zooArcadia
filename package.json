@@ -15,7 +15,7 @@
     "file-loader": "^6.0.0",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.81.0",
-    "sass-loader": "^16.0.1",
+    "sass-loader": "^16.0.5",
     "webpack": "^5.97.0",
     "webpack-cli": "^5.1.4",
     "webpack-notifier": "^1.15.0"
