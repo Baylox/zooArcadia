@@ -118,24 +118,38 @@
         <div class="container">
             <h2 class="text-center text-secondary"><i class="fas fa-map-marker-alt"></i> Où nous trouver</h2>
             <p class="text-center text-muted mb-4">Venez découvrir le Zoo Arcadia au cœur de la forêt de Brocéliande.</p>
-            <div class="map-container mb-4">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d333.5914915671263!2d-2.1742290412742893!3d48.01888867211777!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480faceab3587495%3A0xcdc883e818be2eb2!2sFor%C3%AAt%20de%20Broc%C3%A9liande!5e0!3m2!1sfr!2sfr!4v1731632914538!5m2!1sfr!2sfr"
-                    width="100%"
-                    height="450"
-                    style="border:0;"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-            <div class="text-center">
-                <a href="https://maps.app.goo.gl/C5eYdZeWeFifETbX7" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"> {# noopener et noreferrer pour se protéger des attaques js #}
+            
+            <!-- Carte interactive -->
+            <div id="map" role="application" aria-label="Carte interactive du Zoo Arcadia" tabindex="0"></div>
+
+            <div class="text-center mt-3">
+                <a href="https://www.openstreetmap.org/?mlat=48.0188887&mlon=-2.174229&zoom=13" target="_blank" class="btn btn-secondary">
                     <i class="fas fa-directions"></i> Obtenir des directions
                 </a>
             </div>
         </div>
     </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const latitude = 48.0188887;
+            const longitude = -2.174229;
+            const zoomLevel = 14;
+
+            // Initialisation de la carte Leaflet
+            let map = L.map('map').setView([latitude, longitude], zoomLevel);
+
+            // Ajout du fond de carte OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 18
+            }).addTo(map);
+
+            // Ajout du marqueur avec du texte lisible
+            L.marker([latitude, longitude]).addTo(map)
+                .bindPopup("<b style='color: #000; font-size: 16px;'>Zoo Arcadia</b><br><span style='color: #111;'>Forêt de Brocéliande</span>")
+                .openPopup();
+            });
+    </script>
 {% endblock %}
 
 
