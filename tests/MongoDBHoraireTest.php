@@ -6,6 +6,9 @@ use App\Document\Horaire;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * Teste la connexion à MongoDB pour les horaires (Test d'intégration)
+ */
 class MongoDBHoraireTest extends KernelTestCase
 {
     public function testMongoDBHoraireInsertion(): void

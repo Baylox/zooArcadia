@@ -6,6 +6,9 @@ use App\Document\Avis;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * Teste la connexion à MongoDB pour les Avis (Test d'intégration)
+ */
 class MongoDBConnectionTest extends KernelTestCase
 {
     public function testMongoDBConnection(): void
