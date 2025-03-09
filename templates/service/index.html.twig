@@ -21,7 +21,7 @@
                             {% if service.images|length > 0 %}
                                 <img class="img-fluid rounded-5 mb-4 mb-md-0 w-100" src="{{ asset('uploads/services_image/' ~ service.images|first.fileName) }}" alt="{{ service.nom }}">
                             {% else %}
-                                <img class="img-fluid rounded-5 mb-4 mb-md-0 w-100" src="{{ asset('images/default-service.webp') }}" alt="Image par défaut">
+                                <img class="img-fluid rounded-5 mb-4 mb-md-0 w-100" src="{{ asset('build/images/default-service.webp') }}" alt="Image par défaut">
                             {% endif %}
                         </div>
                         <div class="col-md-6">
