@@ -27,5 +27,8 @@ class MongoDBConnectionTest extends KernelTestCase
         $dm->flush();
 
         $this->assertNotNull($avis->getId(), 'L\'insertion dans MongoDB a réussi.');
+        
+        $dm->remove($avis);
+        $dm->flush();
     }
 }

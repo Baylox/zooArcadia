@@ -27,6 +27,11 @@ class MongoDBHoraireTest extends KernelTestCase
         $dm->persist($horaire);
         $dm->flush();
 
+        // Vérifie que l'insertion a bien fonctionné
         $this->assertNotNull($horaire->getId(), 'L\'insertion de l\'horaire dans MongoDB a réussi.');
+        
+        // Suppression après test 
+        $dm->remove($horaire);
+        $dm->flush();
     }
 }
