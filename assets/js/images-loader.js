@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Sélection des boutons et du conteneur où afficher les résultats
     const buttons = document.querySelectorAll("button[data-url]");
     const imageContainer = document.getElementById("image-container");
 
@@ -10,12 +11,14 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 imageContainer.innerHTML = ''; // Vide le conteneur avant d'ajouter les nouvelles images
-
+                
+                // Vérifie si aucune image n'est retournée
                 if (data.length === 0) {
                     imageContainer.innerHTML = '<p class="text-center">Aucune image trouvée</p>';
                     return;
                 }
 
+                // Création des cartes Bootstrap pour chaque image
                 data.forEach(image => {
                     const card = document.createElement('div');
                     card.className = "card m-2 shadow-sm border-0";
@@ -46,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // Ajoute un écouteur d'événement sur chaque bouton
+    // Ajout d'un écouteur d'événement sur chaque bouton
     buttons.forEach(button => {
         button.addEventListener('click', () => {
             fetchImages(button.dataset.url);
