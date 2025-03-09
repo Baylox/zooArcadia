@@ -38,7 +38,7 @@ class ImageController extends AbstractController
             'images' => $images,
         ]);
     }
-    // Suppression d'une image
+    // Confirmation de suppression d'une image
     #[Route('/{id}/confirm-delete', name: 'image_confirm_delete', methods: ['GET'])]
     public function confirmDelete(Image $image): Response
     {
@@ -65,48 +65,49 @@ class ImageController extends AbstractController
         return $this->redirectToRoute('dashboard_image_list_all');
     }
 
-    // Ajout d'une image à un animal
-    #[Route('/animal/{id}/add', name: 'dashboard_image_add', methods: ['GET', 'POST'])]
-    public function addImage(Request $request, Animal $animal, UploaderImage $uploaderImage, EntityManagerInterface $entityManager): Response
+    #[Route('/api/images/animaux', name: 'api_images_animaux', methods: ['GET'])]
+    public function getImagesAnimaux(EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createFormBuilder()
-            ->add('image', FileType::class, [
-                'label' => 'Ajouter une image (PNG, JPEG ou WEBP)',
-                'mapped' => false,
-                'required' => true,
-                'constraints' => [
-                    new File([
-                        'mimeTypes' => ['image/png', 'image/jpeg', 'image/webp'],
-                        'mimeTypesMessage' => 'Veuillez télécharger un fichier image valide',
-                    ]),
-                ],
-            ])
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedFile = $form->get('image')->getData();
-            $newFilename = $uploaderImage->uploadAnimalImage($uploadedFile);
-
-            // Crée et associe une nouvelle image à l'animal
-            $image = new Image();
-            $image->setFileName($newFilename);
-            $image->setAnimal($animal);
-
-            $entityManager->persist($image);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Image ajoutée avec succès.');
-            return $this->redirectToRoute('dashboard_image_list', ['id' => $animal->getId()]);
-        }
-
-        return $this->render('dashboard/image/add.html.twig', [
-            'form' => $form->createView(),
-            'animal' => $animal,
-        ]);
+        $images = $entityManager->getRepository(Image::class)->createQueryBuilder('i')
+            ->where('i.animal IS NOT NULL')
+            ->getQuery()
+            ->getResult();
+    
+        return $this->json($this->formatImages($images));
     }
+    
+    #[Route('/api/images/habitats', name: 'api_images_habitats', methods: ['GET'])]
+    public function getImagesHabitats(EntityManagerInterface $entityManager): Response
+    {
+        $images = $entityManager->getRepository(Image::class)->createQueryBuilder('i')
+            ->where('i.habitat IS NOT NULL')
+            ->getQuery()
+            ->getResult();
+    
+        return $this->json($this->formatImages($images));
+    }
+    
+    #[Route('/api/images/services', name: 'api_images_services', methods: ['GET'])]
+    public function getImagesServices(EntityManagerInterface $entityManager): Response
+    {
+        $images = $entityManager->getRepository(Image::class)->createQueryBuilder('i')
+            ->where('i.service IS NOT NULL')
+            ->getQuery()
+            ->getResult();
+    
+        return $this->json($this->formatImages($images));
+    }
+    
+    private function formatImages($images): array
+    {
+        return array_map(fn($image) => [
+            'id' => $image->getId(),
+            'fileName' => $image->getFileName(),
+            'path' => "/uploads/" . ($image->getAnimal() ? 'animaux_image' : ($image->getHabitat() ? 'habitats_image' : 'services_image')) . "/" . $image->getFileName(),
+        ], $images);
+    }    
 }
+
 
 
 

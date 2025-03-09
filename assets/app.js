@@ -9,3 +9,4 @@
 import './styles/app.scss';
 import 'bootstrap';
 import './js/fetch-utilisateurs';
+import './js/images-loader';
