@@ -35,9 +35,16 @@ class UploaderImage
     {
         $destination = $this->uploadDir . '/' . $subdirectory;
 
-        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-        $newFilename = $this->slugger->slug($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+        // Vérifie le type MIME réel pour éviter les fichiers déguisés
+        $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp'];
+        $mimeType = mime_content_type($uploadedFile->getPathname());
 
+        if (!in_array($mimeType, $allowedMimeTypes, true)) {
+            throw new \Exception("Format d'image non autorisé !");
+        }
+
+        // Génère un nom aléatoire pour éviter d'utiliser l'original
+        $newFilename = uniqid('img_', true) . '.' . $uploadedFile->guessExtension();
         $uploadedFile->move($destination, $newFilename);
 
         return $newFilename;
