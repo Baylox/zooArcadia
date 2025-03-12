@@ -11,10 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 imageContainer.innerHTML = ''; // Vide le conteneur avant d'ajouter les nouvelles images
-                
+
                 // Vérifie si aucune image n'est retournée
                 if (data.length === 0) {
-                    imageContainer.innerHTML = '<p class="text-center">Aucune image trouvée</p>';
+                    const message = document.createElement("p");
+                    message.className = "text-center";
+                    message.textContent = "Aucune image trouvée"; // Sécurité contre les failles XSS
+                    imageContainer.appendChild(message);
                     return;
                 }
 
@@ -22,30 +25,36 @@ document.addEventListener('DOMContentLoaded', function () {
                 data.forEach(image => {
                     const card = document.createElement('div');
                     card.className = "card m-2 shadow-sm border-0";
-                    card.style.width = "250px"; 
-                
-                    card.innerHTML = `
-                        <div class="card-image position-relative">
-                            <img src="${image.path}" alt="Image ${image.id}" 
-                                class="card-img-top rounded" 
-                                style="height: 180px; object-fit: cover; transition: transform 0.3s ease-in-out;">
-                        </div>
-                    `;
-                
+                    card.style.width = "250px";
+
+                    // Création sécurisée de l'élément image
+                    const cardImageDiv = document.createElement('div');
+                    cardImageDiv.className = "card-image position-relative";
+
+                    const img = document.createElement('img');
+                    img.src = image.path; // Définit l'URL de l'image à partir des données
+                    img.alt = `Image ${image.id}`;
+                    img.className = "card-img-top rounded";
+                    img.style.height = "180px";
+                    img.style.objectFit = "cover";
+                    img.style.transition = "transform 0.3s ease-in-out";
+
                     // Ajout de l'effet de zoom au survol
-                    card.querySelector("img").addEventListener("mouseover", () => {
-                        card.querySelector("img").style.transform = "scale(1.05)";
-                    });
-                    card.querySelector("img").addEventListener("mouseout", () => {
-                        card.querySelector("img").style.transform = "scale(1)";
-                    });
-                
+                    img.addEventListener("mouseover", () => img.style.transform = "scale(1.05)");
+                    img.addEventListener("mouseout", () => img.style.transform = "scale(1)");
+
+                    // Ajout de l'image sécurisée à la carte
+                    cardImageDiv.appendChild(img);
+                    card.appendChild(cardImageDiv);
                     imageContainer.appendChild(card);
                 });
             })
             .catch(error => {
                 console.error("Erreur lors du chargement des images:", error);
-                imageContainer.innerHTML = '<p class="text-danger">Une erreur est survenue</p>';
+                const errorMessage = document.createElement("p");
+                errorMessage.className = "text-danger";
+                errorMessage.textContent = "Une erreur est survenue"; // Sécurité contre les failles XSS
+                imageContainer.appendChild(errorMessage);
             });
     }
 
@@ -56,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
 
 
 
