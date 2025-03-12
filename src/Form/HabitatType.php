@@ -18,12 +18,12 @@ class HabitatType extends AbstractType
             ->add('description')
             ->add('typeHabitat')
             ->add('image', FileType::class, [
-                'label' => 'Image (fichier PNG ou JPEG)',
+                'label' => 'Image (fichier PNG ou JPEG, JPG, WEBP - 2MB)',
                 'mapped' => false, // Le fichier est traité manuellement
                 'required' => false,
                 'constraints' => [
                     new File([
-                        //'maxSize' => '1024k',
+                        'maxSize' => '2048k',
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg',

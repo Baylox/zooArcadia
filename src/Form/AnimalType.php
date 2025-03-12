@@ -34,12 +34,12 @@ class AnimalType extends AbstractType
                 'choice_label' => 'nom',
             ])
             ->add('image', FileType::class, [
-                'label' => 'Image (fichier PNG, JPEG, JPG ou WEBP)',
+                'label' => 'Image (fichier PNG, JPEG, JPG ou WEBP - 2MB)',
                 'mapped' => false, // Le fichier est traité manuellement
                 'required' => false,
                 'constraints' => [
                     new File([
-                        //'maxSize' => '1024k',
+                        'maxSize' => '2048k',
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg',

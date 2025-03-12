@@ -17,12 +17,12 @@ class ServiceType extends AbstractType
             ->add('nom')
             ->add('description')
             ->add('image', FileType::class, [
-                'label' => 'Image (fichier PNG, JPEG, JPG, WEBP)',
+                'label' => 'Image (fichier PNG, JPEG, JPG, WEBP - 2 MB)',
                 'mapped' => false, // Le fichier est traité manuellement
                 'required' => false,
                 'constraints' => [
                     new File([
-                        //'maxSize' => '1024k',
+                        'maxSize' => '2048k',
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg',
