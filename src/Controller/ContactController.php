@@ -42,7 +42,7 @@ class ContactController extends AbstractController
                     $email
                 );
             
-                $emailService->sendEmail($email, 'zoo@arcadia.fr', $titre, $text);
+                $emailService->sendEmail($email, 'arcadiazoodragon@gmail.com', $titre, $text);
 
             $this->addFlash('success', 'Votre message a été envoyé avec succès.');
             return $this->redirectToRoute('app_contact');

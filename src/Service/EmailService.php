@@ -22,7 +22,7 @@ class EmailService
     public function sendWelcomeEmail(string $userEmail): void
     {
         $email = (new TemplatedEmail())
-            ->from('test@example.com')
+            ->from('José@arcadia.com')
             ->to($userEmail)
             ->subject('Bienvenue au sein de l\'équipe d\'Arcadia !')
             ->htmlTemplate('emails/welcome.html.twig');
