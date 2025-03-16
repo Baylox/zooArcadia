@@ -48,10 +48,11 @@ Avant de pouvoir lancer le projet en local, assurez-vous d'avoir les outils suiv
   - Installation de Node.js : [https://nodejs.org/](https://nodejs.org/)
 - **MySQL** : Base de données relationnelle utilisée pour le projet.
   - Installation de MySQL : [https://dev.mysql.com/downloads/](https://dev.mysql.com/downloads/)
-- **MongoDB** (si utilisé) : Base de données NoSQL utilisée pour certaines parties du projet (si applicable).
-  - Installation de MongoDB : [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community)
-- **Symfony CLI** (optionnel, mais recommandé) : Utilisé pour faciliter le développement avec Symfony (serveur local, commandes Symfony, etc.).
+- **MongoDB** : Base de données NoSQL utilisée pour certaines parties du projet.
+  - Installation de MongoDB : [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community) 
+- **Symfony CLI** (optionnel) : Utilisé pour faciliter le développement avec Symfony (serveur local, commandes Symfony, etc.).
   - Installation de Symfony : [https://symfony.com/download](https://symfony.com/download/) 
+
 ---
 
 Assurez-vous également que votre serveur de base de données (MySQL et MongoDB) est démarré et que vous avez accès à ces services avant de lancer l'application.
@@ -98,7 +99,43 @@ npm run build
 ```bash
 npm run dev
 ```
-### 💻 Lancer le serveur Symfony 
+# Lancer un serveur de développement
+Deux options s'offrent à vous pour exécuter le projet :
+
+1️⃣ **Utiliser Docker** (Recommandé) – Cette méthode vous permet de bénéficier d’un environnement préconfiguré où tout est déjà prêt : base de données, serveur web, et autres dépendances essentielles.  
+2️⃣ **Lancer Symfony directement** – Si vous avez déjà une configuration locale avec PHP, une base de données et les extensions nécessaires, vous pouvez démarrer le projet sans Docker.
+
+
+## 1️⃣ Lancer le serveur Docker 
+Assurez-vous que Docker est en cours d'exécution.
+
+Lancez votre stack Docker :
+```bash
+docker-compose up -d
+```
+✅ Cela démarre tous les services (base de données, serveur web, etc.) en arrière-plan.
+
+Vérifiez que les conteneurs sont bien en cours d'exécution :
+```bash
+docker ps
+```
+🎯 Si tout est correct, vous devriez voir une liste des conteneurs actifs.
+
+### ⚠️ Arrêter le serveur Docker
+
+Pour arrêter les conteneurs Docker, utilisez :
+```bash
+docker-compose down
+```
+💡 Cette commande arrête et supprime les conteneurs sans affecter les données persistantes.
+
+Si vous voulez juste arrêter sans supprimer, utilisez :
+
+```bash
+docker-compose stop
+```
+
+## 2️⃣ Lancer le serveur Symfony 
 Pour démarrer le serveur Symfony, utilisez la commande suivante :
 
 ```bash
@@ -110,12 +147,26 @@ http://127.0.0.1:8000 ou http://localhost:8000.
 
 **Note :** Symfony vous indiquera l'adresse exacte du serveur lorsqu'il sera démarré, mais en général, il fonctionne sur 127.0.0.1 (ou localhost) sur le port 8000.
 
+Vous pouvez arrêter le serveur avec la commande suivante : 
+```bash
+symfony server:stop
+```
+
 
 ## 🗃️ Base de données 
 
 Ce projet ne comprend pas de migrations Doctrine. Afin de séparer les environnements de développement et de production et pour des raisons de sécurité, les données réelles de la base de données ne sont pas partagées.
 
-Des données de test fictives ont été créées et sont présentes dans le dossier App.Fixtures. Elles sont uniquement destinées à vérifier le bon fonctionnement de l'application pendant le développement. Les données réelles ne sont pas partagées pour éviter tout risque lié à leur divulgation ou utilisation incorrecte dans un environnement de test. Les fichiers SQL nécessaires à la création des tables sont fournis séparément aux examinateurs et ne sont pas versionnés. Ainsi, bien que ces fichiers soient fournis aux examinateurs pour configurer la base de données, vous pourrez utiliser les données de test pour vérifier le fonctionnement de l'application pendant le développement.
+📂 **Où sont les fichiers SQL ?**
+
+Les fichiers nécessaires à la création des tables SQL sont disponibles dans le dossier suivant :
+
+📂 scripts
+
+    ├── nosql.js 
+    └── schema.sql
+
+Des données de test fictives ont été créées et sont présentes dans le dossier App.Fixtures. Elles sont uniquement destinées à vérifier le bon fonctionnement de l'application pendant le développement. Les données réelles ne sont pas partagées pour éviter tout risque lié à leur divulgation ou utilisation incorrecte dans un environnement de test. 
 
 **De facto si vous êtes un examinateur, vous n'avez pas à vous soucier de cette partie. Les fichiers SQL nécessaires à la création des tables seront fournis séparément aux examinateurs. Une fois la base de données configurée et les tables créées, vous pourrez charger les véritables données.**
 
