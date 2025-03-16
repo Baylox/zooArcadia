@@ -28,34 +28,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Nom de la Nourriture</th>
-                    <td>
-                        {% if rapport.alimentation %}
-                            {{ rapport.alimentation.nomNourriture }}
-                        {% else %}
-                            <em>Pas d'alimentation</em>
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Quantité (kg/L)</th>
-                    <td>
-                        {% if rapport.alimentation %}
-                            {{ rapport.alimentation.quantiteNourriture }}
-                        {% else %}
-                            <em>Non spécifié</em>
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Commentaire Vétérinaire</th>
-                    <td>
-                        {% if rapport.alimentation %}
-                            {{ rapport.alimentation.commentaireVeterinaire }}
-                        {% else %}
-                            <em>Aucun commentaire</em>
-                        {% endif %}
-                    </td>
+                    <th>Contenu du Rapport</th>
+                    <td>{{ rapport.details}}</td>
                 </tr>
                 <tr>
                     <th>Rédacteur</th>
