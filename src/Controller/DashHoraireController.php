@@ -19,11 +19,20 @@ class DashHoraireController extends AbstractController
     public function index(DocumentManager $dm): Response
     {
         $horaires = $dm->getRepository(Horaire::class)->findAll();
-
+    
+        // Définition de l'ordre des jours de la semaine
+        $joursOrdre = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+    
+        // Tri des horaires selon l'ordre défini
+        usort($horaires, function ($a, $b) use ($joursOrdre) {
+            return array_search($a->getJour(), $joursOrdre) - array_search($b->getJour(), $joursOrdre);
+        });
+    
         return $this->render('horaire/index.html.twig', [
             'horaires' => $horaires,
         ]);
     }
+    
 
     // Modification d'un horaire
     #[Route('/horaires/{id}/edit', name: 'horaire_edit')]
