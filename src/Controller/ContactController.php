@@ -30,8 +30,8 @@ class ContactController extends AbstractController
             }
 
             // Nettoyer les données
-            $titre = strip_tags($data['titre']); 
-            $description = strip_tags($data['description']); 
+            $titre = htmlspecialchars(($data['titre']), ENT_QUOTES, 'UTF-8');
+            $description = htmlspecialchars(($data['description']), ENT_QUOTES, 'UTF-8'); 
             
  
                 /// Construire l'email
